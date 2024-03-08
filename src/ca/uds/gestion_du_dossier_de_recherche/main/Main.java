@@ -1,7 +1,7 @@
 package ca.uds.gestion_du_dossier_de_recherche.main;
 
 
-public class MainCentralApplication {
+public class Main {
 
 	/**
 	 * Main permattant de lance la premi�re fen�tre Ce main permet de cr�er
