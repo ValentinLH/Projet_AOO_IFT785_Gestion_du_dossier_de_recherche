@@ -111,7 +111,11 @@ public class LigneBudgetaire {
      * @param ubr l'UBR à ajouter
      */
     public void ajouterUBR(UBR ubr) {
-        this.ubrs.add(ubr);
+        if (ubr.getMontantsLignesBudgetaire().containsKey(this))
+        {
+        	this.ubrs.add(ubr);	
+        }
+        
     }
 
     /**
@@ -120,6 +124,11 @@ public class LigneBudgetaire {
      */
     public void supprimerUBR(UBR ubr) {
         this.ubrs.remove(ubr);
+        if (ubr.getMontantsLignesBudgetaire().containsKey(this))
+        {
+        	ubr.supprimerLigneBudgetaire(this);	
+        }
+        
     }
 
     /**
