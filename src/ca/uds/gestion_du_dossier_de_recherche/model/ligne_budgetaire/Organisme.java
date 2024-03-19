@@ -6,7 +6,6 @@ public class Organisme {
 	private int code;
 	
 	
-	
 	public Organisme() {
 		super();
 		this.nom = null;
