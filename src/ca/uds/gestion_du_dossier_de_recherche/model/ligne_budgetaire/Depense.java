@@ -43,6 +43,11 @@ public class Depense {
 		this.montant = montant;
 	}
 
+	@Override
+	public String toString() {
+		return "Depense [nom=" + nom + ", montant=" + montant + "]";
+	}
+
 	
 	
 	

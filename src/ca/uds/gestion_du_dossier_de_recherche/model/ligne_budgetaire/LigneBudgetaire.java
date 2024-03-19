@@ -1,26 +1,36 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class LigneBudgetaire {
 
 	private String nom;
 	private String type;
-	private List<UBR> ubrs;
-	private List<Depense> depenses;
+	private Set<UBR> ubrs;
+	private Set<Depense> depenses;
 	
 	
 	public LigneBudgetaire() {
 		super();
 		this.nom = null;
 		this.type = null;
-		this.ubrs = new ArrayList<>();
-		this.depenses = new ArrayList<>();
+		this.ubrs = new HashSet<>();
+		this.depenses = new HashSet<>();
 	}
 	
-	public LigneBudgetaire(String nom, String type, List<UBR> ubrs, List<Depense> depenses) {
+	public LigneBudgetaire(String nom, String type) {
+		super();
+		this.nom = nom;
+		this.type = type;
+		this.ubrs = new HashSet<>();
+		this.depenses = new HashSet<>();
+	}
+	
+	public LigneBudgetaire(String nom, String type, Set<UBR> ubrs, Set<Depense> depenses) {
 		super();
 		this.nom = nom;
 		this.type = type;
@@ -54,30 +64,32 @@ public class LigneBudgetaire {
 	/**
 	 * @return the ubrs
 	 */
-	public List<UBR> getUbrs() {
+	public Set<UBR> getUbrs() {
 		return ubrs;
 	}
 	/**
 	 * @param ubrs the ubrs to set
 	 */
-	public void setUbrs(List<UBR> ubrs) {
+	public void setUbrs(Set<UBR> ubrs) {
 		this.ubrs = ubrs;
 	}
 	/**
 	 * @return the depenses
 	 */
-	public List<Depense> getDepenses() {
+	public Set<Depense> getDepenses() {
 		return depenses;
 	}
 	/**
 	 * @param depenses the depenses to set
 	 */
-	public void setDepenses(List<Depense> depenses) {
+	public void setDepenses(Set<Depense> depenses) {
 		this.depenses = depenses;
 	}
 	
 	
-	
+	/**
+	 * @return le montant de la Ligne
+	 */
 	public float getMontantLigne()
 	{
 		float somme = 0.0f;
@@ -92,4 +104,44 @@ public class LigneBudgetaire {
 		return somme;
 	}
 	
+	
+
+    /**
+     * Ajoute une UBR à l'ensemble des UBRs.
+     * @param ubr l'UBR à ajouter
+     */
+    public void ajouterUBR(UBR ubr) {
+        this.ubrs.add(ubr);
+    }
+
+    /**
+     * Supprime une UBR de l'ensemble des UBRs.
+     * @param ubr l'UBR à supprimer
+     */
+    public void supprimerUBR(UBR ubr) {
+        this.ubrs.remove(ubr);
+    }
+
+    /**
+     * Ajoute une dépense à l'ensemble des dépenses.
+     * @param depense la dépense à ajouter
+     */
+    public void ajouterDepense(Depense depense) {
+        this.depenses.add(depense);
+    }
+
+    /**
+     * Supprime une dépense de l'ensemble des dépenses.
+     * @param depense la dépense à supprimer
+     */
+    public void supprimerDepense(Depense depense) {
+        this.depenses.remove(depense);
+    }
+
+	@Override
+	public String toString() {
+		return "LigneBudgetaire [nom=" + nom + ", type=" + type + ", ubrs=" + ubrs + ", depenses=" + depenses + "]";
+	}
+	
+    
 }
