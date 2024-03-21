@@ -74,6 +74,29 @@ public class Projet {
     /* ====================
        Methodes optionnelles
      ===================== */
+
+    //Methode :
+    void CalculMontant() {
+        //POUR chaque ligne budgetaire
+        //  Prendre le montant de cette ligne
+        //  Ajouter au montant total
+        //FIN POUR
+    }
+
+    void DateLimiteDepenses() {
+        //Pour chaque ligne budgetaire
+        //  Comparé les date de fin imposé par l'UBR avec celle d'ojd
+        //  SI < à un certain palier
+        //      Afficher une alerte
+        //  FIN SI
+        //FIN POUR
+    }
+
+    void Updateressource() {
+        //Supprime les ressource qui ne travaille plus sur le rojet et qui n'ont pas besoin d'être payé
+    }
+
+
     @java.lang.Override
     public java.lang.String toString() {
         return "Projet{" +
