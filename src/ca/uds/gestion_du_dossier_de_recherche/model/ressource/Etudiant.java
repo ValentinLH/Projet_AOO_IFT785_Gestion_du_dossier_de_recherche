@@ -1,24 +1,43 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
-public class Etudiant extends Ressource{
+import java.util.EnumSet;
+import java.util.Objects;
 
-    String cip;
-    programme p;
+public class Etudiant extends Ressource {
 
-    public enum programme {
-        Baccalaureat, Maitrise, Doctorat, Post-Doctorat, Stage
-    };
+    public enum Programme {
+        BACCALAUREAT, MAITRISE, DOCTORAT, POST_DOCTORAT, STAGE;
+    }
 
+    private String cip;
+    private Programme programme;
 
-    public Etudiant(String Nom, String Prenom, float TH, String DC, String FC, String cip, programme p){
-        super(Nom, Prenom, TH, DC, FC);
+    public Etudiant(String nom, String prenom, float tauxHeure, String dateCreation, String dateDeFin, String cip, Programme programme) {
+        super(nom, prenom, tauxHeure, tauxHeure, dateCreation, dateDeFin);
         this.cip = cip;
-        this.programme = p;
+        this.programme = Objects.requireNonNull(programme);
     }
 
-    public void display(){
-        System.out.println("etudiant"+this.cip+"  "+this.p);
+    public void display() {
+        System.out.println("Étudiant [CIP: " + this.cip + ", Programme: " + this.programme + ']');
     }
 
+    // getters and setters
+
+    public String getCip() {
+        return cip;
+    }
+
+    public void setCip(String cip) {
+        this.cip = cip;
+    }
+
+    public Programme getProgramme() {
+        return programme;
+    }
+
+    public void setProgramme(Programme programme) {
+        this.programme = programme;
+    }
 
 }

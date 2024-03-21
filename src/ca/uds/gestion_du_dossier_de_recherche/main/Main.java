@@ -1,6 +1,6 @@
 package ca.uds.gestion_du_dossier_de_recherche.main;
-package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.*;
 
 public class Main {
 

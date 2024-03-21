@@ -1,8 +1,8 @@
-package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
+/*package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
 public class FabriqueSoutien extends FabriquePersonne{
-    @override
+    @Override
     public Ressource fabricateurRessource(){
         return new Soutien();
     }
-}
+}*/
