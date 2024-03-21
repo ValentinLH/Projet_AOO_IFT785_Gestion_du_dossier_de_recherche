@@ -8,10 +8,9 @@ public class Main {
 
 		
 		System.out.println("Hey");
-		FabriqueRessource FR = new FabriqueEtudiant();
-		Ressource e = FabriqueEtudiant.fabricateurRessource("Nom", "Prenom", 10.0, "DC", "FC", "cip", 0);
-		e.display();
-
+	    FabriquePersonne factory = new FabriqueEtudiant();
+	    Ressource ressource = factory.createRessource("John", "Doe", 20.0f, 40.0f, "2023-01-01", "2023-12-31");
+	    System.out.println(ressource.calcul_salaire_mensuel());
 	}
 
 }
