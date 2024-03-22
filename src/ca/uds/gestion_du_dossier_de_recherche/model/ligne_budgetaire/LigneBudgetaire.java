@@ -110,12 +110,12 @@ public class LigneBudgetaire {
      * Ajoute une UBR à l'ensemble des UBRs.
      * @param ubr l'UBR à ajouter
      */
-    public void ajouterUBR(UBR ubr) {
-        if (ubr.getMontantsLignesBudgetaire().containsKey(this))
+    public void ajouterUBR(UBR ubr, Float montant) {
+        if (!ubr.getMontantsLignesBudgetaire().containsKey(this))
         {
-        	this.ubrs.add(ubr);	
+        	ubr.ajouterLigneBudgetaire(this, montant);
         }
-        
+        this.ubrs.add(ubr);	
     }
 
     /**
