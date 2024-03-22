@@ -23,8 +23,10 @@ public class TestLigneBudgetaire {
 		ligne1.ajouterDepense(depense2);
 		ligne1.ajouterDepense(depense3);
 		
-		ubr1.ajouterLigneBudgetaire(ligne1, 20);
-		ubr2.ajouterLigneBudgetaire(ligne1, 50);
+		
+		//ubr1.ajouterLigneBudgetaire(ligne1, 20);
+		//ubr2.ajouterLigneBudgetaire(ligne1, 50);
+		ligne1.ajouterUBR(ubr1, 50.0f);
 		
 		System.out.println(ligne1.toString());
 		System.out.println("Le montant restant de la ligne : "+ligne1.getMontantLigne()+"$");

@@ -46,4 +46,9 @@ public class LigneBudgetaireTest {
 		ligneBudgetaire.setType("Budget de recherche");
 		assertEquals("LigneBudgetaire [nom=Budget Chocolat, type=Budget de recherche, ubrs=[], depenses=[]]", ligneBudgetaire.toString());
 	}
+	
+	
+	
+	
+	
 }

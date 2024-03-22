@@ -80,13 +80,18 @@ public class UBR {
 	// Méthode pour ajouter une ligne budgétaire avec son montant
 	public void ajouterLigneBudgetaire(LigneBudgetaire ligneBudgetaire, float montant) {
 		montantsLignesBudgetaire.put(ligneBudgetaire, montant);
-		ligneBudgetaire.ajouterUBR(this);
+		if (!ligneBudgetaire.getUbrs().contains(this)) {
+			ligneBudgetaire.ajouterUBR(this,montant);
+		}
 	}
 
 	// Méthode pour supprimer une ligne budgétaire
 	public void supprimerLigneBudgetaire(LigneBudgetaire ligneBudgetaire) {
 		montantsLignesBudgetaire.remove(ligneBudgetaire);
-		ligneBudgetaire.supprimerUBR(this);
+		if (!ligneBudgetaire.getUbrs().contains(this)) {
+			ligneBudgetaire.supprimerUBR(this);
+		}
+		
 	}
 
 	@Override
