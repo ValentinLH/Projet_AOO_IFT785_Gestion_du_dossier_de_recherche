@@ -44,7 +44,15 @@ public class UBR {
         this.dateFin = null;
 	}
 
-	
+	public UBR(Organisme organisme, int code, boolean contraintes) {
+		super();
+		this.organisme = organisme;
+		this.code = code;
+		this.montantsLignesBudgetaire = new HashMap<>();
+		this.contraintes = contraintes;
+		this.dateDebut = null;
+        this.dateFin = null;
+	}
 	
 	public UBR(Organisme organisme, int code, Map<LigneBudgetaire, Float> montantsLignesBudgetaire,
 			boolean contraintes) {
@@ -57,6 +65,18 @@ public class UBR {
         this.dateFin = null;
 	}
 
+	public UBR(Organisme organisme, int code,  boolean contraintes,
+			LocalDate dateDebut, LocalDate dateFin) {
+		super();
+		this.organisme = organisme;
+		this.code = code;
+		this.montantsLignesBudgetaire = new HashMap<>();
+		this.contraintes = contraintes;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+	}
+
+	
 	public UBR(Organisme organisme, int code, Map<LigneBudgetaire, Float> montantsLignesBudgetaire, boolean contraintes,
 			LocalDate dateDebut, LocalDate dateFin) {
 		super();
