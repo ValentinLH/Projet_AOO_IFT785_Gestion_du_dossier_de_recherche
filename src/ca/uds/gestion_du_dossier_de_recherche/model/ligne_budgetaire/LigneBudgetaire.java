@@ -1,9 +1,11 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class LigneBudgetaire {
@@ -90,14 +92,39 @@ public class LigneBudgetaire {
 	/**
 	 * @return le montant de la Ligne
 	 */
-	public float getMontantLigne()
+	public float getMontantLigne(LocalDate date)
 	{
 		float somme = 0.0f;
+		// tout les ubr ou la date choisi est inclue
+		Set<UBR> ubrsCompris= ubrs.stream()
+                .filter(ubr -> ubr.getDateDebut().isBefore(date) || ubr.getDateDebut().isEqual(date))
+                .filter(ubr -> ubr.getDateFin().isAfter(date) || ubr.getDateFin().isEqual(date))
+                .collect(Collectors.toSet());
+
 		for(Depense d : depenses)
 		{
 			somme -= d.getMontant();
 		}
-		for(UBR u : ubrs)
+		
+		Set<UBR> ubrsAvecContraintes = ubrsCompris.stream()
+                .filter(ubr -> ubr.isContraintes())
+                .collect(Collectors.toSet());
+
+		for(UBR u : ubrsAvecContraintes)
+		{
+			somme += u.getMontant(this);
+		}
+		
+		if (somme > 0)
+		{
+			somme = 0;
+		}
+		
+		Set<UBR> ubrsSansContraintes = ubrsCompris.stream()
+		                .filter(ubr -> !ubr.isContraintes())
+		                .collect(Collectors.toSet());
+				
+		for(UBR u : ubrsSansContraintes)
 		{
 			somme += u.getMontant(this);
 		}
