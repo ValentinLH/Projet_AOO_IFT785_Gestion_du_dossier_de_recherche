@@ -8,7 +8,7 @@ import jakarta.persistence.Persistence;
  * Gère les entités du package de la base de données
  * La classe utilise JPA (Java Persistence API) pour traiter la connexion avec la base de données
  */
-public class EntityClass {
+public class BDDConnection {
 
 	private static EntityManagerFactory emf;
 	public static EntityManager em;
