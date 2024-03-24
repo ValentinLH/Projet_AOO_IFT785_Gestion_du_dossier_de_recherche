@@ -1,5 +1,7 @@
 package ca.uds.gestion_du_dossier_de_recherche.main;
 
+import java.time.LocalDate;
+
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.*;
 
 public class TestLigneBudgetaire {
@@ -10,8 +12,8 @@ public class TestLigneBudgetaire {
 		System.out.println("Hey");
 
 		Organisme monFrigo = new Organisme("Mon Frigidaire",0);
-		UBR ubr1 = new UBR(monFrigo,1);
-		UBR ubr2 = new UBR(monFrigo,2);
+		UBR ubr1 = new UBR(monFrigo,1,false,LocalDate.now().minusDays(1),LocalDate.now().plusDays(1));
+		UBR ubr2 = new UBR(monFrigo,2,false,LocalDate.now().minusDays(1),LocalDate.now().plusDays(1));
 		
 		LigneBudgetaire ligne1 = new LigneBudgetaire("Ligne Budgetaire de Chocolat","Chocolat");
 		
@@ -23,11 +25,13 @@ public class TestLigneBudgetaire {
 		ligne1.ajouterDepense(depense2);
 		ligne1.ajouterDepense(depense3);
 		
-		ubr1.ajouterLigneBudgetaire(ligne1, 20);
-		ubr2.ajouterLigneBudgetaire(ligne1, 50);
+		
+		//ubr1.ajouterLigneBudgetaire(ligne1, 20);
+		//ubr2.ajouterLigneBudgetaire(ligne1, 50);
+		ligne1.ajouterUBR(ubr1, 50.0f);
 		
 		System.out.println(ligne1.toString());
-		System.out.println("Le montant restant de la ligne : "+ligne1.getMontantLigne()+"$");
+		System.out.println("Le montant restant de la ligne : "+ligne1.getMontantLigne(LocalDate.now())+"$");
 		
 		
 	}
