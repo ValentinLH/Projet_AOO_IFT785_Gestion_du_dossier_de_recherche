@@ -1,4 +1,7 @@
+package ca.uds.gestion_du_dossier_de_recherche.model.projet;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.*;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
@@ -19,8 +22,57 @@ public class Projet {
 
 
     /* ====================
+      	  Constructeur
+ 	===================== */
+    
+    public Projet(String Titre) {
+    	this.id = 0l;
+    	this.titre = Titre;
+    	this.description = "";
+    	this.dateDebut = null;
+    	this.dateFin = null;
+    	this.equipe = new ArrayList<Ressource>();
+    	this.lignesBudgetaires = new ArrayList<LigneBudgetaire>();
+    	this.financement = 0d;
+    }
+    
+    public Projet(String Titre,String description) {
+    	this.id = 0l;
+    	this.titre = Titre;
+    	this.description = description;
+    	this.dateDebut = null;
+    	this.dateFin = null;
+    	this.equipe = new ArrayList<Ressource>();
+    	this.lignesBudgetaires = new ArrayList<LigneBudgetaire>();
+    	this.financement = 0d;
+    }
+    
+    public Projet(String Titre,String description,LocalDate dateDebut,LocalDate dateFin) {
+    	this.id = 0l;
+    	this.titre = Titre;
+    	this.description = description;
+    	this.dateDebut = dateDebut;
+    	this.dateFin = dateFin;
+    	this.equipe = new ArrayList<Ressource>();
+    	this.lignesBudgetaires = new ArrayList<LigneBudgetaire>();
+    	this.financement = 0d;
+    }
+    
+    public Projet(String Titre,String description,LocalDate dateDebut,LocalDate dateFin,List<LigneBudgetaire> lignes) {
+    	this.id = 0l;
+    	this.titre = Titre;
+    	this.description = description;
+    	this.dateDebut = dateDebut;
+    	this.dateFin = dateFin;
+    	this.equipe = new ArrayList<Ressource>();
+    	this.lignesBudgetaires = lignes;
+    	this.financement = 0d;
+    	this.CalculMontant(LocalDate.now());
+    }
+    
+    /* ====================
         Getters & Setters
-     ===================== */
+    ===================== */
     public Long getId() {
         return id;
     }
@@ -77,7 +129,7 @@ public class Projet {
         return financement;
     }
 
-    public void setFinancement(double financement) {
+    private void setFinancement(double financement) {
         this.financement = financement;
     }
     
@@ -100,14 +152,14 @@ public class Projet {
     public void addLigneBudgetaire(LigneBudgetaire lignes) {
     	if(lignes != null) {
     		this.lignesBudgetaires.add(lignes);
-    		this.CalculMontant();
+    		this.CalculMontant(LocalDate.now());
     	}
     }
     
     public void removeLigneBudgetaire(LigneBudgetaire lignes) {
     	if(lignes != null && this.lignesBudgetaires.contains(lignes) == true) {
     		this.lignesBudgetaires.remove(lignes);
-    		this.CalculMontant();
+    		this.CalculMontant(LocalDate.now());
     	}
     }
     
@@ -121,9 +173,10 @@ public class Projet {
     		this.equipe.remove(ressource);
     }
     
-    public void CalculMontant() {    	
+    public void CalculMontant(LocalDate date) {
+    	this.setFinancement(0.0);
     	for(LigneBudgetaire lignes : lignesBudgetaires) {
-    		this.financement += lignes.getMontantLigne();
+    		this.financement += lignes.getMontantLigne(date);
     	}
     }
 
@@ -134,6 +187,19 @@ public class Projet {
         //      Afficher une alerte
         //  FIN SI
         //FIN POUR
+    	
+    	for (LigneBudgetaire ligne : this.lignesBudgetaires) {
+    		for(UBR ubr : ligne.getUbrs()) {
+    			if(ubr.getDateFin().minusDays(10).isBefore(LocalDate.now())) {
+    				//afficher une alerte
+    				System.out.println("Le montant founit par l'UBR " + ubr.getOrganisme().getNom() + " d'un motant total de " + ubr.getMontant(ligne) + " dollars expire bientôt");
+    				//actuellement sur console mais doit être sur la vue plus tard
+    			}
+    		}
+    	}
+    	
+    	
+    	
     }
 
     public void Updateressource() {
