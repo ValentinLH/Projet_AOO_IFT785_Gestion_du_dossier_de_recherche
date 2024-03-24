@@ -8,6 +8,8 @@ import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class AddEntityView<T> extends JFrame {
 
@@ -19,6 +21,7 @@ public class AddEntityView<T> extends JFrame {
 	private List<JPanel> listPanels = new ArrayList<>();
 	private List<JComponent> inputFields = new ArrayList<>();
 
+	
 	public AddEntityView(Class<T> entityClass) {
 		this.setTitle("Add " + entityClass.getSimpleName());
 		this.setSize(600, 500);
@@ -68,9 +71,15 @@ public class AddEntityView<T> extends JFrame {
 				textFields.add(numericField);
 				numericField.setBounds(200, yOffset + 30, 200, 25);
 				this.add(numericField);
-			} else if (field.getType().equals(List.class)) {
-				// Add list field
-
+			} else if (isCollectionType(field.getType())) {
+			
+	                JPanel collectionPanel = new JPanel();
+	                listPanels.add(collectionPanel);
+	                JButton addButton = new JButton("Add " + field.getName());
+	                addButton.addActionListener(new AddCollectionItemActionListener(collectionPanel, field.getType()));
+	                collectionPanel.add(addButton);
+	                //inputPanel.add(collectionPanel);
+	           
 			} else {
 				// Appeler récursivement AddEntityView pour créer un panneau pour le type
 				// d'objet inconnu
@@ -177,6 +186,12 @@ public class AddEntityView<T> extends JFrame {
 		}
 
 	}
+	
+    private boolean isCollectionType(Class<?> type) {
+        return List.class.isAssignableFrom(type) ||
+               Map.class.isAssignableFrom(type) ||
+               Set.class.isAssignableFrom(type);
+    }
 
 	private boolean isNumeric(Class<?> type) {
 		return type.equals(Integer.class) || type.equals(int.class) || type.equals(Double.class)
@@ -184,4 +199,23 @@ public class AddEntityView<T> extends JFrame {
 				|| type.equals(Long.class) || type.equals(long.class) || type.equals(Short.class)
 				|| type.equals(short.class) || type.equals(Byte.class) || type.equals(byte.class);
 	}
+	
+	 class AddCollectionItemActionListener implements ActionListener {
+	        private JPanel collectionPanel;
+	        private Class<?> collectionType;
+
+	        public AddCollectionItemActionListener(JPanel collectionPanel, Class<?> collectionType) {
+	            this.collectionPanel = collectionPanel;
+	            this.collectionType = collectionType;
+	        }
+
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            AddEntityViewPanel<?> panel = new AddEntityViewPanel<>(collectionType);
+	            //entityPanels.add(panel);
+	            collectionPanel.add(panel);
+	            collectionPanel.revalidate();
+	            collectionPanel.repaint();
+	        }
+	    }
 }
