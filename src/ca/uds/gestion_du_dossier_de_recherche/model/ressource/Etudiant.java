@@ -1,6 +1,5 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
-import java.util.EnumSet;
 import java.util.Objects;
 
 public class Etudiant extends Ressource {
