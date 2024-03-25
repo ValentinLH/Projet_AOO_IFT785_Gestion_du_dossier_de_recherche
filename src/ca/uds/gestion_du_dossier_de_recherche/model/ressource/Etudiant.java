@@ -18,6 +18,13 @@ public class Etudiant extends Ressource {
         this.programme = Objects.requireNonNull(programme);
     }
 
+    @Override
+	public String toString() {
+    	
+		return super.toString()+ "/n Etudiant [cip=" + cip + ", programme=" + programme + "]";
+	}
+
+	@Override
     public void display() {
         System.out.println("Étudiant [CIP: " + this.cip + ", Programme: " + this.programme + ']');
     }
