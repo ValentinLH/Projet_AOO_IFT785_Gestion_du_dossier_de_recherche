@@ -24,11 +24,6 @@ public class Etudiant extends Ressource {
 		return super.toString()+ "/n Etudiant [cip=" + cip + ", programme=" + programme + "]";
 	}
 
-	@Override
-    public void display() {
-        System.out.println("Étudiant [CIP: " + this.cip + ", Programme: " + this.programme + ']');
-    }
-
     // getters and setters
 
     public String getCip() {

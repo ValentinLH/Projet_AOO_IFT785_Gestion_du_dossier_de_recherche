@@ -1,7 +1,5 @@
 package ca.uds.gestion_du_dossier_de_recherche.main;
 
-import org.hamcrest.core.IsInstanceOf;
-
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.*;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
 
@@ -18,7 +16,6 @@ public class Main {
 	    ressource.toString();
 	    //System.out.println(ressource.getNom());
 	    //System.out.println(ressource.calcul_salaire_mensuel());
-	    ressource.display();
 	}
 
 }

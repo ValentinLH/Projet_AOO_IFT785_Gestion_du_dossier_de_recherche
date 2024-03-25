@@ -89,8 +89,7 @@ public abstract class Ressource {
 	public float calcul_salaire_mensuel(){
         return(this.Heures_hebdo*this.Taux_horaire*4); // voir cas contrat termine avant fin du mois
     }
-    
-    public abstract void display();
+
 
     public abstract void setCip(String cip);
     public abstract void setProgramme(Programme programme);
