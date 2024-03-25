@@ -13,7 +13,8 @@ public class Main {
 	    Ressource ressource = factory.createRessource("John", "Doe", 20.0f, 40.0f, "2023-01-01", "2023-12-31");
 	    ressource.setCip("jj");
 	    ressource.setProgramme(Programme.DOCTORAT);
-	    ressource.toString();
+	    System.out.println(ressource.getProgramme());
+	    System.out.println(ressource.toString());
 	    //System.out.println(ressource.getNom());
 	    //System.out.println(ressource.calcul_salaire_mensuel());
 	}

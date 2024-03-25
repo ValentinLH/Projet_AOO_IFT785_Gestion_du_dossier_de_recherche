@@ -8,14 +8,5 @@ public class Soutien extends Ressource{
 		super(Nom, Prenom, TH, HH, DC, FC);
 	}
 
-	@Override
-	public void setCip(String cip) {
-		
-	}
-
-	@Override
-	public void setProgramme(Programme programme) {
-		
-	}
 	
 }

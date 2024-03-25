@@ -1,6 +1,5 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
-import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
 
 public class ResponsableLaboratoire extends Ressource{
 	
@@ -25,15 +24,6 @@ public class ResponsableLaboratoire extends Ressource{
 		Laboratoire = laboratoire;
 	}
 	
-	@Override
-	public void setCip(String cip) { // a virer
-		
-	}
-
-	@Override
-	public void setProgramme(Programme programme) { // a virer
-		
-	}
 	
 	
 }

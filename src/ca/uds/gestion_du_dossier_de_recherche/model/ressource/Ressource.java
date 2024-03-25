@@ -91,8 +91,28 @@ public abstract class Ressource {
     }
 
 
-    public abstract void setCip(String cip);
-    public abstract void setProgramme(Programme programme);
+	public void setProgramme(Programme programme) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public Programme getProgramme() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public String getCip() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public void setCip(String cip) {
+		// TODO Auto-generated method stub
+		
+	}
 
     	
     

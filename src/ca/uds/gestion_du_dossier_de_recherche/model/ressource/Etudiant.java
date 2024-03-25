@@ -25,19 +25,23 @@ public class Etudiant extends Ressource {
 	}
 
     // getters and setters
-
+    
+    @Override
     public String getCip() {
         return cip;
     }
-
+    
+    @Override
     public void setCip(String cip) {
         this.cip = cip;
     }
 
+    @Override
     public Programme getProgramme() {
         return programme;
     }
 
+    @Override
     public void setProgramme(Programme programme) {
         this.programme = programme;
     }
