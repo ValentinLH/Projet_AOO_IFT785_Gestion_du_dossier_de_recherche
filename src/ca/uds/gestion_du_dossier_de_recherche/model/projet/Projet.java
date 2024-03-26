@@ -204,12 +204,15 @@ public class Projet {
 
     public void Updateressource() {
         //Supprime les ressource qui ne travaille plus sur le rojet et qui n'ont pas besoin d'être payé
-    	//POUR chaque ressources dans la liste ou map : 
+    	//POUR chaque ressources dans la liste ou map :
     	// 		on compare ça date de fin à la date d'aujourd'hui
     	//		SI la date de fin est antérieur à aujourd'hui
     	//			On supprime la ressource de la map ou liste
     	//		FIN SI
     	//FIN POUR
+
+        //Supprime les ressources qui ne travaillent plus sur le projet et qui n'ont pas besoin d'être payées
+        this.equipe.removeIf(ressource -> ressource.getDateFin() != null && ressource.getDateFin().isBefore(LocalDate.now()));
     }
 
 
