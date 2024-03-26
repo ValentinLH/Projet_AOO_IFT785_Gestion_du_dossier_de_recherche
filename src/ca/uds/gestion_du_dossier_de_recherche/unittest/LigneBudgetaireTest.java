@@ -51,7 +51,25 @@ public class LigneBudgetaireTest {
 		ligneBudgetaire.ajouterUBR(ubr, 100f);
 		assertEquals(0.0f, ligneBudgetaire.getMontantLigne(LocalDate.now()), 0.0f);
 	}
+	
+	@Test
+	public void testGetMontantLigneTropTard() {
 
+		Organisme monFrigo = new Organisme("Mon Frigidaire", 0);
+		UBR ubr = new UBR(monFrigo, 1, false, LocalDate.now().minusDays(1), LocalDate.now().plusDays(1));
+		ligneBudgetaire.ajouterUBR(ubr, 100f);
+		assertEquals(0.0f, ligneBudgetaire.getMontantLigne(LocalDate.now().plusDays(2)), 0.0f);
+	}
+
+	@Test
+	public void testGetMontantLigneTropTot() {
+
+		Organisme monFrigo = new Organisme("Mon Frigidaire", 0);
+		UBR ubr = new UBR(monFrigo, 1, false, LocalDate.now().minusDays(1), LocalDate.now().plusDays(1));
+		ligneBudgetaire.ajouterUBR(ubr, 100f);
+		assertEquals(0.0f, ligneBudgetaire.getMontantLigne(LocalDate.now().minusDays(2)), 0.0f);
+	}
+	
 	@Test
 	public void testAjouterUBR() {
 		Organisme monFrigo = new Organisme("Mon Frigidaire", 0);
