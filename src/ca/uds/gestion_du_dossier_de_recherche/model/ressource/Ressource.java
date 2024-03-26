@@ -1,5 +1,5 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
-
+import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
 import java.time.LocalDate;
 
 public class Ressource {
@@ -28,9 +28,12 @@ public class Ressource {
         return Debut_contrat;
     }
 
-    public calcul_salaire_mensuel(){
+    public float calcul_salaire_mensuel(){
         return(this.Heures_hebdo*this.Taux_horaire*4); // voir cas contrat termine avant fin du mois
     }
-    abstract travaillePour(Projet P);
-    abstract estPayéPar(Projet P);
+    public void travaillePour(Projet P){
+    }
+
+    public void estPayéPar(Projet P) {
+    }
 }

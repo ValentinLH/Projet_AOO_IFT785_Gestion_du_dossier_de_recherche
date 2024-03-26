@@ -1,3 +1,7 @@
+package ca.uds.gestion_du_dossier_de_recherche.model.projet;
+
+import java.util.List;
+
 public class ProjetService {
 
     private ProjetRepository projetRepository = new ProjetRepositoryImpl();
