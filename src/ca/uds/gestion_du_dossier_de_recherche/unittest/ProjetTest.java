@@ -1,9 +1,11 @@
 package ca.uds.gestion_du_dossier_de_recherche.unittest;
 
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -41,7 +43,14 @@ public class ProjetTest {
 		ubr2 = new UBR(monFrigo, 1, false, LocalDate.now().minusDays(5), LocalDate.now().plusDays(5));
 		ligneBudgetaire2 = new LigneBudgetaire("Ligne Budgetaire de Beurre", "Beurre");
 		ligneBudgetaire2.ajouterUBR(ubr2, 1000f);
-		
+
+		Ressource activeRessource = new Ressource("Nom", "Prenom", 50.0f, 40.0f, LocalDate.now().minusMonths(1), LocalDate.now().plusDays(5));
+		Ressource expiredRessource = new Ressource("Nom", "Prenom", 50.0f, 40.0f, LocalDate.now().minusMonths(2), LocalDate.now().minusDays(5));
+
+		List<Ressource> equipe = new ArrayList<>();
+		equipe.add(activeRessource);
+		equipe.add(expiredRessource);
+		projet.setEquipe(equipe);
 		
 		System.setOut(new PrintStream(outContent));
 		
@@ -127,4 +136,15 @@ public class ProjetTest {
 				, outContent.toString().trim());
 		
 	}
+
+	@Test
+	public void testUpdateressource() {
+		assertEquals("Avant la mise à jour, l'équipe doit contenir 2 ressources.", 2, projet.getEquipe().size());
+
+		projet.Updateressource();
+
+		assertEquals("Après la mise à jour, l'équipe doit contenir 1 ressource active.", 1, projet.getEquipe().size());
+		assertTrue("L'équipe doit contenir la ressource active dont la date de fin est après aujourd'hui.", projet.getEquipe().get(0).getDateFin().isAfter(LocalDate.now()));
+	}
+
 }
