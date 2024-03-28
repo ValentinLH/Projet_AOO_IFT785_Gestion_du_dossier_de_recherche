@@ -4,9 +4,6 @@ import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
@@ -19,6 +16,8 @@ import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.LigneBudget
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.Organisme;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.*;
+
+import static org.junit.Assert.*;
 
 public class ProjetTest {
 
@@ -147,4 +146,20 @@ public class ProjetTest {
 		assertTrue("L'équipe doit contenir la ressource active dont la date de fin est après aujourd'hui.", projet.getEquipe().get(0).getDateFin().isAfter(LocalDate.now()));
 	}
 
-}
+	@Test
+	public void testAddRessourceWithDate() {
+
+		Ressource ressource = new Ressource("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1), LocalDate.now().plusMonths(1));
+		LocalDate dateDebut = LocalDate.now().minusMonths(1);
+		LocalDate dateFin = LocalDate.now().plusMonths(1);
+
+		projet.addRessourceWithDate(ressource, dateDebut, dateFin);
+
+		assertTrue("La map doit contenir la ressource ajoutée.", projet.getRessources().containsKey(ressource));
+		List<LocalDate> dates = projet.getRessources().get(ressource);
+		assertNotNull("La liste des dates ne doit pas être null.", dates);
+		assertEquals("La date de début doit correspondre à celle fournie.", dateDebut, dates.get(0));
+		assertEquals("La date de fin doit correspondre à celle fournie.", dateFin, dates.get(1));
+	}
+
+	}

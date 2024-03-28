@@ -24,7 +24,8 @@ public class Projet {
     private double financement;
     private Map<Ressource, List<LocalDate>> ressources;
 
-    /* ====================
+
+/* ====================
       	  Constructeur
  	===================== */
     
@@ -143,8 +144,10 @@ public class Projet {
     public LigneBudgetaire getLigneBudgetaireIndices(int indices){
     	return this.lignesBudgetaires.get(indices);
     }
-    
-    
+
+    public Map<Ressource, List<LocalDate>> getRessources() { return ressources; }
+
+    public void setRessources(Map<Ressource, List<LocalDate>> ressources) { this.ressources = ressources; }
 
     /* ====================
        Methodes optionnelles
@@ -200,8 +203,6 @@ public class Projet {
     			}
     		}
     	}
-    	
-    	
     	
     }
 
