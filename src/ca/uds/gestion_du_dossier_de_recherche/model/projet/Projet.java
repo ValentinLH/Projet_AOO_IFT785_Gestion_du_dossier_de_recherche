@@ -2,7 +2,10 @@ package ca.uds.gestion_du_dossier_de_recherche.model.projet;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.*;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
 
@@ -19,7 +22,7 @@ public class Projet {
     private List<Ressource> equipe;
     private List<LigneBudgetaire> lignesBudgetaires;
     private double financement;
-
+    private Map<Ressource, List<LocalDate>> ressources;
 
     /* ====================
       	  Constructeur
@@ -215,6 +218,10 @@ public class Projet {
         this.equipe.removeIf(ressource -> ressource.getDateFin() != null && ressource.getDateFin().isBefore(LocalDate.now()));
     }
 
+    public void addRessourceWithDate(Ressource ressource, LocalDate dateDebut, LocalDate dateFin) {
+        List<LocalDate> dates = Arrays.asList(dateDebut, dateFin);
+        this.ressources.put(ressource, dates);
+    }
 
     @java.lang.Override
     public java.lang.String toString() {
