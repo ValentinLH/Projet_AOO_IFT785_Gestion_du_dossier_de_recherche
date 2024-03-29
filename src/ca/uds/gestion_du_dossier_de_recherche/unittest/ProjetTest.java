@@ -43,14 +43,6 @@ public class ProjetTest {
 		ligneBudgetaire2 = new LigneBudgetaire("Ligne Budgetaire de Beurre", "Beurre");
 		ligneBudgetaire2.ajouterUBR(ubr2, 1000f);
 
-		Ressource activeRessource = new Ressource("Nom", "Prenom", 50.0f, 40.0f, LocalDate.now().minusMonths(1), LocalDate.now().plusDays(5));
-		Ressource expiredRessource = new Ressource("Nom", "Prenom", 50.0f, 40.0f, LocalDate.now().minusMonths(2), LocalDate.now().minusDays(5));
-
-		List<Ressource> equipe = new ArrayList<>();
-		equipe.add(activeRessource);
-		equipe.add(expiredRessource);
-		projet.setEquipe(equipe);
-		
 		System.setOut(new PrintStream(outContent));
 		
 	}
@@ -138,12 +130,22 @@ public class ProjetTest {
 
 	@Test
 	public void testUpdateressource() {
-		assertEquals("Avant la mise à jour, l'équipe doit contenir 2 ressources.", 2, projet.getEquipe().size());
+		
+		Ressource ressource1 = new Ressource("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1), LocalDate.now().minusMonths(5));
+		Ressource ressource2 = new Ressource("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1), LocalDate.now().plusMonths(1));
+		LocalDate dateDebut = LocalDate.now().minusMonths(10);
+		LocalDate dateFin = LocalDate.now().plusMonths(1);
+		LocalDate dateFinExpire = LocalDate.now().minusMonths(5);
+
+		projet.addRessourceWithDate(ressource1, dateDebut, dateFin);
+		projet.addRessourceWithDate(ressource2, dateDebut, dateFinExpire);
+		
+		assertEquals("Avant la mise à jour, l'équipe doit contenir 2 ressources.", 2, projet.getRessources().size());
 
 		projet.Updateressource();
 
-		assertEquals("Après la mise à jour, l'équipe doit contenir 1 ressource active.", 1, projet.getEquipe().size());
-		assertTrue("L'équipe doit contenir la ressource active dont la date de fin est après aujourd'hui.", projet.getEquipe().get(0).getDateFin().isAfter(LocalDate.now()));
+		assertEquals("Après la mise à jour, l'équipe doit contenir 1 ressource active.", 1, projet.getRessources().size());
+		assertTrue("L'équipe doit contenir la ressource active dont la date de fin est après aujourd'hui.", projet.getRessources().get(ressource1).get(1).isAfter(LocalDate.now()));
 	}
 
 	@Test

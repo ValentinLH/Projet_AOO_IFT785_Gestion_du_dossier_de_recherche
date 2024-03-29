@@ -3,8 +3,11 @@ package ca.uds.gestion_du_dossier_de_recherche.model.projet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.*;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
@@ -19,7 +22,6 @@ public class Projet {
     private String description;
     private LocalDate dateDebut;
     private LocalDate dateFin;
-    private List<Ressource> equipe;
     private List<LigneBudgetaire> lignesBudgetaires;
     private double financement;
     private Map<Ressource, List<LocalDate>> ressources;
@@ -35,8 +37,8 @@ public class Projet {
     	this.description = "";
     	this.dateDebut = null;
     	this.dateFin = null;
-    	this.equipe = new ArrayList<Ressource>();
     	this.lignesBudgetaires = new ArrayList<LigneBudgetaire>();
+    	this.ressources = new HashMap<Ressource, List<LocalDate>>();
     	this.financement = 0d;
     }
     
@@ -46,8 +48,8 @@ public class Projet {
     	this.description = description;
     	this.dateDebut = null;
     	this.dateFin = null;
-    	this.equipe = new ArrayList<Ressource>();
     	this.lignesBudgetaires = new ArrayList<LigneBudgetaire>();
+    	this.ressources = new HashMap<Ressource, List<LocalDate>>();
     	this.financement = 0d;
     }
     
@@ -57,8 +59,8 @@ public class Projet {
     	this.description = description;
     	this.dateDebut = dateDebut;
     	this.dateFin = dateFin;
-    	this.equipe = new ArrayList<Ressource>();
     	this.lignesBudgetaires = new ArrayList<LigneBudgetaire>();
+    	this.ressources = new HashMap<Ressource, List<LocalDate>>();
     	this.financement = 0d;
     }
     
@@ -68,8 +70,30 @@ public class Projet {
     	this.description = description;
     	this.dateDebut = dateDebut;
     	this.dateFin = dateFin;
-    	this.equipe = new ArrayList<Ressource>();
     	this.lignesBudgetaires = lignes;
+    	this.financement = 0d;
+    	this.CalculMontant(LocalDate.now());
+    }
+    
+    public Projet(String Titre,String description,LocalDate dateDebut,LocalDate dateFin, Map<Ressource, List<LocalDate>> ressources) {
+    	this.id = 0l;
+    	this.titre = Titre;
+    	this.description = description;
+    	this.dateDebut = dateDebut;
+    	this.dateFin = dateFin;
+    	this.lignesBudgetaires = new ArrayList<LigneBudgetaire>();
+    	this.ressources = ressources;
+    	this.financement = 0d;
+    }
+    
+    public Projet(String Titre,String description,LocalDate dateDebut,LocalDate dateFin,List<LigneBudgetaire> lignes,Map<Ressource, List<LocalDate>> ressources) {
+    	this.id = 0l;
+    	this.titre = Titre;
+    	this.description = description;
+    	this.dateDebut = dateDebut;
+    	this.dateFin = dateFin;
+    	this.lignesBudgetaires = lignes;
+    	this.ressources = ressources;
     	this.financement = 0d;
     	this.CalculMontant(LocalDate.now());
     }
@@ -116,19 +140,7 @@ public class Projet {
     public void setDateFin(LocalDate dateFin) {
         this.dateFin = dateFin;
     }
-
-    public List<Ressource> getEquipe() {
-        return equipe;
-    }
     
-    public Ressource getOneRessources(int indice) {
-    	return this.equipe.get(indice);
-    }
-
-    public void setEquipe(List<Ressource> equipe) {
-        this.equipe = equipe;
-    }
-
     public double getFinancement() {
         return financement;
     }
@@ -145,9 +157,17 @@ public class Projet {
     	return this.lignesBudgetaires.get(indices);
     }
 
-    public Map<Ressource, List<LocalDate>> getRessources() { return ressources; }
+    public Map<Ressource, List<LocalDate>> getRessources() { 
+    	return ressources;
+    }
 
-    public void setRessources(Map<Ressource, List<LocalDate>> ressources) { this.ressources = ressources; }
+    public List<LocalDate> getDateForOneRessources(Ressource ressource) {
+    	return this.ressources.get(ressource);
+    }
+    
+    public void setRessources(Map<Ressource, List<LocalDate>> ressources) { 
+    	this.ressources = ressources; 
+    }
 
     /* ====================
        Methodes optionnelles
@@ -168,15 +188,15 @@ public class Projet {
     		this.CalculMontant(LocalDate.now());
     	}
     }
-    
-    public void AddRessources(Ressource ressource) {
-    	if(ressource!= null)
-    		this.equipe.add(ressource);
+        
+    public void addRessourceWithDate(Ressource ressource, LocalDate dateDebut, LocalDate dateFin) {
+        List<LocalDate> dates = Arrays.asList(dateDebut, dateFin);
+        this.ressources.put(ressource, dates);
     }
     
     public void RemoveRessouces(Ressource ressource) {
-    	if(ressource != null && this.equipe.contains(ressource) == true)
-    		this.equipe.remove(ressource);
+    	if(ressource != null && this.ressources.containsKey(ressource)== true)
+    		this.ressources.remove(ressource);
     }
     
     public void CalculMontant(LocalDate date) {
@@ -216,12 +236,18 @@ public class Projet {
     	//FIN POUR
 
         //Supprime les ressources qui ne travaillent plus sur le projet et qui n'ont pas besoin d'être payées
-        this.equipe.removeIf(ressource -> ressource.getDateFin() != null && ressource.getDateFin().isBefore(LocalDate.now()));
-    }
-
-    public void addRessourceWithDate(Ressource ressource, LocalDate dateDebut, LocalDate dateFin) {
-        List<LocalDate> dates = Arrays.asList(dateDebut, dateFin);
-        this.ressources.put(ressource, dates);
+    
+        for ( Iterator i = ressources.entrySet().iterator(); i.hasNext();) {
+        	 
+	    	Entry<Ressource, List<LocalDate>> couple = (Entry<Ressource, List<LocalDate>>)i.next();
+	    	Ressource ressource = (Ressource)couple.getKey();
+	    	List<LocalDate> listDate = (List<LocalDate>)couple.getValue();
+	    	
+	    	if(listDate.get(1).isBefore(LocalDate.now()) == true) {
+	    		this.ressources.remove(ressource);
+	    	}
+        }
+        
     }
 
     @java.lang.Override
@@ -232,7 +258,7 @@ public class Projet {
                 ", description=" + description +
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
-                ", equipe=" + equipe +
+                ", equipe=" + ressources +
                 ", financement=" + financement +
                 '}';
     }
