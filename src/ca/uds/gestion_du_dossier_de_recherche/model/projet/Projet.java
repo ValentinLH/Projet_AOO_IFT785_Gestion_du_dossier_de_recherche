@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.*;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
@@ -227,9 +229,9 @@ public class Projet {
     }
 
     public void Updateressource() {
-        //Supprime les ressource qui ne travaille plus sur le rojet et qui n'ont pas besoin d'être payé
+        //Supprime les ressource qui ne travaille plus sur le projet et qui n'ont pas besoin d'être payé
     	//POUR chaque ressources dans la liste ou map :
-    	// 		on compare ça date de fin à la date d'aujourd'hui
+    	// 		on compare sa date de fin à la date d'aujourd'hui
     	//		SI la date de fin est antérieur à aujourd'hui
     	//			On supprime la ressource de la map ou liste
     	//		FIN SI
@@ -237,16 +239,19 @@ public class Projet {
 
         //Supprime les ressources qui ne travaillent plus sur le projet et qui n'ont pas besoin d'être payées
     
-        for ( Iterator i = ressources.entrySet().iterator(); i.hasNext();) {
-        	 
-	    	Entry<Ressource, List<LocalDate>> couple = (Entry<Ressource, List<LocalDate>>)i.next();
-	    	Ressource ressource = (Ressource)couple.getKey();
-	    	List<LocalDate> listDate = (List<LocalDate>)couple.getValue();
-	    	
+    	Set<Ressource> keys = ressources.keySet();
+    	Set<Ressource> del = new HashSet<>();
+    	
+    	for(Ressource ressource : keys)
+    	{
+	    	List<LocalDate> listDate = ressources.get(ressource);
 	    	if(listDate.get(1).isBefore(LocalDate.now()) == true) {
-	    		this.ressources.remove(ressource);
+	    		del.add(ressource);
 	    	}
-        }
+    	}
+    	
+    	for (Ressource ressource : del)
+    		ressources.remove(ressource);
         
     }
 

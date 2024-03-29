@@ -27,10 +27,10 @@ public class ProjetTest {
 	UBR ubr2;
 	LigneBudgetaire ligneBudgetaire;
 	LigneBudgetaire ligneBudgetaire2;
-	
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
-	
+
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	private final PrintStream originalOut = System.out;
+
 	@Before
 	public void setUp() throws Exception {
 		monFrigo = new Organisme("Mon Frigidaire", 0);
@@ -38,120 +38,123 @@ public class ProjetTest {
 		ligneBudgetaire = new LigneBudgetaire("Ligne Budgetaire de Chocolat", "Chocolat");
 		ligneBudgetaire.ajouterUBR(ubr1, 500f);
 		projet = new Projet("OK");
-		
+
 		ubr2 = new UBR(monFrigo, 1, false, LocalDate.now().minusDays(5), LocalDate.now().plusDays(5));
 		ligneBudgetaire2 = new LigneBudgetaire("Ligne Budgetaire de Beurre", "Beurre");
 		ligneBudgetaire2.ajouterUBR(ubr2, 1000f);
 
 		System.setOut(new PrintStream(outContent));
-		
+
 	}
-	
-    @After
-    public void restoreStreams() {
-        System.setOut(originalOut);
-    }
-	
-	
+
+	@After
+	public void restoreStreams() {
+		System.setOut(originalOut);
+	}
+
 	@Test
-	public void CalculMontantTest(){
+	public void CalculMontantTest() {
 		projet.addLigneBudgetaire(ligneBudgetaire);
 		projet.CalculMontant(LocalDate.now());
-		assertEquals(0f,projet.getFinancement(),0f); // UBR avec contrainte
-		
+		assertEquals(0f, projet.getFinancement(), 0f); // UBR avec contrainte
+
 		projet.addLigneBudgetaire(ligneBudgetaire2);
 		projet.CalculMontant(LocalDate.now());
-		assertEquals(1000f,projet.getFinancement(),0f); // UBR sans contrainte
+		assertEquals(1000f, projet.getFinancement(), 0f); // UBR sans contrainte
 	}
-	
+
 	@Test
 	public void AddLigneBudgetaireTest() {
-		assertEquals(0,projet.getAllLigneBudgetaires().size()); // car init avec aucune ligne
+		assertEquals(0, projet.getAllLigneBudgetaires().size()); // car init avec aucune ligne
 		projet.addLigneBudgetaire(ligneBudgetaire);
 		projet.addLigneBudgetaire(ligneBudgetaire2);
-		assertEquals(2,projet.getAllLigneBudgetaires().size());
-		assertEquals(1000f,projet.getFinancement(),0f);
+		assertEquals(2, projet.getAllLigneBudgetaires().size());
+		assertEquals(1000f, projet.getFinancement(), 0f);
 
-
-		
-		List<LigneBudgetaire> lignesList =  new ArrayList<LigneBudgetaire>();
+		List<LigneBudgetaire> lignesList = new ArrayList<LigneBudgetaire>();
 		lignesList.add(ligneBudgetaire);
 		lignesList.add(ligneBudgetaire2);
-		
-		Projet projet2 = new Projet("Miam", "Projet qui fait l'inventaire de mon Frigo", LocalDate.now().minusDays(50), LocalDate.now().plusDays(50),lignesList);
-		assertEquals(2,projet2.getAllLigneBudgetaires().size());
-		
+
+		Projet projet2 = new Projet("Miam", "Projet qui fait l'inventaire de mon Frigo", LocalDate.now().minusDays(50),
+				LocalDate.now().plusDays(50), lignesList);
+		assertEquals(2, projet2.getAllLigneBudgetaires().size());
+
 		LigneBudgetaire ligneBudgetaire3 = new LigneBudgetaire("Ligne Budgetaire de Farine", "Farine");
 		ligneBudgetaire3.ajouterUBR(ubr2, 5000f);
-		assertEquals(1000f,projet2.getFinancement(),0f);
-		
+		assertEquals(1000f, projet2.getFinancement(), 0f);
+
 		projet2.addLigneBudgetaire(ligneBudgetaire3);
-		assertEquals(3,projet2.getAllLigneBudgetaires().size());
-		assertEquals(6000f,projet2.getFinancement(),0f);
-		
-		
+		assertEquals(3, projet2.getAllLigneBudgetaires().size());
+		assertEquals(6000f, projet2.getFinancement(), 0f);
+
 	}
-	
+
 	@Test
 	public void RemoveLigneBudgetaire() {
 		LigneBudgetaire ligneBudgetaire3 = new LigneBudgetaire("Ligne Budgetaire de Farine", "Farine");
 		ligneBudgetaire3.ajouterUBR(ubr2, 5000f);
-				
-		List<LigneBudgetaire> lignesList =  new ArrayList<LigneBudgetaire>();
+
+		List<LigneBudgetaire> lignesList = new ArrayList<LigneBudgetaire>();
 		lignesList.add(ligneBudgetaire);
 		lignesList.add(ligneBudgetaire2);
 		lignesList.add(ligneBudgetaire3);
-		
-		Projet projet2 = new Projet("Miam", "Projet qui fait l'inventaire de mon Frigo", LocalDate.now().minusDays(50), LocalDate.now().plusDays(50),lignesList);
-		
-		projet2.removeLigneBudgetaire(ligneBudgetaire2);
-		assertEquals(2,projet2.getAllLigneBudgetaires().size());
-		assertEquals(5000f,projet2.getFinancement(),0f);
-		
-		projet2.removeLigneBudgetaire(null); // ne change rien au projet
-		assertEquals(5000f,projet2.getFinancement(),0f);
-		assertEquals(2,projet2.getAllLigneBudgetaires().size());
 
-		projet2.removeLigneBudgetaire(ligneBudgetaire2); //n'existe plus dans la liste de ce projet donc fait rien
-		assertEquals(5000f,projet2.getFinancement(),0f);
-		assertEquals(2,projet2.getAllLigneBudgetaires().size());
-		
+		Projet projet2 = new Projet("Miam", "Projet qui fait l'inventaire de mon Frigo", LocalDate.now().minusDays(50),
+				LocalDate.now().plusDays(50), lignesList);
+
+		projet2.removeLigneBudgetaire(ligneBudgetaire2);
+		assertEquals(2, projet2.getAllLigneBudgetaires().size());
+		assertEquals(5000f, projet2.getFinancement(), 0f);
+
+		projet2.removeLigneBudgetaire(null); // ne change rien au projet
+		assertEquals(5000f, projet2.getFinancement(), 0f);
+		assertEquals(2, projet2.getAllLigneBudgetaires().size());
+
+		projet2.removeLigneBudgetaire(ligneBudgetaire2); // n'existe plus dans la liste de ce projet donc fait rien
+		assertEquals(5000f, projet2.getFinancement(), 0f);
+		assertEquals(2, projet2.getAllLigneBudgetaires().size());
+
 	}
-	
-	@Test 
+
+	@Test
 	public void TestDateLimiteDepense() {
 		projet.addLigneBudgetaire(ligneBudgetaire);
 		projet.addLigneBudgetaire(ligneBudgetaire2);
 		projet.DateLimiteDepenses();
-		assertEquals("Le montant founit par l'UBR Mon Frigidaire d'un motant total de 1000.0 dollars expire bientôt"
-				, outContent.toString().trim());
-		
+		assertEquals("Le montant founit par l'UBR Mon Frigidaire d'un motant total de 1000.0 dollars expire bientôt",
+				outContent.toString().trim());
+
 	}
 
 	@Test
 	public void testUpdateressource() {
-		
-		Ressource ressource1 = new Ressource("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1), LocalDate.now().minusMonths(5));
-		Ressource ressource2 = new Ressource("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1), LocalDate.now().plusMonths(1));
+
+		Ressource ressource1 = new Ressource("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1),
+				LocalDate.now().minusMonths(5));
+		Ressource ressource2 = new Ressource("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1),
+				LocalDate.now().plusMonths(1));
 		LocalDate dateDebut = LocalDate.now().minusMonths(10);
 		LocalDate dateFin = LocalDate.now().plusMonths(1);
 		LocalDate dateFinExpire = LocalDate.now().minusMonths(5);
 
 		projet.addRessourceWithDate(ressource1, dateDebut, dateFin);
 		projet.addRessourceWithDate(ressource2, dateDebut, dateFinExpire);
-		
+
 		assertEquals("Avant la mise à jour, l'équipe doit contenir 2 ressources.", 2, projet.getRessources().size());
 
 		projet.Updateressource();
 
-		assertEquals("Après la mise à jour, l'équipe doit contenir 1 ressource active.", 1, projet.getRessources().size());
-		assertTrue("L'équipe doit contenir la ressource active dont la date de fin est après aujourd'hui.", projet.getRessources().get(ressource1).get(1).isAfter(LocalDate.now()));
+		assertEquals("Après la mise à jour, l'équipe doit contenir 1 ressource active.", 1,
+				projet.getRessources().size());
+		assertTrue("L'équipe doit contenir la ressource active dont la date de fin est après aujourd'hui.",
+				projet.getRessources().get(ressource1).get(1).isAfter(LocalDate.now()));
 	}
 
 	@Test
 	public void testAddRessourceWithDate() {
 
-		Ressource ressource = new Ressource("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1), LocalDate.now().plusMonths(1));
+		Ressource ressource = new Ressource("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1),
+				LocalDate.now().plusMonths(1));
 		LocalDate dateDebut = LocalDate.now().minusMonths(1);
 		LocalDate dateFin = LocalDate.now().plusMonths(1);
 
@@ -164,4 +167,4 @@ public class ProjetTest {
 		assertEquals("La date de fin doit correspondre à celle fournie.", dateFin, dates.get(1));
 	}
 
-	}
+}

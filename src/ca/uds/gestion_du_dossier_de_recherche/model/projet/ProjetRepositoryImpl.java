@@ -7,6 +7,9 @@ import jakarta.persistence.EntityTransaction;
 import java.sql.*;
 import java.util.List;
 
+/**
+ * @apiNote A utiliser potentiellement avec la BDD
+ **/
 public class ProjetRepositoryImpl implements ProjetRepository {
 
     public static EntityManager em = EntityClass.em;

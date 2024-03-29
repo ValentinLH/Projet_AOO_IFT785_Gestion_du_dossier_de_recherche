@@ -2,6 +2,9 @@ package ca.uds.gestion_du_dossier_de_recherche.model.projet;
 
 import java.util.List;
 
+/**
+ * @apiNote A utiliser potentiellement avec la BDD
+ **/
 public class ProjetService {
 
     private ProjetRepository projetRepository = new ProjetRepositoryImpl();
