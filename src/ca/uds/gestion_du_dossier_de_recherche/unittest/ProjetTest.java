@@ -56,11 +56,11 @@ public class ProjetTest {
 	@Test
 	public void CalculMontantTest() {
 		projet.addLigneBudgetaire(ligneBudgetaire);
-		projet.CalculMontant(LocalDate.now());
+		projet.calculMontant(LocalDate.now());
 		assertEquals(0f, projet.getFinancement(), 0f); // UBR avec contrainte
 
 		projet.addLigneBudgetaire(ligneBudgetaire2);
-		projet.CalculMontant(LocalDate.now());
+		projet.calculMontant(LocalDate.now());
 		assertEquals(1000f, projet.getFinancement(), 0f); // UBR sans contrainte
 	}
 
@@ -121,7 +121,7 @@ public class ProjetTest {
 	public void TestDateLimiteDepense() {
 		projet.addLigneBudgetaire(ligneBudgetaire);
 		projet.addLigneBudgetaire(ligneBudgetaire2);
-		projet.DateLimiteDepenses();
+		projet.dateLimiteDepenses();
 		assertEquals("Le montant founit par l'UBR Mon Frigidaire d'un motant total de 1000.0 dollars expire bientôt",
 				outContent.toString().trim());
 
@@ -143,7 +143,7 @@ public class ProjetTest {
 
 		assertEquals("Avant la mise à jour, l'équipe doit contenir 2 ressources.", 2, projet.getRessources().size());
 
-		projet.Updateressource();
+		projet.updateRessource();
 
 		assertEquals("Après la mise à jour, l'équipe doit contenir 1 ressource active.", 1,
 				projet.getRessources().size());

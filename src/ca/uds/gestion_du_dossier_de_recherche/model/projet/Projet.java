@@ -64,7 +64,7 @@ public class Projet {
     	this.dateFin = dateFin;
     	this.lignesBudgetaires = lignes;
     	this.financement = 0d;
-    	this.CalculMontant(LocalDate.now());
+    	this.calculMontant(LocalDate.now());
     }
     
     public Projet(String Titre,String description,LocalDate dateDebut,LocalDate dateFin, Map<Ressource, List<LocalDate>> ressources) {
@@ -87,7 +87,7 @@ public class Projet {
     	this.lignesBudgetaires = lignes;
     	this.ressources = ressources;
     	this.financement = 0d;
-    	this.CalculMontant(LocalDate.now());
+    	this.calculMontant(LocalDate.now());
     }
     
     /* ====================
@@ -170,14 +170,14 @@ public class Projet {
     public void addLigneBudgetaire(LigneBudgetaire lignes) {
     	if(lignes != null) {
     		this.lignesBudgetaires.add(lignes);
-    		this.CalculMontant(LocalDate.now());
+    		this.calculMontant(LocalDate.now());
     	}
     }
     
     public void removeLigneBudgetaire(LigneBudgetaire lignes) {
     	if(lignes != null && this.lignesBudgetaires.contains(lignes) == true) {
     		this.lignesBudgetaires.remove(lignes);
-    		this.CalculMontant(LocalDate.now());
+    		this.calculMontant(LocalDate.now());
     	}
     }
         
@@ -198,19 +198,19 @@ public class Projet {
         this.ressources.put(ressource, dates);
     }
     
-    public void RemoveRessouces(Ressource ressource) {
+    public void removeRessouces(Ressource ressource) {
     	if(ressource != null && this.ressources.containsKey(ressource)== true)
     		this.ressources.remove(ressource);
     }
     
-    public void CalculMontant(LocalDate date) {
+    public void calculMontant(LocalDate date) {
     	this.setFinancement(0.0);
     	for(LigneBudgetaire lignes : lignesBudgetaires) {
     		this.financement += lignes.getMontantLigne(date);
     	}
     }
 
-    public void DateLimiteDepenses() {
+    public void dateLimiteDepenses() {
         //Pour chaque ligne budgetaire
         //  Comparé les date de fin imposé par l'UBR avec celle d'ojd
         //  SI < à un certain palier
@@ -230,7 +230,7 @@ public class Projet {
     	
     }
 
-    public void Updateressource() {
+    public void updateRessource() {
         //Supprime les ressource qui ne travaille plus sur le projet et qui n'ont pas besoin d'être payé
     	//POUR chaque ressources dans la liste ou map :
     	// 		on compare sa date de fin à la date d'aujourd'hui

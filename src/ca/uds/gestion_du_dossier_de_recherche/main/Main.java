@@ -30,7 +30,7 @@ public class Main {
 		
 		p.addLigneBudgetaire(ligneBudgetaire);
 		
-		p.CalculMontant(LocalDate.now());
+		p.calculMontant(LocalDate.now());
 		
 		UBR ubr2 = new UBR(monFrigo, 1, false, LocalDate.now().minusDays(5), LocalDate.now().plusDays(5));
 		LigneBudgetaire ligneBudgetaire2 = new LigneBudgetaire("Ligne Budgetaire de Beurre", "Beurre");
@@ -38,7 +38,7 @@ public class Main {
 		
 		
 		p.addLigneBudgetaire(ligneBudgetaire2);
-		p.CalculMontant(LocalDate.now());
+		p.calculMontant(LocalDate.now());
 		
 		LigneBudgetaire ligneBudgetaire3 = new LigneBudgetaire("Ligne Budgetaire de Farine", "Farine");
 		ligneBudgetaire3.ajouterUBR(ubr2, 5000f);
@@ -47,7 +47,7 @@ public class Main {
 		
 		p.removeLigneBudgetaire(ligneBudgetaire2);
 		
-		p.DateLimiteDepenses();
+		p.dateLimiteDepenses();
 		
 	}
 
