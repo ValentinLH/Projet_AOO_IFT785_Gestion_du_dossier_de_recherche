@@ -263,7 +263,7 @@ public class Projet {
                 ", description=" + description +
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
-                ", equipe=" + ressources +
+                ", ressources=" + ressources +
                 ", financement=" + financement +
                 '}';
     }
