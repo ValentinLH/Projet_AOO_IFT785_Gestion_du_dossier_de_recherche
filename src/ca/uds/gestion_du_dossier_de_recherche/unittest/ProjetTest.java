@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.*;
 
@@ -172,5 +173,35 @@ public class ProjetTest {
 		assertEquals("La date de début doit correspondre à celle du projet.", projet.getDateDebut(), datesR2.get(0));
 		assertEquals("La date de fin doit correspondre à celle du projet.", projet.getDateFin(), datesR2.get(1));
 	}
+
+
+	@Test
+	public void testCalculSalaireRessources() {
+
+		Ressource ressource1 = new Ressource("Amin", "Dev", 20f, 40f, LocalDate.now().minusMonths(2), LocalDate.now().plusMonths(1));
+		Ressource ressource2 = new Ressource("Maxime", "Dev", 25f, 30f, LocalDate.now().minusMonths(1), LocalDate.now().plusMonths(2));
+
+
+		// Affectation commence il y a 30 jours
+		LocalDate dateDebutProjet = LocalDate.now().minusDays(30);
+		// Affectation se termine dans 30 jours
+		LocalDate dateFinProjet = LocalDate.now().plusDays(30);
+		projet.addRessourceWithDate(ressource1, dateDebutProjet, dateFinProjet);
+		projet.addRessourceWithDate(ressource2, dateDebutProjet, dateFinProjet);
+
+		Map<Ressource, Double> salaires = projet.calculSalaireRessources();
+
+		assertNotNull("La map des salaires ne doit pas être null", salaires);
+
+		double salaireAttenduRessource1 = ressource1.calcul_salaire_mensuel();
+		double salaireAttenduRessource2 = ressource2.calcul_salaire_mensuel();
+
+		assertEquals("Le salaire calculé pour la ressource 1 doit correspondre au salaire attendu",
+				salaireAttenduRessource1, salaires.get(ressource1), 0.01);
+		assertEquals("Le salaire calculé pour la ressource 2 doit correspondre au salaire attendu",
+				salaireAttenduRessource2, salaires.get(ressource2), 0.01);
+	}
+
+
 
 }

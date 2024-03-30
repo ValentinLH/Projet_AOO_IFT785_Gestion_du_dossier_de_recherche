@@ -1,6 +1,7 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.projet;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -256,6 +257,36 @@ public class Projet {
         
     }
 
+
+    public Map<Ressource, Double> calculSalaireRessources() {
+        Map<Ressource, Double> salaires = new HashMap<>();
+
+        for (Map.Entry<Ressource, List<LocalDate>> entry : this.ressources.entrySet()) {
+            Ressource ressource = entry.getKey();
+            List<LocalDate> periodes = entry.getValue();
+
+            // Vérifier et ajuster la période d'affectation selon la durée du contrat
+            LocalDate dateDebutAffectation = periodes.get(0).isBefore(ressource.getDateDebut()) ? ressource.getDateDebut() : periodes.get(0);
+            LocalDate dateFinAffectation = periodes.get(1).isAfter(ressource.getDateFin()) ? ressource.getDateFin() : periodes.get(1);
+
+            if (dateDebutAffectation.isBefore(dateFinAffectation.plusDays(1))) { // Date de début est avant la date de fin
+                long joursEffectifs = ChronoUnit.DAYS.between(dateDebutAffectation, dateFinAffectation.plusDays(1)); // Inclut la date de fin
+
+                // Convertir les jours en heures de travail effectives
+                double heuresEffectives = joursEffectifs * (ressource.getHeures_hebdo() / 7.0);
+                // Calculer le salaire en fonction des heures effectives
+                double salaire = heuresEffectives * ressource.getTaux_horaire();
+
+                salaires.put(ressource, salaire);
+            }
+        }
+
+        return salaires;
+    }
+
+
+
+
     @java.lang.Override
     public java.lang.String toString() {
         return "Projet{" +
@@ -264,7 +295,7 @@ public class Projet {
                 ", description=" + description +
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
-                ", equipe=" + ressources +
+                ", ressources=" + ressources +
                 ", financement=" + financement +
                 '}';
     }
