@@ -33,23 +33,12 @@ public class Projet {
       	  Constructeur
  	===================== */
     
-    public Projet(String Titre) {
+    public Projet(String Titre,LocalDate dateDebut,LocalDate dateFin) {
     	this.id = 0l;
     	this.titre = Titre;
     	this.description = "";
-    	this.dateDebut = null;
-    	this.dateFin = null;
-    	this.lignesBudgetaires = new ArrayList<LigneBudgetaire>();
-    	this.ressources = new HashMap<Ressource, List<LocalDate>>();
-    	this.financement = 0d;
-    }
-    
-    public Projet(String Titre,String description) {
-    	this.id = 0l;
-    	this.titre = Titre;
-    	this.description = description;
-    	this.dateDebut = null;
-    	this.dateFin = null;
+    	this.dateDebut = dateDebut;
+    	this.dateFin = dateFin;
     	this.lignesBudgetaires = new ArrayList<LigneBudgetaire>();
     	this.ressources = new HashMap<Ressource, List<LocalDate>>();
     	this.financement = 0d;
@@ -192,7 +181,19 @@ public class Projet {
     }
         
     public void addRessourceWithDate(Ressource ressource, LocalDate dateDebut, LocalDate dateFin) {
-        List<LocalDate> dates = Arrays.asList(dateDebut, dateFin);
+        
+    	LocalDate affectationDebut = dateDebut;
+    	LocalDate affectationFin = dateFin;
+    	
+    	if(dateDebut!= null && dateDebut.isBefore(getDateDebut())) {
+    		affectationDebut = getDateDebut();
+    	}
+    	
+    	if(dateFin != null && dateFin.isAfter(getDateFin())) {
+    		affectationFin = getDateFin();
+    	}
+    	
+    	List<LocalDate> dates = Arrays.asList(affectationDebut, affectationFin);
         this.ressources.put(ressource, dates);
     }
     

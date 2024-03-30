@@ -37,7 +37,7 @@ public class ProjetTest {
 		ubr1 = new UBR(monFrigo, 1, true, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10));
 		ligneBudgetaire = new LigneBudgetaire("Ligne Budgetaire de Chocolat", "Chocolat");
 		ligneBudgetaire.ajouterUBR(ubr1, 500f);
-		projet = new Projet("OK");
+		projet = new Projet("Title Test","Test Description",LocalDate.now().minusDays(30), LocalDate.now().plusDays(30));
 
 		ubr2 = new UBR(monFrigo, 1, false, LocalDate.now().minusDays(5), LocalDate.now().plusDays(5));
 		ligneBudgetaire2 = new LigneBudgetaire("Ligne Budgetaire de Beurre", "Beurre");
@@ -153,18 +153,24 @@ public class ProjetTest {
 	@Test
 	public void testAddRessourceWithDate() {
 
-		Ressource ressource = new Ressource("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1),
-				LocalDate.now().plusMonths(1));
-		LocalDate dateDebut = LocalDate.now().minusMonths(1);
-		LocalDate dateFin = LocalDate.now().plusMonths(1);
+		Ressource ressource = new Ressource("Amin", "Dev", 20f, 40f, LocalDate.now().minusMonths(2), LocalDate.now().plusMonths(1));
+		Ressource ressource2 = new Ressource("Maxime", "Dev", 25f, 30f, LocalDate.now().minusMonths(1), LocalDate.now().plusMonths(2));
+		
+		LocalDate dateDebut = LocalDate.now().minusDays(1);
+		LocalDate dateFin = LocalDate.now().plusDays(1);
 
 		projet.addRessourceWithDate(ressource, dateDebut, dateFin);
+		projet.addRessourceWithDate(ressource2, dateDebut.minusMonths(5), dateFin.plusMonths(5));
 
 		assertTrue("La map doit contenir la ressource ajoutée.", projet.getRessources().containsKey(ressource));
-		List<LocalDate> dates = projet.getRessources().get(ressource);
-		assertNotNull("La liste des dates ne doit pas être null.", dates);
-		assertEquals("La date de début doit correspondre à celle fournie.", dateDebut, dates.get(0));
-		assertEquals("La date de fin doit correspondre à celle fournie.", dateFin, dates.get(1));
+		List<LocalDate> datesR1 = projet.getRessources().get(ressource);
+		List<LocalDate> datesR2 = projet.getRessources().get(ressource2);
+		assertNotNull("La liste des dates ne doit pas être null.", datesR1);
+		assertNotNull("La liste des dates ne doit pas être null.", datesR2);
+		assertEquals("La date de début doit correspondre à celle fournie.", dateDebut, datesR1.get(0));
+		assertEquals("La date de fin doit correspondre à celle fournie.", dateFin, datesR1.get(1));
+		assertEquals("La date de début doit correspondre à celle du projet.", projet.getDateDebut(), datesR2.get(0));
+		assertEquals("La date de fin doit correspondre à celle du projet.", projet.getDateFin(), datesR2.get(1));
 	}
 
 }
