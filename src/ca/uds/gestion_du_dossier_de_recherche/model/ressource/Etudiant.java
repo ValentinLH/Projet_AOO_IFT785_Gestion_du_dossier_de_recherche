@@ -2,25 +2,49 @@ package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
 import java.time.LocalDate;
 
-public class Etudiant extends Ressource{
+import java.util.Objects;
 
-    String cip;
-    programme p;
+public class Etudiant extends Ressource {
 
-    public enum programme {
-        Baccalaureat, Maitrise, Doctorat, Post_Doctorat, Stage
-    };
+    public enum Programme {
+        BACCALAUREAT, MAITRISE, DOCTORAT, POST_DOCTORAT, STAGE;
+    }
 
+    private String cip;
+    private Programme programme;
 
-    public Etudiant(String Nom, String Prenom, float TH, float HH, LocalDate DC, LocalDate FC, String cip, programme p){
-        super(Nom, Prenom, TH, HH, DC, FC);
+    public Etudiant(String nom, String prenom, float tauxHeure, float heuresHebdo, String dateCreation, String dateDeFin, String cip, Programme programme) {
+        super(nom, prenom, tauxHeure, heuresHebdo, dateCreation, dateDeFin);
         this.cip = cip;
-        this.p = p;
+        this.programme = Objects.requireNonNull(programme);
     }
 
-    public void display(){
-        System.out.println("etudiant"+this.cip+"  "+this.p);
+	@Override
+	public String toString() {
+    	
+		return super.toString()+ "/n Etudiant [cip=" + cip + ", programme=" + programme + "]";
+	}
+
+    // getters and setters
+    
+    @Override
+    public String getCip() {
+        return cip;
+    }
+    
+    @Override
+    public void setCip(String cip) {
+        this.cip = cip;
     }
 
+    @Override
+    public Programme getProgramme() {
+        return programme;
+    }
+
+    @Override
+    public void setProgramme(Programme programme) {
+        this.programme = programme;
+    }
 
 }

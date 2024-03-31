@@ -1,8 +1,12 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
-public class FabriqueEtudiant extends FabriquePersonne{
-    @override
-    public Ressource fabricateurRessource(String Nom, String Prenom, float TH, String DC, String FC, String cip, programme p){
-        return new Etudiant(Nom, Prenom, TH, DC, FC, cip, p);
+
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
+
+public class FabriqueEtudiant extends FabriquePersonne {
+    @Override
+    public Ressource createRessource(String Nom, String Prenom, float Taux_horaire, float Heures_hebdo, String Debut_contrat, String Fin_contrat) {
+         return new Etudiant(Nom,Prenom,Taux_horaire,Heures_hebdo,Debut_contrat,Fin_contrat,"null",Programme.BACCALAUREAT);
+
     }
 }
