@@ -1,6 +1,6 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.projet;
 
-import ca.uds.gestion_du_dossier_de_recherche.BDD.EntityClass;
+import ca.uds.gestion_du_dossier_de_recherche.BDD.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 

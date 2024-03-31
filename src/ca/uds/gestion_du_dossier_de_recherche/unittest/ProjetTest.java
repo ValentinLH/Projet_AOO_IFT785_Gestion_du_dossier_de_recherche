@@ -1,6 +1,8 @@
 package ca.uds.gestion_du_dossier_de_recherche.unittest;
 
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Soutien;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -130,9 +132,9 @@ public class ProjetTest {
 	@Test
 	public void testUpdateressource() {
 
-		Ressource ressource1 = new Ressource("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1),
+		Ressource ressource1 = new Soutien("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1),
 				LocalDate.now().minusMonths(5));
-		Ressource ressource2 = new Ressource("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1),
+		Ressource ressource2 = new Soutien("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1),
 				LocalDate.now().plusMonths(1));
 		LocalDate dateDebut = LocalDate.now().minusMonths(10);
 		LocalDate dateFin = LocalDate.now().plusMonths(1);
@@ -154,8 +156,8 @@ public class ProjetTest {
 	@Test
 	public void testAddRessourceWithDate() {
 
-		Ressource ressource = new Ressource("Amin", "Dev", 20f, 40f, LocalDate.now().minusMonths(2), LocalDate.now().plusMonths(1));
-		Ressource ressource2 = new Ressource("Maxime", "Dev", 25f, 30f, LocalDate.now().minusMonths(1), LocalDate.now().plusMonths(2));
+		Ressource ressource = new Soutien("Amin", "Dev", 20f, 40f, LocalDate.now().minusMonths(2), LocalDate.now().plusMonths(1));
+		Ressource ressource2 = new Soutien("Maxime", "Dev", 25f, 30f, LocalDate.now().minusMonths(1), LocalDate.now().plusMonths(2));
 		
 		LocalDate dateDebut = LocalDate.now().minusDays(1);
 		LocalDate dateFin = LocalDate.now().plusDays(1);
@@ -178,8 +180,8 @@ public class ProjetTest {
 	@Test
 	public void testCalculSalaireRessources() {
 
-		Ressource ressource1 = new Ressource("Amin", "Dev", 20f, 40f, LocalDate.now().minusMonths(2), LocalDate.now().plusMonths(1));
-		Ressource ressource2 = new Ressource("Maxime", "Dev", 25f, 30f, LocalDate.now().minusMonths(1), LocalDate.now().plusMonths(2));
+		Ressource ressource1 = new Soutien("Amin", "Dev", 20f, 40f, LocalDate.now().minusMonths(2), LocalDate.now().plusMonths(1));
+		Ressource ressource2 = new Soutien("Maxime", "Dev", 25f, 30f, LocalDate.now().minusMonths(1), LocalDate.now().plusMonths(2));
 
 
 		// Affectation commence il y a 30 jours

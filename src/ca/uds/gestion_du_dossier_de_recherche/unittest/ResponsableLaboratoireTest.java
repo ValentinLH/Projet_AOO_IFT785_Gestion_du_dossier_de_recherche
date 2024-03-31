@@ -2,6 +2,8 @@ package ca.uds.gestion_du_dossier_de_recherche.unittest;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDate;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +16,10 @@ private ResponsableLaboratoire ResponsableLaboratoire;
 	
 	@Before
 	public void setUp() throws Exception {
-		ResponsableLaboratoire = new ResponsableLaboratoire("", "", 0, 0, "", "", "");
+		ResponsableLaboratoire = new ResponsableLaboratoire("", "", 0, 0,  LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), "");
+		
+        
+        
 	}
 	
 	

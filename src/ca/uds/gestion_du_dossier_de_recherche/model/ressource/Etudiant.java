@@ -13,7 +13,7 @@ public class Etudiant extends Ressource {
     private String cip;
     private Programme programme;
 
-    public Etudiant(String nom, String prenom, float tauxHeure, float heuresHebdo, String dateCreation, String dateDeFin, String cip, Programme programme) {
+    public Etudiant(String nom, String prenom, float tauxHeure, float heuresHebdo, LocalDate dateCreation, LocalDate dateDeFin, String cip, Programme programme) {
         super(nom, prenom, tauxHeure, heuresHebdo, dateCreation, dateDeFin);
         this.cip = cip;
         this.programme = Objects.requireNonNull(programme);
@@ -21,7 +21,6 @@ public class Etudiant extends Ressource {
 
 	@Override
 	public String toString() {
-    	
 		return super.toString()+ "/n Etudiant [cip=" + cip + ", programme=" + programme + "]";
 	}
 

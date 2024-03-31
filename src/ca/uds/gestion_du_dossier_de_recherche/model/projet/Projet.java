@@ -259,8 +259,8 @@ public class Projet {
             List<LocalDate> periodes = entry.getValue();
 
             // Vérifier et ajuster la période d'affectation selon la durée du contrat
-            LocalDate dateDebutAffectation = periodes.get(0).isBefore(ressource.getDateDebut()) ? ressource.getDateDebut() : periodes.get(0);
-            LocalDate dateFinAffectation = periodes.get(1).isAfter(ressource.getDateFin()) ? ressource.getDateFin() : periodes.get(1);
+            LocalDate dateDebutAffectation = periodes.get(0).isBefore(ressource.getDebut_contrat()) ? ressource.getDebut_contrat() : periodes.get(0);
+            LocalDate dateFinAffectation = periodes.get(1).isAfter(ressource.getFin_contrat()) ? ressource.getFin_contrat() : periodes.get(1);
 
             if (dateDebutAffectation.isBefore(dateFinAffectation.plusDays(1))) { // Date de début est avant la date de fin
                 long joursEffectifs = ChronoUnit.DAYS.between(dateDebutAffectation, dateFinAffectation.plusDays(1)); // Inclut la date de fin

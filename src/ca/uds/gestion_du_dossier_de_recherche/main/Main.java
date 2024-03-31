@@ -22,7 +22,7 @@ public class Main {
 		//Ressource e = FabriqueEtudiant.fabricateurRessource("Nom", "Prenom", 10.0, "DC", "FC", "cip", 0);
 		//e.display();
 		
-		Projet p = new Projet("Test");
+		Projet p = new Projet("Test", LocalDate.now().minusDays(9), LocalDate.now().plusDays(9));
 		
 		Organisme monFrigo = new Organisme("Mon Frigidaire", 0);
 		UBR ubr1 = new UBR(monFrigo, 1, true, LocalDate.now().minusDays(9), LocalDate.now().plusDays(9));
@@ -51,7 +51,7 @@ public class Main {
 		p.dateLimiteDepenses();
 		
 	    FabriquePersonne factory = new FabriqueEtudiant();
-	    Ressource ressource = factory.createRessource("John", "Doe", 20.0f, 40.0f, "2023-01-01", "2023-12-31");
+	    Ressource ressource = factory.createRessource("John", "Doe", 20.0f, 40.0f,   LocalDate.now().minusDays(5),  LocalDate.now().plusDays(5));
 	    ressource.setCip("jj");
 	    ressource.setProgramme(Programme.DOCTORAT);
 	    System.out.println(ressource.getProgramme());
