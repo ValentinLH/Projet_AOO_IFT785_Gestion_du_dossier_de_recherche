@@ -5,11 +5,6 @@ import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme
 public abstract class Ressource {
     private String Nom;
     private String Prenom;
-    @Override
-	public String toString() {
-		return "Ressource [Nom=" + Nom + ", Prenom=" + Prenom + ", Taux_horaire=" + Taux_horaire + ", Heures_hebdo="
-				+ Heures_hebdo + ", Debut_contrat=" + Debut_contrat + ", Fin_contrat=" + Fin_contrat + "]";
-	}
 	private float Taux_horaire;
     private float Heures_hebdo;
     private String Debut_contrat;
@@ -114,6 +109,11 @@ public abstract class Ressource {
 		
 	}
 
+    @Override
+	public String toString() {
+		return "Ressource [Nom=" + Nom + ", Prenom=" + Prenom + ", Taux_horaire=" + Taux_horaire + ", Heures_hebdo="
+				+ Heures_hebdo + ", Debut_contrat=" + Debut_contrat + ", Fin_contrat=" + Fin_contrat + "]";
+	}
     	
     
     //abstract travaillePour(Projet P);
