@@ -1,19 +1,12 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.projet;
 
+import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.LigneBudgetaire;
+import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.*;
-import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
+import java.util.*;
 
 public class Projet {
 
@@ -89,7 +82,7 @@ public class Projet {
     	this.financement = 0d;
     	this.calculMontant(LocalDate.now());
     }
-    
+
     /* ====================
         Getters & Setters
     ===================== */
