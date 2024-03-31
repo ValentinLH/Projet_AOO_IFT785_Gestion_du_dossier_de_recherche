@@ -1,17 +1,19 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
+import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
+import java.time.LocalDate;
 
 public abstract class Ressource {
     private String Nom;
     private String Prenom;
-	private float Taux_horaire;
+    private float Taux_horaire;
     private float Heures_hebdo;
-    private String Debut_contrat;
-    private String Fin_contrat;
+    private LocalDate Debut_contrat;
+    private LocalDate Fin_contrat;
 
 
-    public Ressource(String Nom, String Prenom, float TH, float HH, String DC, String FC){
+    public Ressource(String Nom, String Prenom, float TH, float HH, LocalDate DC, LocalDate FC){
         this.Nom = Nom;
         this.Prenom = Prenom;
         this.Taux_horaire = TH;
@@ -20,6 +22,14 @@ public abstract class Ressource {
         this.Fin_contrat = FC;
     }
 
+
+ 
+    
+    public void travaillePour(Projet P){
+    }
+
+    public void estPayePar(Projet P) {
+    }
 
     public String getNom() {
 		return Nom;
@@ -61,24 +71,27 @@ public abstract class Ressource {
 	}
 
 
-	public String getDebut_contrat() {
-		return Debut_contrat;
-	}
-
-
-	public void setDebut_contrat(String debut_contrat) {
+	public void setDebut_contrat(LocalDate debut_contrat) {
 		Debut_contrat = debut_contrat;
 	}
 
 
-	public String getFin_contrat() {
-		return Fin_contrat;
-	}
+//	public LocalDate getFin_contrat() {
+//		return Fin_contrat;
+//	}
 
 
-	public void setFin_contrat(String fin_contrat) {
+	public void setFin_contrat(LocalDate fin_contrat) {
 		Fin_contrat = fin_contrat;
 	}
+
+    public LocalDate getFin_contrat() {
+        return Fin_contrat;
+    }
+
+    public LocalDate getDebut_contrat() {
+        return Debut_contrat;
+    }
 
 
 	public float calcul_salaire_mensuel(){
@@ -115,7 +128,4 @@ public abstract class Ressource {
 				+ Heures_hebdo + ", Debut_contrat=" + Debut_contrat + ", Fin_contrat=" + Fin_contrat + "]";
 	}
     	
-    
-    //abstract travaillePour(Projet P);
-    //abstract estPayéPar(Projet P);
 }
