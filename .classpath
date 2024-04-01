@@ -8,5 +8,23 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="lib/hamcrest-core-1.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/junit-4.13.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/angus-activation-2.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/antlr4-runtime-4.13.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/byte-buddy-1.14.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/classmate-1.5.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/hibernate-commons-annotations-6.0.6.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/hibernate-core-6.4.4.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/istack-commons-runtime-4.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/jakarta.activation-api-2.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/jakarta.inject-api-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/jakarta.persistence-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/jakarta.transaction-api-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/jakarta.xml.bind-api-4.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/jandex-3.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/jaxb-core-4.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/jaxb-runtime-4.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/jboss-logging-3.5.0.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/mysql-connector-j-8.0.31.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jordan Frantz/Documents/EclipseProjects/GestionDuDossierDeRecherche/Projet_AOO_IFT785_Gestion_du_dossier_de_recherche/Jar/Jar/txw2-4.0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
