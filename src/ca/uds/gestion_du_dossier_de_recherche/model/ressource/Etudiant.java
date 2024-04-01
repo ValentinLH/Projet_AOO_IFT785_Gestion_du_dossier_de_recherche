@@ -4,6 +4,9 @@ import java.time.LocalDate;
 
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Etudiant extends Ressource {
 
     public enum Programme {
