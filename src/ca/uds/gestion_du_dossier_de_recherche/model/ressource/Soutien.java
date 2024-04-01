@@ -1,10 +1,9 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
-public class Soutien extends Ressource{
+import java.time.LocalDate;
 
-	public Soutien(String Nom, String Prenom, float TH, float HH, String DC, String FC) {
-		super(Nom, Prenom, TH, HH, DC, FC);
+public class Soutien extends Ressource {
+	public Soutien(String nom, String prenom, int echelle, int echelon, float heuresHebdo, LocalDate debutContrat, LocalDate finContrat) {
+		super(nom, prenom, echelle, echelon, heuresHebdo, debutContrat, finContrat);
 	}
-
-	
 }

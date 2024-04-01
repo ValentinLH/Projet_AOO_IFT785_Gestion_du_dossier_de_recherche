@@ -1,74 +1,102 @@
 package ca.uds.gestion_du_dossier_de_recherche.unittest;
 
-import static org.junit.Assert.assertEquals;
-
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
+import java.time.LocalDate;
+import static org.junit.Assert.*;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.GrilleSalariale;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.UtilitaireDate;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant;
-import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
-
 public class EtudiantTest {
 	private Etudiant etudiant;
-	
+
 	@Before
-	public void setUp() throws Exception {
-		etudiant = new Etudiant("", "", 0, 0,"", "", "", Programme.BACCALAUREAT);
+	public void setUp() {
+		GrilleSalariale grilleSalariale = new GrilleSalariale();
+		Ressource.setGrilleSalariale(grilleSalariale);
+		etudiant = new Etudiant("Jean", "Dupont", 6, 7, 35, LocalDate.of(2023, 04, 1), LocalDate.of(2024, 12, 31), "testCIP", Etudiant.Programme.BACCALAUREAT);
 	}
-	
+
+
+	@Test
+	public void testTauxHoraire() {
+		assertEquals(44.91, etudiant.getTauxHoraire());
+	}
+
 	@Test
 	public void testGetNom() {
-		etudiant.setNom("Nom");
-		assertEquals("Nom", etudiant.getNom());
+		assertEquals("Jean", etudiant.getNom());
 	}
-	
+
 	@Test
 	public void testGetPrenom() {
-		etudiant.setPrenom("Prenom");
-		assertEquals("Prenom", etudiant.getPrenom());
+		assertEquals("Dupont", etudiant.getPrenom());
 	}
-	
+
 	@Test
-	public void testGetTH() {
-		etudiant.setTaux_horaire(4.5f);
-		assertEquals(4.5f, etudiant.getTaux_horaire(),0.00001f);
+	public void testGetEchelle() {
+		assertEquals(6, etudiant.getEchelle());
 	}
-	
+
 	@Test
-	public void testGetHH() {
-		etudiant.setHeures_hebdo(17.0f);
-		assertEquals(17.0f, etudiant.getHeures_hebdo(),0.00001f);
+	public void testGetEchelon() {
+		assertEquals(7, etudiant.getEchelon());
 	}
-	
+
+	@Test
+	public void testGetHeuresHebdo() {
+		assertEquals(35.0f, etudiant.getHeuresHebdo(), 0.00001f);
+	}
+
 	@Test
 	public void testGetDebutContrat() {
-		etudiant.setDebut_contrat("1234");
-		assertEquals("1234", etudiant.getDebut_contrat());
+		assertEquals(LocalDate.of(2023, 04, 1), etudiant.getDebutContrat());
 	}
-	
+
 	@Test
 	public void testGetFinContrat() {
-		etudiant.setFin_contrat("5678");
-		assertEquals("5678", etudiant.getFin_contrat());
+		assertEquals(LocalDate.of(2024, 12, 31), etudiant.getFinContrat());
 	}
-	
-	@Test
-	public void testSalaireMensuel() {
-		etudiant.setTaux_horaire(4.0f);
-		etudiant.setHeures_hebdo(10.0f);
-		assertEquals(160.0f, etudiant.calcul_salaire_mensuel(),0.00001f);
-	}
-	
+
 	@Test
 	public void testGetCip() {
-		etudiant.setCip("xxxx00");
-		assertEquals("xxxx00", etudiant.getCip());
+		assertEquals("testCIP", etudiant.getCip());
 	}
-	
+
 	@Test
 	public void testGetProgramme() {
-		etudiant.setProgramme(Programme.DOCTORAT);
-		assertEquals(Programme.DOCTORAT, etudiant.getProgramme());
+		assertEquals(Programme.BACCALAUREAT, etudiant.getProgramme());
 	}
-	
+
+	@Test
+	public void testCalculerSalaireParJour() {
+		double expected = etudiant.getTauxHoraire() * 7; // 7 heures par jour
+		double result = etudiant.calculerSalaireParJour(etudiant);
+		System.out.println("Salaire par jour attendu: " + expected + ", obtenu: " + result);
+		assertEquals(expected, result, 0.001);
+	}
+
+	@Test
+	public void testCalculerSalaireBrut() {
+		double salaireParJour = etudiant.calculerSalaireParJour(etudiant);
+		int joursOuvrables = UtilitaireDate.calculerJoursOuvrables(etudiant.getDebutContrat(), etudiant.getFinContrat());
+		double expected = salaireParJour * joursOuvrables;
+		double result = etudiant.calculerSalaireBrut(etudiant);
+		System.out.println("Salaire brut attendu: " + expected + ", obtenu: " + result);
+		assertEquals(expected, result, 0.001);
+	}
+
+	@Test
+	public void testCalculerSalaireEstime() {
+		double salaireBrut = etudiant.calculerSalaireBrut(etudiant);
+		double expected = salaireBrut + (salaireBrut * 0.25); // Bonus de 25%
+		double result = etudiant.calculerSalaireEstime(etudiant);
+		System.out.println("Salaire estimé attendu: " + expected + ", obtenu: " + result);
+		assertEquals(expected, result, 0.001);
+	}
+
+
 }
