@@ -37,11 +37,12 @@ public class UBRTest {
 
 	@Test
 	public void testGetMontantsLignesBudgetaire() {
-		Map<LigneBudgetaire, Float> montantsLignesBudgetaire = new HashMap<>();
-		montantsLignesBudgetaire.put(ligneBudgetaire, 100.0f);
-		ubr.setMontantsLignesBudgetaire(montantsLignesBudgetaire);
+//		Map<LigneBudgetaire, UBR.Fond> montantsLignesBudgetaire = new HashMap<>();
+//		montantsLignesBudgetaire.put(ligneBudgetaire, new UBR.Fond(100.0f,0.0f));
+//		ubr.setMontantsLignesBudgetaire(montantsLignesBudgetaire);
+		ubr.ajouterLigneBudgetaire(ligneBudgetaire, 100.0f);
 		assertTrue(ubr.getMontantsLignesBudgetaire().containsKey(ligneBudgetaire));
-		assertEquals(100.0f, ubr.getMontantsLignesBudgetaire().get(ligneBudgetaire), 0.0f);
+		assertEquals(100.0f, ubr.getMontant(ligneBudgetaire), 0.0f);
 	}
 
 	@Test
@@ -54,7 +55,7 @@ public class UBRTest {
 	public void testAjouterLigneBudgetaire() {
 		ubr.ajouterLigneBudgetaire(ligneBudgetaire, 300.0f);
 		assertTrue(ubr.getMontantsLignesBudgetaire().containsKey(ligneBudgetaire));
-		assertEquals(300.0f, ubr.getMontantsLignesBudgetaire().get(ligneBudgetaire), 0.0f);
+		assertEquals(300.0f, ubr.getMontantsLignesBudgetaire().get(ligneBudgetaire).getTotal(), 0.0f);
 	}
 
 	@Test
