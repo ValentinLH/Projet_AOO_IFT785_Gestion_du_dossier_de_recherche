@@ -1,9 +1,20 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire;
 
-public class Organisme {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-	private String nom;
+@Entity
+public class Organisme {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
 	private int code;
+	
+	private String nom;
 	
 	
 	public Organisme() {

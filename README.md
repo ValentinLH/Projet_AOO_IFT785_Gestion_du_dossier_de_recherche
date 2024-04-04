@@ -19,4 +19,4 @@ Une fois MySQL configurée, on va devoir créer une base de données pour le pro
 
 ### Dépendances
 
-Pour que tout marche convenablement, il faut intégrer au projet tous les jar présents dans le dossier Jar sur le groupe Teams. Pour les intégrer au projet, sur Eclipse, clic droit sur projet -> properties -> Java Build Path -> Add External JARs -> Sélectionnez tous les jars situés dans le dossier Jar.
+Toutes les dépendances sont normalement directement inclus dans le répertoire git

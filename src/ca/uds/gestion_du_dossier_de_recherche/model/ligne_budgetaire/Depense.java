@@ -1,6 +1,16 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Depense {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	
 	private String nom;
 	private float montant;

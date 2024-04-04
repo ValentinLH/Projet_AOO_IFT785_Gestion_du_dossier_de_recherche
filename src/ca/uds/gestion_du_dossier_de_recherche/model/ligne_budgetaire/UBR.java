@@ -1,17 +1,49 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class UBR {
+import jakarta.persistence.Entity;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
-	private Organisme organisme;
+@Entity
+public class UBR {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
 	private int code;
+	
+	@OneToOne
+	private Organisme organisme;
+	
+	@OneToMany(mappedBy = "ubr")
+    private List<AffectationLigneUbr> affectationsLignes = new ArrayList<>();
+	
+	@Transient
 	private Map<LigneBudgetaire, Float> montantsLignesBudgetaire;
+	
 	private boolean contraintes;
+	
+	@Column(columnDefinition = "DATE")
 	private LocalDate dateDebut;
+	
+	@Column(columnDefinition = "DATE")
 	private LocalDate dateFin;
 
 	public UBR() {
@@ -181,28 +213,94 @@ public class UBR {
 		this.contraintes = contraintes;
 	}
 
-	   public LocalDate getDateDebut() {
-	        return dateDebut;
-	    }
+   public LocalDate getDateDebut() {
+        return dateDebut;
+    }
 
-	    public void setDateDebut(LocalDate dateDebut) {
-	        this.dateDebut = dateDebut;
-	        // Vérifie si la date de fin est définie et si elle est inférieure à la date de début
-	        if (dateFin != null && dateFin.isBefore(dateDebut)) {
-	            this.dateFin = dateDebut;
-	        }
-	    }
+    public void setDateDebut(LocalDate dateDebut) {
+        this.dateDebut = dateDebut;
+        // Vérifie si la date de fin est définie et si elle est inférieure à la date de début
+        if (dateFin != null && dateFin.isBefore(dateDebut)) {
+            this.dateFin = dateDebut;
+        }
+    }
 
-	    public LocalDate getDateFin() {
-	        return dateFin;
-	    }
+    public LocalDate getDateFin() {
+        return dateFin;
+    }
 
-	    public void setDateFin(LocalDate dateFin) {
-	        // Vérifie si la date de fin est inférieure à la date de début
-	        if (dateDebut != null && dateFin.isBefore(dateDebut)) {
-	            throw new IllegalArgumentException("La date de fin doit être supérieure ou égale à la date de début.");
-	        }
-	        this.dateFin = dateFin;
-	    }
+    public void setDateFin(LocalDate dateFin) {
+        // Vérifie si la date de fin est inférieure à la date de début
+        if (dateDebut != null && dateFin.isBefore(dateDebut)) {
+            throw new IllegalArgumentException("La date de fin doit être supérieure ou égale à la date de début.");
+        }
+        this.dateFin = dateFin;
+    }
+    
+    @Entity
+    @Table(name = "affectation_ligneubr")
+    public static class AffectationLigneUbr {
+    	
+    	@Id
+    	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    	private long id;
+
+    	@ManyToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "ubr_id")
+        private UBR ubr;
+
+    	@ManyToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "plignebudgetaire_id")
+        private LigneBudgetaire ligne;
+
+        private Float montant;
+        
+        public AffectationLigneUbr(UBR ubr, LigneBudgetaire ligne, Float montant) {
+        	super();
+        	this.ubr = ubr;
+        	this.ligne = ligne;
+        	this.montant = montant;
+        }
+        
+        public long getId() {
+    		return this.id;
+    	}
+    	
+    	public void setId(long id) {
+    		this.id = id;
+    	}
+        
+        public UBR getUbr() {
+        	return ubr;
+        }
+        
+        public void setUbr(UBR ubr) {
+        	this.ubr = ubr;
+        }
+        
+        public LigneBudgetaire getLigneBudgetaire() {
+        	return ligne;
+        }
+        
+        public void setLigneBudgetaire(LigneBudgetaire ligne) {
+        	this.ligne = ligne;
+        }
+        
+        public Float getMontant() {
+        	return montant;
+        }
+        
+        public void setMontant(Float montant) {
+        	this.montant = montant;
+        }
+    }
+
+	public List<AffectationLigneUbr> getAffectationsLignes() {
+		return affectationsLignes;
+	}
+
+	public void setAffectationsLignes(List<AffectationLigneUbr> affectationsLignes) {
+		this.affectationsLignes = affectationsLignes;
+	}
 
 }

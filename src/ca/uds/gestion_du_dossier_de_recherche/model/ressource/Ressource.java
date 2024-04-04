@@ -1,14 +1,19 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
+import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet.AffectationProjetRessource;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Inheritance;
 
 @Entity
@@ -16,15 +21,22 @@ import jakarta.persistence.Inheritance;
 public abstract class Ressource {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id;
 	
     private String Nom;
     private String Prenom;
     private float Taux_horaire;
     private float Heures_hebdo;
+    
+    @Column(columnDefinition = "DATE")
     private LocalDate Debut_contrat;
+    
+    @Column(columnDefinition = "DATE")
     private LocalDate Fin_contrat;
+    
+    @OneToMany(mappedBy = "ressource")
+    private List<AffectationProjetRessource> affectationsRessource = new ArrayList<>();
 
 
     public Ressource(String Nom, String Prenom, float TH, float HH, LocalDate DC, LocalDate FC){
@@ -140,6 +152,20 @@ public abstract class Ressource {
 	public String toString() {
 		return "Ressource [Nom=" + Nom + ", Prenom=" + Prenom + ", Taux_horaire=" + Taux_horaire + ", Heures_hebdo="
 				+ Heures_hebdo + ", Debut_contrat=" + Debut_contrat + ", Fin_contrat=" + Fin_contrat + "]";
+	}
+
+
+
+
+	public List<AffectationProjetRessource> getAffectationsRessource() {
+		return affectationsRessource;
+	}
+
+
+
+
+	public void setAffectationsRessource(List<AffectationProjetRessource> affectationsRessource) {
+		this.affectationsRessource = affectationsRessource;
 	}
     	
 }
