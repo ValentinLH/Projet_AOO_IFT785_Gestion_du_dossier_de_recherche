@@ -11,14 +11,14 @@ import jakarta.persistence.Query;
 @Transactional
 public class ressourceDAO {
 	
-	public static Ressource persistRessource(Ressource persistedRessource) {
+	public static boolean persistRessource(Ressource persistedRessource) {
 		BDDConnection.em.getTransaction().begin();
 		BDDConnection.em.persist(persistedRessource);
 		BDDConnection.em.getTransaction().commit();	
 		if (BDDConnection.em.contains(persistedRessource)) {
-			  return persistedRessource;
+			  return true;
 		} else {
-			  return null;
+			  return false;
 		}
 	}
 	
