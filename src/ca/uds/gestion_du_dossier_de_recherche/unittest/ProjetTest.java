@@ -70,7 +70,7 @@ public class ProjetTest {
 		projet.addLigneBudgetaire(ligneBudgetaire);
 		projet.addLigneBudgetaire(ligneBudgetaire2);
 		assertEquals(2, projet.getAllLigneBudgetaires().size());
-		assertEquals(1000f, projet.getFinancement(), 0f);
+		assertEquals(1000f, projet.calculMontant(LocalDate.now()), 0f);
 
 		List<LigneBudgetaire> lignesList = new ArrayList<LigneBudgetaire>();
 		lignesList.add(ligneBudgetaire);
@@ -82,11 +82,11 @@ public class ProjetTest {
 
 		LigneBudgetaire ligneBudgetaire3 = new LigneBudgetaire("Ligne Budgetaire de Farine", "Farine");
 		ligneBudgetaire3.ajouterUBR(ubr2, 5000f);
-		assertEquals(1000f, projet2.getFinancement(), 0f);
+		assertEquals(1000f, projet2.calculMontant(LocalDate.now()), 0f);
 
 		projet2.addLigneBudgetaire(ligneBudgetaire3);
 		assertEquals(3, projet2.getAllLigneBudgetaires().size());
-		assertEquals(6000f, projet2.getFinancement(), 0f);
+		assertEquals(6000f, projet2.calculMontant(LocalDate.now()), 0f);
 
 	}
 
@@ -105,14 +105,14 @@ public class ProjetTest {
 
 		projet2.removeLigneBudgetaire(ligneBudgetaire2);
 		assertEquals(2, projet2.getAllLigneBudgetaires().size());
-		assertEquals(5000f, projet2.getFinancement(), 0f);
+		assertEquals(5000f, projet2.calculMontant(LocalDate.now()), 0f);
 
 		projet2.removeLigneBudgetaire(null); // ne change rien au projet
-		assertEquals(5000f, projet2.getFinancement(), 0f);
+		assertEquals(5000f, projet2.calculMontant(LocalDate.now()), 0f);
 		assertEquals(2, projet2.getAllLigneBudgetaires().size());
 
 		projet2.removeLigneBudgetaire(ligneBudgetaire2); // n'existe plus dans la liste de ce projet donc fait rien
-		assertEquals(5000f, projet2.getFinancement(), 0f);
+		assertEquals(5000f, projet2.calculMontant(LocalDate.now()), 0f);
 		assertEquals(2, projet2.getAllLigneBudgetaires().size());
 
 	}
@@ -188,7 +188,7 @@ public class ProjetTest {
 		LocalDate dateFinProjet = LocalDate.now().plusDays(30);
 		projet.addRessourceWithDate(ressource1, dateDebutProjet, dateFinProjet);
 		projet.addRessourceWithDate(ressource2, dateDebutProjet, dateFinProjet);
-
+		
 		Map<Ressource, Double> salaires = projet.calculSalaireRessources();
 
 		assertNotNull("La map des salaires ne doit pas être null", salaires);
