@@ -101,10 +101,7 @@ public class TestVentilation {
 		
         System.out.println(" ##################################################################");
         
-        Ventilation eole = new Ventilation(new TrieDateFinContrat());
-        
-        
-        
+        Ventilation eole = new Ventilation(new TrieDateFinContrat());   
         List<Projet> res = (List<Projet>) eole.ventiler(projets);
         
         for(Projet p : res)
