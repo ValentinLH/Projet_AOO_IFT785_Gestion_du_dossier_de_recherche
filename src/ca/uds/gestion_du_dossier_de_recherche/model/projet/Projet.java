@@ -19,7 +19,6 @@ public class Projet {
     private LocalDate dateDebut;
     private LocalDate dateFin;
     private List<LigneBudgetaire> lignesBudgetaires;
-    private double financement;
     private Map<Ressource, List<LocalDate>> ressources;
 
 
@@ -35,7 +34,6 @@ public class Projet {
     	this.dateFin = dateFin;
     	this.lignesBudgetaires = new ArrayList<LigneBudgetaire>();
     	this.ressources = new HashMap<Ressource, List<LocalDate>>();
-    	this.financement = 0d;
     }
     
     public Projet(String Titre,String description,LocalDate dateDebut,LocalDate dateFin) {
@@ -46,7 +44,6 @@ public class Projet {
     	this.dateFin = dateFin;
     	this.lignesBudgetaires = new ArrayList<LigneBudgetaire>();
     	this.ressources = new HashMap<Ressource, List<LocalDate>>();
-    	this.financement = 0d;
     }
     
     public Projet(String Titre,String description,LocalDate dateDebut,LocalDate dateFin,List<LigneBudgetaire> lignes) {
@@ -56,7 +53,6 @@ public class Projet {
     	this.dateDebut = dateDebut;
     	this.dateFin = dateFin;
     	this.lignesBudgetaires = lignes;
-    	this.financement = 0d;
     	this.calculMontant(LocalDate.now());
     }
     
@@ -68,7 +64,6 @@ public class Projet {
     	this.dateFin = dateFin;
     	this.lignesBudgetaires = new ArrayList<LigneBudgetaire>();
     	this.ressources = ressources;
-    	this.financement = 0d;
     }
     
     public Projet(String Titre,String description,LocalDate dateDebut,LocalDate dateFin,List<LigneBudgetaire> lignes,Map<Ressource, List<LocalDate>> ressources) {
@@ -79,7 +74,6 @@ public class Projet {
     	this.dateFin = dateFin;
     	this.lignesBudgetaires = lignes;
     	this.ressources = ressources;
-    	this.financement = 0d;
     	this.calculMontant(LocalDate.now());
     }
 
@@ -124,14 +118,6 @@ public class Projet {
 
     public void setDateFin(LocalDate dateFin) {
         this.dateFin = dateFin;
-    }
-    
-    public double getFinancement() {
-        return financement;
-    }
-
-    private void setFinancement(double financement) {
-        this.financement = financement;
     }
     
     public List<LigneBudgetaire> getAllLigneBudgetaires(){
@@ -196,11 +182,12 @@ public class Projet {
     		this.ressources.remove(ressource);
     }
     
-    public void calculMontant(LocalDate date) {
-    	this.setFinancement(0.0);
+    public float calculMontant(LocalDate date) {
+    	float financement =0.0f;
     	for(LigneBudgetaire lignes : lignesBudgetaires) {
-    		this.financement += lignes.getMontantLigne(date);
+    		financement += lignes.getMontantLigne(date);
     	}
+    	return financement;
     }
 
     public void dateLimiteDepenses() {
@@ -289,7 +276,6 @@ public class Projet {
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
                 ", ressources=" + ressources +
-                ", financement=" + financement +
                 '}';
     }
 }

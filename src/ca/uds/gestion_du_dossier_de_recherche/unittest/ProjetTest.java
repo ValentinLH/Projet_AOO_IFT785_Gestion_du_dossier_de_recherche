@@ -58,12 +58,10 @@ public class ProjetTest {
 	@Test
 	public void CalculMontantTest() {
 		projet.addLigneBudgetaire(ligneBudgetaire);
-		projet.calculMontant(LocalDate.now());
-		assertEquals(0f, projet.getFinancement(), 0f); // UBR avec contrainte
+		assertEquals(0f, projet.calculMontant(LocalDate.now()), 0f); // UBR avec contrainte
 
 		projet.addLigneBudgetaire(ligneBudgetaire2);
-		projet.calculMontant(LocalDate.now());
-		assertEquals(1000f, projet.getFinancement(), 0f); // UBR sans contrainte
+		assertEquals(1000f, projet.calculMontant(LocalDate.now()), 0f); // UBR sans contrainte
 	}
 
 	@Test
