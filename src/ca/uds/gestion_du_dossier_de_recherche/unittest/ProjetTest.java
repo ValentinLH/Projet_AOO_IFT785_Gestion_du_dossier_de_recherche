@@ -121,7 +121,7 @@ public class ProjetTest {
 	public void TestDateLimiteDepense() {
 		projet.addLigneBudgetaire(ligneBudgetaire);
 		projet.addLigneBudgetaire(ligneBudgetaire2);
-		projet.dateLimiteDepenses();
+		projet.dateLimiteDepenses(10);
 		assertEquals("Le montant founit par l'UBR Mon Frigidaire d'un motant total de 1000.0 dollars expire bientôt",
 				outContent.toString().trim());
 

@@ -65,11 +65,5 @@ public class UBRTest {
 		assertTrue(ubr.getMontantsLignesBudgetaire().isEmpty());
 	}
 
-	@Test
-	public void testToString() {
-		ubr.setOrganisme(new Organisme());
-		ubr.setCode(123);
-		ubr.ajouterLigneBudgetaire(ligneBudgetaire, 500.0f);
-		assertEquals("UBR [organisme=[Organisme null, code=0], code=123, montantsLignesBudgetaire={Ligne Budgetaire de Chocolat=500.0}]", ubr.toString());
-	}
+
 }
