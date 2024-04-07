@@ -52,14 +52,17 @@ public class TestVentilation {
 		for(Projet p : projets)
 			System.out.println("> "+p.getTitre()+" - "+p.calculMontant(date)+"$");
 		
-		
-//		Collections.sort(projets, (projet1, projet2) -> {
-//		    LocalDate montant1 = projet1.getDateFin();
-//		    LocalDate montant2 = projet2.getDateFin();
-//		    return LocalDate.compare(montant2, montant1); // Trie par ordre décroissant
-//		});
+		System.out.println("  ----------------");
 		
 		
+		Collections.sort(projets, (projet1, projet2) -> {
+		    LocalDate date1 = projet1.getDateFin();
+		    LocalDate date2 = projet2.getDateFin();
+		    return date1.compareTo(date2); // Trie par ordre décroissant
+		});
+		
+		for(Projet p : projets)
+			System.out.println("> "+p.getTitre()+" - "+p.calculMontant(date)+"$"+" - "+p.getDateFin());
 		
 	}
 	
