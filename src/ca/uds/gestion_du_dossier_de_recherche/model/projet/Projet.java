@@ -3,12 +3,13 @@ package ca.uds.gestion_du_dossier_de_recherche.model.projet;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.LigneBudgetaire;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
+import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilable;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-public class Projet {
+public class Projet implements Ventilable {
 
     /* ====================
         Attributs de base
@@ -112,6 +113,7 @@ public class Projet {
         this.dateDebut = dateDebut;
     }
 
+    @Override
     public LocalDate getDateFin() {
         return dateFin;
     }
@@ -182,6 +184,11 @@ public class Projet {
     		this.ressources.remove(ressource);
     }
     
+    @Override
+	public float getMontantVentilation(LocalDate date) {
+		return calculMontant(date);
+	}
+    
     public float calculMontant(LocalDate date) {
     	float financement =0.0f;
     	for(LigneBudgetaire lignes : lignesBudgetaires) {
@@ -190,7 +197,7 @@ public class Projet {
     	return financement;
     }
 
-    public void dateLimiteDepenses() {
+    public void dateLimiteDepenses(int nbJour) {
         //Pour chaque ligne budgetaire
         //  Comparé les date de fin imposé par l'UBR avec celle d'ojd
         //  SI < à un certain palier
@@ -200,7 +207,7 @@ public class Projet {
     	
     	for (LigneBudgetaire ligne : this.lignesBudgetaires) {
     		for(UBR ubr : ligne.getUbrs()) {
-    			if(ubr.getDateFin().minusDays(10).isBefore(LocalDate.now())) {
+    			if(ubr.getDateFin().minusDays(nbJour).isBefore(LocalDate.now())) {
     				//afficher une alerte
     				System.out.println("Le montant founit par l'UBR " + ubr.getOrganisme().getNom() + " d'un motant total de " + ubr.getMontant(ligne) + " dollars expire bientôt");
     				//actuellement sur console mais doit être sur la vue plus tard
@@ -278,4 +285,6 @@ public class Projet {
                 ", ressources=" + ressources +
                 '}';
     }
+
+	
 }

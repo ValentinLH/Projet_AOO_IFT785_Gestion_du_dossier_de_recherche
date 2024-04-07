@@ -48,7 +48,7 @@ public class Main {
 		
 		p.removeLigneBudgetaire(ligneBudgetaire2);
 		
-		p.dateLimiteDepenses();
+		p.dateLimiteDepenses(10);
 		
 	    FabriquePersonne factory = new FabriqueEtudiant();
 	    Ressource ressource = factory.createRessource("John", "Doe", 20.0f, 40.0f,   LocalDate.now().minusDays(5),  LocalDate.now().plusDays(5));

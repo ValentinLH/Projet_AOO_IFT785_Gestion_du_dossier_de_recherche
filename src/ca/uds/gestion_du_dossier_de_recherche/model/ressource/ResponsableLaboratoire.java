@@ -24,7 +24,8 @@ public class ResponsableLaboratoire extends Ressource{
 	public void setLaboratoire(String laboratoire) {
 		Laboratoire = laboratoire;
 	}
-	
+
+
 	
 	
 }
