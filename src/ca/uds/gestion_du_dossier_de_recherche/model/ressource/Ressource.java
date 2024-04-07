@@ -2,9 +2,11 @@ package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
+import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilable;
+
 import java.time.LocalDate;
 
-public abstract class Ressource {
+public abstract class Ressource implements Ventilable {
     private String Nom;
     private String Prenom;
     private float Taux_horaire;
@@ -22,8 +24,12 @@ public abstract class Ressource {
         this.Fin_contrat = FC;
     }
 
-
- 
+	@Override
+	public float getMontantVentilation(LocalDate date) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
     
     public void travaillePour(Projet P){
     }
@@ -76,9 +82,10 @@ public abstract class Ressource {
 	}
 
 
-//	public LocalDate getFin_contrat() {
-//		return Fin_contrat;
-//	}
+	@Override
+	public LocalDate getDateFin() {
+		return Fin_contrat;
+	}
 
 
 	public void setFin_contrat(LocalDate fin_contrat) {
