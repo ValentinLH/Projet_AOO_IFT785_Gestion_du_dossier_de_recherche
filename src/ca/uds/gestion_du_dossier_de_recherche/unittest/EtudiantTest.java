@@ -24,6 +24,7 @@ public class EtudiantTest {
 	@Test
 	public void testTauxHoraire() {
 		assertEquals(44.91, etudiant.getTauxHoraire(), 0.001);
+	}
 
 	@Test
 	public void testGetNom() {
