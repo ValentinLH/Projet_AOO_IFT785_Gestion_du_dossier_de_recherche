@@ -40,6 +40,9 @@ public class GrilleSalariale {
         grille.put(3, echelle3);
 
         // Echellon 4 -> 16 (A faire)
+        Map<Integer, Double> echelle6 = new HashMap<>();
+        echelle6.put(7, 44.91);
+        grille.put(6, echelle6);
 
 
 
