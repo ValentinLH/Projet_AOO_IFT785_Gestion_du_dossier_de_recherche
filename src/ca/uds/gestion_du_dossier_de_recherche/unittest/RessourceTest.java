@@ -45,6 +45,7 @@ public class RessourceTest {
         double result = ressource.calculerSalaireEstime(ressource);
         System.out.println("Salaire estimé attendu: " + expected + ", obtenu: " + result);
         assertEquals(expected, result, 0.001);
+    }
 
     private static class RessourceConcret extends Ressource {
         public RessourceConcret(String nom, String prenom, int echelle, int echelon, float heuresHebdo, LocalDate debutContrat, LocalDate finContrat) {

@@ -130,10 +130,8 @@ public class ProjetTest {
 	@Test
 	public void testUpdateressource() {
 
-		Ressource ressource1 = new Soutien("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1),
-				LocalDate.now().minusMonths(5));
-		Ressource ressource2 = new Soutien("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1),
-				LocalDate.now().plusMonths(1));
+		Ressource ressource1 = new Soutien("Nom", "Prenom", 1, 1, 40.0f, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 12, 31));
+		Ressource ressource2 = new Soutien("Nom", "Prenom", 1, 1, 40.0f, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 12, 31));
 		LocalDate dateDebut = LocalDate.now().minusMonths(10);
 		LocalDate dateFin = LocalDate.now().plusMonths(1);
 		LocalDate dateFinExpire = LocalDate.now().minusMonths(5);
@@ -154,8 +152,8 @@ public class ProjetTest {
 	@Test
 	public void testAddRessourceWithDate() {
 
-		Ressource ressource = new Soutien("Amin", "Dev", 20f, 40f, LocalDate.now().minusMonths(2), LocalDate.now().plusMonths(1));
-		Ressource ressource2 = new Soutien("Maxime", "Dev", 25f, 30f, LocalDate.now().minusMonths(1), LocalDate.now().plusMonths(2));
+		Ressource ressource = new Soutien("Amin", "Dev", 1, 1, 40.0f, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 12, 31));
+		Ressource ressource2 = new Soutien("Maxime", "Dev", 1, 1, 40.0f, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 12, 31));
 		
 		LocalDate dateDebut = LocalDate.now().minusDays(1);
 		LocalDate dateFin = LocalDate.now().plusDays(1);
@@ -178,8 +176,8 @@ public class ProjetTest {
 	@Test
 	public void testCalculSalaireRessources() {
 
-		Ressource ressource1 = new Soutien("Amin", "Dev", 20f, 40f, LocalDate.now().minusMonths(2), LocalDate.now().plusMonths(1));
-		Ressource ressource2 = new Soutien("Maxime", "Dev", 25f, 30f, LocalDate.now().minusMonths(1), LocalDate.now().plusMonths(2));
+		Ressource ressource1 = new Soutien("Amin", "Dev",1, 1, 40.0f, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 12, 31));
+		Ressource ressource2 = new Soutien("Maxime", "Dev", 1, 1, 40.0f, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 12, 31));
 
 
 		// Affectation commence il y a 30 jours
@@ -193,8 +191,8 @@ public class ProjetTest {
 
 		assertNotNull("La map des salaires ne doit pas être null", salaires);
 
-		double salaireAttenduRessource1 = ressource1.calcul_salaire_mensuel();
-		double salaireAttenduRessource2 = ressource2.calcul_salaire_mensuel();
+		double salaireAttenduRessource1 = ressource1.calculSalaireMensuel();
+		double salaireAttenduRessource2 = ressource2.calculSalaireMensuel();
 
 		assertEquals("Le salaire calculé pour la ressource 1 doit correspondre au salaire attendu",
 				salaireAttenduRessource1, salaires.get(ressource1), 0.01);
