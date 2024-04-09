@@ -1,6 +1,7 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
 import java.time.LocalDate;
+
 import java.util.Objects;
 
 public class Etudiant extends Ressource {
@@ -22,6 +23,8 @@ public class Etudiant extends Ressource {
     public String toString() {
         return super.toString() + "\n Etudiant [cip=" + cip + ", programme=" + programme + "]";
     }
+  
+   //getter and setter
 
     public String getCip() {
         return cip;

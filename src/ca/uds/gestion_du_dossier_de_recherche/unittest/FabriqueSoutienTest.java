@@ -2,6 +2,8 @@ package ca.uds.gestion_du_dossier_de_recherche.unittest;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+
 import org.junit.Test;
 import java.time.LocalDate;
 
@@ -19,7 +21,7 @@ public class FabriqueSoutienTest {
         assertTrue(r instanceof Soutien); // vérifie que l'objet créé est une instance de Soutien
         assertEquals("Nom", r.getNom());
         assertEquals("Prenom", r.getPrenom());
-        assertEquals(40.0f, r.getHeuresHebdo(), 0.01);
+        assertEquals(40.0f, r.getHeuresHebdo(), 0.01); // use a delta to account for floating point precision
         assertEquals(LocalDate.of(2022, 1, 1), r.getDebutContrat());
         assertEquals(LocalDate.of(2022, 12, 31), r.getFinContrat());
     }

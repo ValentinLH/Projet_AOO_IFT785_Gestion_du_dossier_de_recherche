@@ -1,6 +1,7 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
 import java.time.LocalDate;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
 
 public class FabriqueEtudiant extends FabriquePersonne {
     @Override

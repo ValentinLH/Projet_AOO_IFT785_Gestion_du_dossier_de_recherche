@@ -1,8 +1,10 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 import java.time.LocalDate;
+import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
+import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilable;
 
-
-public abstract class Ressource {
+public abstract class Ressource implements Ventilable {
 	private String nom;
 	private String prenom;
 	private int echelle;
@@ -15,6 +17,7 @@ public abstract class Ressource {
 	static {
 		grilleSalariale = new GrilleSalariale();
 	}
+
 
 	public Ressource(String nom, String prenom, int echelle, int echelon, float heuresHebdo, LocalDate debutContrat, LocalDate finContrat) {
 		this.nom = nom;
@@ -34,6 +37,18 @@ public abstract class Ressource {
 		this.echelle = echelle;
 		this.echelon = echelon;
 	}
+
+	@Override
+	public float getMontantVentilation(LocalDate date) {
+		// TODO Auto-generated method stub
+		return 0;
+  }
+  
+  public void travaillePour(Projet P){
+  }
+
+  public void estPayePar(Projet P) {
+  }
 
 	public double calculSalaireMensuel() {
 		double tauxHoraire = getTauxHoraire();
@@ -90,7 +105,14 @@ public abstract class Ressource {
 
 	public LocalDate getFinContrat() {
 		return finContrat;
+  }
+  
+  @Override
+	public LocalDate getDateFin() {
+		return Fin_contrat;
 	}
+
+
 
 	public void setFinContrat(LocalDate finContrat) {
 		this.finContrat = finContrat;
@@ -121,8 +143,10 @@ public abstract class Ressource {
 		double bonus = salaireBrut * 0.25;
 		return salaireBrut + bonus;
 	}
-
-
-	//abstract travaillePour(Projet P);
-    //abstract estPayéPar(Projet P);
-}
+  
+  @Override
+	public String toString() {
+		return "Ressource [Nom=" + Nom + ", Prenom=" + Prenom + ", Taux_horaire=" + Taux_horaire + ", Heures_hebdo="
+				+ Heures_hebdo + ", Debut_contrat=" + Debut_contrat + ", Fin_contrat=" + Fin_contrat + "]";
+	}
+    	
