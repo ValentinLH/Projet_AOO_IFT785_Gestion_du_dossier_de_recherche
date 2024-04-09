@@ -109,7 +109,7 @@ public abstract class Ressource implements Ventilable {
   
   @Override
 	public LocalDate getDateFin() {
-		return Fin_contrat;
+		return finContrat;
 	}
 
 
@@ -146,7 +146,6 @@ public abstract class Ressource implements Ventilable {
   
   @Override
 	public String toString() {
-		return "Ressource [Nom=" + Nom + ", Prenom=" + Prenom + ", Taux_horaire=" + Taux_horaire + ", Heures_hebdo="
-				+ Heures_hebdo + ", Debut_contrat=" + Debut_contrat + ", Fin_contrat=" + Fin_contrat + "]";
+		return "Ressource [Nom=" + nom + ", Prenom=" + prenom  +"Heures_hebdo="+ heuresHebdo + ", Debut_contrat=" + debutContrat + ", Fin_contrat=" + finContrat + "]";
 	}
-    	
+}    	
