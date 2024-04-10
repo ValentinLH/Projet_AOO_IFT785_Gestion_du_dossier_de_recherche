@@ -2,6 +2,9 @@ package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class ResponsableLaboratoire extends Ressource {
 
 	private String laboratoire;

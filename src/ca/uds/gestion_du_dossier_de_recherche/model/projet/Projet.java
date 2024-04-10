@@ -9,23 +9,6 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-public class Projet implements Ventilable {
-
-	/*
-	 * ==================== Attributs de base =====================
-	 */
-	private Long id;
-	private String titre;
-	private String description;
-	private LocalDate dateDebut;
-	private LocalDate dateFin;
-	private List<LigneBudgetaire> lignesBudgetaires;
-	private Map<Ressource, List<LocalDate>> ressources;
-
-
-
-/*
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,40 +22,33 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
 @Entity
-public class Projet {
+public class Projet implements Ventilable {
 
-    /* ====================
-        Attributs de base
-     ===================== */
+	/*
+	 * ==================== Attributs de base =====================
+	 */
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String titre;
-    private String description;
-
-    @Column(columnDefinition = "DATE")
-    private LocalDate dateDebut;
-
-    @Column(columnDefinition = "DATE")
-    private LocalDate dateFin;
-
-    @OneToMany(targetEntity = LigneBudgetaire.class, cascade = CascadeType.ALL)
-    private List<LigneBudgetaire> lignesBudgetaires;
-
-    private double financement;
-
-    @OneToMany(mappedBy = "projet")
+	private Long id;
+	
+	private String titre;
+	private String description;
+	
+	@Column(columnDefinition = "DATE")
+	private LocalDate dateDebut;
+	
+	@Column(columnDefinition = "DATE")
+	private LocalDate dateFin;
+	
+	@OneToMany(targetEntity = LigneBudgetaire.class, cascade = CascadeType.ALL)
+	private List<LigneBudgetaire> lignesBudgetaires;
+	
+	@Transient
+	private Map<Ressource, List<LocalDate>> ressources;
+	
+	@OneToMany(mappedBy = "projet")
     private List<AffectationProjetRessource> affectationsRessources = new ArrayList<>();
-
-    @Transient
-    private Map<Ressource, List<LocalDate>> ressources;
-
-*/
-
-
-
-
 
 
 	/*
@@ -180,53 +156,11 @@ public class Projet {
 	public List<LigneBudgetaire> getAllLigneBudgetaires() {
 		return this.lignesBudgetaires;
 	}
-
-    public void addLigneBudgetaire(LigneBudgetaire lignes) {
-    	if(lignes != null) {
-    		this.lignesBudgetaires.add(lignes);
-    		this.calculMontant(LocalDate.now());
-    	}
-    }
-
-    public void removeLigneBudgetaire(LigneBudgetaire lignes) {
-    	if(lignes != null && this.lignesBudgetaires.contains(lignes) == true) {
-    		this.lignesBudgetaires.remove(lignes);
-    		this.calculMontant(LocalDate.now());
-    	}
-    }
-
+	
     public void addAffectationProjetRessource(AffectationProjetRessource newAffectation) {
     	this.affectationsRessources.add(newAffectation);
     }
 
-    public void addRessourceWithDate(Ressource ressource, LocalDate dateDebut, LocalDate dateFin) {
-
-    	LocalDate affectationDebut = dateDebut;
-    	LocalDate affectationFin = dateFin;
-
-    	if(dateDebut!= null && dateDebut.isBefore(getDateDebut())) {
-    		affectationDebut = getDateDebut();
-    	}
-
-    	if(dateFin != null && dateFin.isAfter(getDateFin())) {
-    		affectationFin = getDateFin();
-    	}
-
-    	List<LocalDate> dates = Arrays.asList(affectationDebut, affectationFin);
-        this.ressources.put(ressource, dates);
-    }
-
-    public void removeRessouces(Ressource ressource) {
-    	if(ressource != null && this.ressources.containsKey(ressource)== true)
-    		this.ressources.remove(ressource);
-    }
-
-    public void calculMontant(LocalDate date) {
-    	this.setFinancement(0.0);
-    	for(LigneBudgetaire lignes : lignesBudgetaires) {
-    		this.financement += lignes.getMontantLigne(date);
-    	}
-    }
 
 	public Map<Ressource, List<LocalDate>> getRessources() {
 		return ressources;
@@ -384,20 +318,7 @@ public class Projet {
 		return "Projet{" + "id=" + id + ", titre=" + titre + ", description=" + description + ", dateDebut=" + dateDebut
 				+ ", dateFin=" + dateFin + ", ressources=" + ressources + '}';
 	}
-
-    @java.lang.Override
-    public java.lang.String toString() {
-        return "Projet{" +
-                "id=" + id +
-                ", titre=" + titre +
-                ", description=" + description +
-                ", dateDebut=" + dateDebut +
-                ", dateFin=" + dateFin +
-                ", ressources=" + ressources +
-                ", financement=" + financement +
-                '}';
-    }
-
+	
     @Entity
     @Table(name = "affectation_projetressource")
     public static class AffectationProjetRessource {

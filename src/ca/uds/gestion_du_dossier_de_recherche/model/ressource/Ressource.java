@@ -5,23 +5,6 @@ import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet.AffectationPro
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilable;
 
-public abstract class Ressource implements Ventilable {
-	private String nom;
-	private String prenom;
-	private int echelle;
-	private int echelon;
-	private float heuresHebdo;
-	private LocalDate debutContrat;
-	private LocalDate finContrat;
-	private static GrilleSalariale grilleSalariale;
-
-
-/*
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,34 +12,37 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import jakarta.persistence.Inheritance;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public abstract class Ressource {
-
+public abstract class Ressource implements Ventilable {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int Id;
+	
+	private String nom;
+	private String prenom;
+	private int echelle;
+	private int echelon;
+	private float heuresHebdo;
+	
+	@Column(columnDefinition = "DATE")
+	private LocalDate debutContrat;
+	
+	@Column(columnDefinition = "DATE")
+	private LocalDate finContrat;
+	
+	@Transient
+	private static GrilleSalariale grilleSalariale;
 
-    private String Nom;
-    private String Prenom;
-    private float Taux_horaire;
-    private float Heures_hebdo;
-
-    @Column(columnDefinition = "DATE")
-    private LocalDate Debut_contrat;
-
-    @Column(columnDefinition = "DATE")
-    private LocalDate Fin_contrat;
-
-    @OneToMany(mappedBy = "ressource")
+	@OneToMany(mappedBy = "ressource")
     private List<AffectationProjetRessource> affectationsRessource = new ArrayList<>();
-
-
-*/
-
-
 
 	static {
 		grilleSalariale = GrilleSalariale.getInstance();

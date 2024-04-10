@@ -35,11 +35,13 @@ public class UBR {
 	@OneToMany(mappedBy = "ubr")
     private List<AffectationLigneUbr> affectationsLignes = new ArrayList<>();
 
+	//@Transient
+	//private Map<LigneBudgetaire, Float> montantsLignesBudgetaire;
+
 	@Transient
-	private Map<LigneBudgetaire, Float> montantsLignesBudgetaire;
-
-	//private Map<LigneBudgetaire, Fond> montantsLignesBudgetaire;
-
+	private Map<LigneBudgetaire, Fond> montantsLignesBudgetaire;
+	
+	@Transient
 	private boolean contraintes;
 
 	@Column(columnDefinition = "DATE")
@@ -259,7 +261,15 @@ public class UBR {
 		this.dateFin = dateFin;
 	}
 
+	
+	@Entity
+	@Table(name = "fond")
 	public class Fond {
+		
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		private long id;
+		
 		private float total;
 		private float minUtilise;
 
@@ -299,7 +309,7 @@ public class UBR {
 
 	}
 
-	/*
+	
 	@Entity
 	@Table(name = "affectation_ligneubr")
 	public static class AffectationLigneUbr {
@@ -309,61 +319,62 @@ public class UBR {
 		private long id;
 
 		@ManyToOne(cascade = CascadeType.ALL)
-			@JoinColumn(name = "ubr_id")
-			private UBR ubr;
+		@JoinColumn(name = "ubr_id")
+		private UBR ubr;
 
 		@ManyToOne(cascade = CascadeType.ALL)
-			@JoinColumn(name = "plignebudgetaire_id")
-			private LigneBudgetaire ligne;
+		@JoinColumn(name = "lignebudgetaire_id")
+		private LigneBudgetaire ligne;
 
-			private Float montant;
+		@ManyToOne(cascade = CascadeType.ALL)
+		@JoinColumn(name = "fond_id")
+		private Fond fond;
+		
+		public AffectationLigneUbr(UBR ubr, LigneBudgetaire ligne, Fond fond) {
+			super();
+			this.ubr = ubr;
+			this.ligne = ligne;
+			this.fond = fond;
+		}
 
-			public AffectationLigneUbr(UBR ubr, LigneBudgetaire ligne, Float montant) {
-				super();
-				this.ubr = ubr;
-				this.ligne = ligne;
-				this.montant = montant;
-			}
-
-			public long getId() {
-			return this.id;
+		public long getId() {
+		return this.id;
 		}
 
 		public void setId(long id) {
 			this.id = id;
 		}
 
-			public UBR getUbr() {
-				return ubr;
-			}
+		public UBR getUbr() {
+			return ubr;
+		}
 
-			public void setUbr(UBR ubr) {
-				this.ubr = ubr;
-			}
+		public void setUbr(UBR ubr) {
+			this.ubr = ubr;
+		}
 
-			public LigneBudgetaire getLigneBudgetaire() {
-				return ligne;
-			}
+		public LigneBudgetaire getLigneBudgetaire() {
+			return ligne;
+		}
 
-			public void setLigneBudgetaire(LigneBudgetaire ligne) {
-				this.ligne = ligne;
-			}
+		public void setLigneBudgetaire(LigneBudgetaire ligne) {
+			this.ligne = ligne;
+		}
 
-			public Float getMontant() {
-				return montant;
-			}
+		public Fond getFond() {
+			return fond;
+		}
 
-			public void setMontant(Float montant) {
-				this.montant = montant;
-			}
+		public void setFond(Fond fond) {
+			this.fond = fond;
+		}
 	}
 
-public List<AffectationLigneUbr> getAffectationsLignes() {
-	return affectationsLignes;
-}
+	public List<AffectationLigneUbr> getAffectationsLignes() {
+		return affectationsLignes;
+	}
 
-public void setAffectationsLignes(List<AffectationLigneUbr> affectationsLignes) {
-	this.affectationsLignes = affectationsLignes;
-	*/
-
+	public void setAffectationsLignes(List<AffectationLigneUbr> affectationsLignes) {
+		this.affectationsLignes = affectationsLignes;
+	}
 }
