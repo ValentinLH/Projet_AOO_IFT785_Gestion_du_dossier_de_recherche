@@ -14,7 +14,7 @@ public class GrilleSalarialeTest {
 
     @Before
     public void setUp() {
-        grilleSalariale = new GrilleSalariale();
+        grilleSalariale = GrilleSalariale.getInstance();
     }
 
     @Test
