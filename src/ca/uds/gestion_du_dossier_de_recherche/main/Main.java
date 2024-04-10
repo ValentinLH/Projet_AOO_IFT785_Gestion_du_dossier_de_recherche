@@ -13,30 +13,9 @@ import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.*;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.*;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
 
-import ca.uds.gestion_du_dossier_de_recherche.model.ressource.*;
-import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
-import java.time.LocalDate;
-
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("Hey");
-		FabriquePersonne factory = new FabriqueEtudiant();
-
-		Ressource ressource = factory.createRessource("John", "Doe", 1, 1, 40.0f, LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
-    
-    if (ressource instanceof Etudiant) {
-      Etudiant etudiant = (Etudiant) ressource;
-      etudiant.setCip("jj");
-      etudiant.setProgramme(Programme.DOCTORAT);
-      System.out.println(etudiant.getProgramme());
-      System.out.println(etudiant.toString());
-      System.out.println(etudiant.getNom());
-      System.out.println(etudiant.calculSalaireMensuel());
-    } 
-    else {
-    System.out.println("La ressource créée n'est pas un étudiant.");
-    }
 
 		
 		//FabriqueRessource FR = new FabriqueEtudiant();
@@ -70,6 +49,15 @@ public class Main {
 		p.removeLigneBudgetaire(ligneBudgetaire2);
 		
 		p.dateLimiteDepenses(10);
+		
+	    FabriquePersonne factory = new FabriqueEtudiant();
+	    Ressource ressource = factory.createRessource("John", "Doe", 20.0f, 40.0f,   LocalDate.now().minusDays(5),  LocalDate.now().plusDays(5));
+	    ressource.setCip("jj");
+	    ressource.setProgramme(Programme.DOCTORAT);
+	    System.out.println(ressource.getProgramme());
+	    System.out.println(ressource.toString());
+	    //System.out.println(ressource.getNom());
+	    //System.out.println(ressource.calcul_salaire_mensuel());
 	}
-}
 
+}

@@ -2,10 +2,11 @@ package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
 import java.time.LocalDate;
 
-public class FabriqueResponsableLaboratoire {
+public class FabriqueResponsableLaboratoire extends FabriquePersonne {
+	    @Override
+	    public Ressource createRessource(String Nom, String Prenom, float Taux_horaire, float Heures_hebdo, LocalDate Debut_contrat, LocalDate Fin_contrat) {
+	         return new ResponsableLaboratoire(Nom,Prenom,Taux_horaire,Heures_hebdo,Debut_contrat,Fin_contrat,"null");
 
-	public Ressource createRessource(String nom, String prenom, int echelle, int echelon, float heuresHebdo, LocalDate debutContrat, LocalDate finContrat, String laboratoire) {
-		return new ResponsableLaboratoire(nom, prenom, echelle, echelon, heuresHebdo, debutContrat, finContrat, laboratoire);
+	    }
 	}
-}
 

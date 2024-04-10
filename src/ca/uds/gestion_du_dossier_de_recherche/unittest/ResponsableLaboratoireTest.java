@@ -2,21 +2,33 @@ package ca.uds.gestion_du_dossier_de_recherche.unittest;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDate;
+
 import org.junit.Before;
 import org.junit.Test;
-import java.time.LocalDate;
+
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.ResponsableLaboratoire;
 
 public class ResponsableLaboratoireTest {
-	private ResponsableLaboratoire responsableLaboratoire;
-
+private ResponsableLaboratoire ResponsableLaboratoire;
+	
 	@Before
 	public void setUp() throws Exception {
-		responsableLaboratoire = new ResponsableLaboratoire("Nom", "Prenom", 1, 1, 35.0f, LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31), "domus");
+		ResponsableLaboratoire = new ResponsableLaboratoire("", "", 0, 0,  LocalDate.now().minusDays(10), LocalDate.now().plusDays(10), "");
+		
+        
+        
 	}
-
+	
+	
 	@Test
-	public void testGetLaboratoire() {
-		assertEquals("domus", responsableLaboratoire.getLaboratoire());
+	public void testgetLaboratoire() {
+		ResponsableLaboratoire.setLaboratoire("domus");;
+		assertEquals("domus", ResponsableLaboratoire.getLaboratoire());
 	}
+	
+
+	
 }
