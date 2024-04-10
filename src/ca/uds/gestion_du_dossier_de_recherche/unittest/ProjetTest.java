@@ -40,7 +40,8 @@ public class ProjetTest {
 		ubr1 = new UBR(monFrigo, 1, true, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10));
 		ligneBudgetaire = new LigneBudgetaire("Ligne Budgetaire de Chocolat", "Chocolat");
 		ligneBudgetaire.ajouterUBR(ubr1, 500f);
-		projet = new Projet("Title Test","Test Description",LocalDate.now().minusDays(30), LocalDate.now().plusDays(30));
+		projet = new Projet("Title Test", "Test Description", LocalDate.now().minusDays(30),
+				LocalDate.now().plusDays(30));
 
 		ubr2 = new UBR(monFrigo, 1, false, LocalDate.now().minusDays(5), LocalDate.now().plusDays(5));
 		ligneBudgetaire2 = new LigneBudgetaire("Ligne Budgetaire de Beurre", "Beurre");
@@ -58,12 +59,10 @@ public class ProjetTest {
 	@Test
 	public void CalculMontantTest() {
 		projet.addLigneBudgetaire(ligneBudgetaire);
-		projet.calculMontant(LocalDate.now());
-		assertEquals(0f, projet.getFinancement(), 0f); // UBR avec contrainte
+		assertEquals(0f, projet.calculMontant(LocalDate.now()), 0f); // UBR avec contrainte
 
 		projet.addLigneBudgetaire(ligneBudgetaire2);
-		projet.calculMontant(LocalDate.now());
-		assertEquals(1000f, projet.getFinancement(), 0f); // UBR sans contrainte
+		assertEquals(1000f, projet.calculMontant(LocalDate.now()), 0f); // UBR sans contrainte
 	}
 
 	@Test
@@ -72,7 +71,7 @@ public class ProjetTest {
 		projet.addLigneBudgetaire(ligneBudgetaire);
 		projet.addLigneBudgetaire(ligneBudgetaire2);
 		assertEquals(2, projet.getAllLigneBudgetaires().size());
-		assertEquals(1000f, projet.getFinancement(), 0f);
+		assertEquals(1000f, projet.calculMontant(LocalDate.now()), 0f);
 
 		List<LigneBudgetaire> lignesList = new ArrayList<LigneBudgetaire>();
 		lignesList.add(ligneBudgetaire);
@@ -84,11 +83,11 @@ public class ProjetTest {
 
 		LigneBudgetaire ligneBudgetaire3 = new LigneBudgetaire("Ligne Budgetaire de Farine", "Farine");
 		ligneBudgetaire3.ajouterUBR(ubr2, 5000f);
-		assertEquals(1000f, projet2.getFinancement(), 0f);
+		assertEquals(1000f, projet2.calculMontant(LocalDate.now()), 0f);
 
 		projet2.addLigneBudgetaire(ligneBudgetaire3);
 		assertEquals(3, projet2.getAllLigneBudgetaires().size());
-		assertEquals(6000f, projet2.getFinancement(), 0f);
+		assertEquals(6000f, projet2.calculMontant(LocalDate.now()), 0f);
 
 	}
 
@@ -107,14 +106,14 @@ public class ProjetTest {
 
 		projet2.removeLigneBudgetaire(ligneBudgetaire2);
 		assertEquals(2, projet2.getAllLigneBudgetaires().size());
-		assertEquals(5000f, projet2.getFinancement(), 0f);
+		assertEquals(5000f, projet2.calculMontant(LocalDate.now()), 0f);
 
 		projet2.removeLigneBudgetaire(null); // ne change rien au projet
-		assertEquals(5000f, projet2.getFinancement(), 0f);
+		assertEquals(5000f, projet2.calculMontant(LocalDate.now()), 0f);
 		assertEquals(2, projet2.getAllLigneBudgetaires().size());
 
 		projet2.removeLigneBudgetaire(ligneBudgetaire2); // n'existe plus dans la liste de ce projet donc fait rien
-		assertEquals(5000f, projet2.getFinancement(), 0f);
+		assertEquals(5000f, projet2.calculMontant(LocalDate.now()), 0f);
 		assertEquals(2, projet2.getAllLigneBudgetaires().size());
 
 	}
@@ -123,7 +122,7 @@ public class ProjetTest {
 	public void TestDateLimiteDepense() {
 		projet.addLigneBudgetaire(ligneBudgetaire);
 		projet.addLigneBudgetaire(ligneBudgetaire2);
-		projet.dateLimiteDepenses();
+		projet.dateLimiteDepenses(10);
 		assertEquals("Le montant founit par l'UBR Mon Frigidaire d'un motant total de 1000.0 dollars expire bientôt",
 				outContent.toString().trim());
 
@@ -132,10 +131,10 @@ public class ProjetTest {
 	@Test
 	public void testUpdateressource() {
 
-		Ressource ressource1 = new Soutien("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1),
-				LocalDate.now().minusMonths(5));
-		Ressource ressource2 = new Soutien("Nom", "Prenom", 25f, 40f, LocalDate.now().minusMonths(1),
-				LocalDate.now().plusMonths(1));
+		Ressource ressource1 = new Soutien("Nom", "Prenom", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
+				LocalDate.of(2022, 12, 31));
+		Ressource ressource2 = new Soutien("Nom", "Prenom", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
+				LocalDate.of(2022, 12, 31));
 		LocalDate dateDebut = LocalDate.now().minusMonths(10);
 		LocalDate dateFin = LocalDate.now().plusMonths(1);
 		LocalDate dateFinExpire = LocalDate.now().minusMonths(5);
@@ -156,9 +155,11 @@ public class ProjetTest {
 	@Test
 	public void testAddRessourceWithDate() {
 
-		Ressource ressource = new Soutien("Amin", "Dev", 20f, 40f, LocalDate.now().minusMonths(2), LocalDate.now().plusMonths(1));
-		Ressource ressource2 = new Soutien("Maxime", "Dev", 25f, 30f, LocalDate.now().minusMonths(1), LocalDate.now().plusMonths(2));
-		
+		Ressource ressource = new Soutien("Amin", "Dev", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
+				LocalDate.of(2022, 12, 31));
+		Ressource ressource2 = new Soutien("Maxime", "Dev", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
+				LocalDate.of(2022, 12, 31));
+
 		LocalDate dateDebut = LocalDate.now().minusDays(1);
 		LocalDate dateFin = LocalDate.now().plusDays(1);
 
@@ -176,13 +177,13 @@ public class ProjetTest {
 		assertEquals("La date de fin doit correspondre à celle du projet.", projet.getDateFin(), datesR2.get(1));
 	}
 
-
 	@Test
 	public void testCalculSalaireRessources() {
 
-		Ressource ressource1 = new Soutien("Amin", "Dev", 20f, 40f, LocalDate.now().minusMonths(2), LocalDate.now().plusMonths(1));
-		Ressource ressource2 = new Soutien("Maxime", "Dev", 25f, 30f, LocalDate.now().minusMonths(1), LocalDate.now().plusMonths(2));
-
+		Ressource ressource1 = new Soutien("Amin", "Dev", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
+				LocalDate.of(2022, 12, 31));
+		Ressource ressource2 = new Soutien("Maxime", "Dev", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
+				LocalDate.of(2022, 12, 31));
 
 		// Affectation commence il y a 30 jours
 		LocalDate dateDebutProjet = LocalDate.now().minusDays(30);
@@ -195,15 +196,13 @@ public class ProjetTest {
 
 		assertNotNull("La map des salaires ne doit pas être null", salaires);
 
-		double salaireAttenduRessource1 = ressource1.calcul_salaire_mensuel();
-		double salaireAttenduRessource2 = ressource2.calcul_salaire_mensuel();
+		double salaireAttenduRessource1 = ressource1.calculSalaireMensuel();
+		double salaireAttenduRessource2 = ressource2.calculSalaireMensuel();
 
 		assertEquals("Le salaire calculé pour la ressource 1 doit correspondre au salaire attendu",
 				salaireAttenduRessource1, salaires.get(ressource1), 0.01);
 		assertEquals("Le salaire calculé pour la ressource 2 doit correspondre au salaire attendu",
 				salaireAttenduRessource2, salaires.get(ressource2), 0.01);
 	}
-
-
 
 }

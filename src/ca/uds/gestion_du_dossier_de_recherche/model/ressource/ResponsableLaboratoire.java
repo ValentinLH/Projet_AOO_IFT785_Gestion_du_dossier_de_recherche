@@ -2,32 +2,27 @@ package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Entity;
+public class ResponsableLaboratoire extends Ressource {
 
-@Entity
-public class ResponsableLaboratoire extends Ressource{
-	
-	private String Laboratoire;
+	private String laboratoire;
 
-	public ResponsableLaboratoire(String Nom, String Prenom, float TH, float HH, LocalDate DC, LocalDate FC, String Laboratoire) {
-		super(Nom, Prenom, TH, HH, DC, FC);
-		this.Laboratoire = Laboratoire;
-		// TODO Auto-generated constructor stub
+	public ResponsableLaboratoire(String nom, String prenom, int echelle, int echelon, float heuresHebdo, LocalDate debutContrat, LocalDate finContrat, String laboratoire) {
+		super(nom, prenom, echelle, echelon, heuresHebdo, debutContrat, finContrat);
+		this.laboratoire = laboratoire;
+
 	}
 
 	@Override
 	public String toString() {
-		return super.toString()+"\nResponsableLaboratoire [Laboratoire=" + Laboratoire + "]";
+		return super.toString() + "\nResponsableLaboratoire [Laboratoire=" + laboratoire + "]";
 	}
 
 	public String getLaboratoire() {
-		return Laboratoire;
+		return laboratoire;
 	}
 
 	public void setLaboratoire(String laboratoire) {
-		Laboratoire = laboratoire;
+		this.laboratoire = laboratoire;
 	}
-	
-	
-	
 }
+

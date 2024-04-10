@@ -5,11 +5,10 @@ import java.time.LocalDate;
 import jakarta.persistence.Entity;
 
 @Entity
-public class Soutien extends Ressource{
+public class Soutien extends Ressource {
 
-	public Soutien(String Nom, String Prenom, float TH, float HH, LocalDate DC, LocalDate FC) {
-		super(Nom, Prenom, TH, HH, DC, FC);
+	public Soutien(String nom, String prenom, int echelle, int echelon, float heuresHebdo, LocalDate debutContrat, LocalDate finContrat) {
+		super(nom, prenom, echelle, echelon, heuresHebdo, debutContrat, finContrat);
 	}
 
-	
 }
