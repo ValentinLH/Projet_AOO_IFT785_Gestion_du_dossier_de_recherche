@@ -106,10 +106,18 @@ public class LigneBudgetaire {
 			somme -= d.getMontant();
 		}
 		
+		
+		
+		for(UBR u : ubrsCompris)
+		{
+			somme += u.getMontantaUtilise(this);
+		}
+		
+
 		Set<UBR> ubrsAvecContraintes = ubrsCompris.stream()
                 .filter(ubr -> ubr.isContraintes())
                 .collect(Collectors.toSet());
-
+		
 		for(UBR u : ubrsAvecContraintes)
 		{
 			somme += u.getMontant(this);

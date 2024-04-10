@@ -9,7 +9,7 @@ public class UBR {
 
 	private Organisme organisme;
 	private int code;
-	private Map<LigneBudgetaire, Float> montantsLignesBudgetaire;
+	private Map<LigneBudgetaire, Fond> montantsLignesBudgetaire;
 	private boolean contraintes;
 	private LocalDate dateDebut;
 	private LocalDate dateFin;
@@ -19,9 +19,9 @@ public class UBR {
 		this.organisme = null;
 		this.code = 0;
 		this.montantsLignesBudgetaire = new HashMap<>();
-        this.contraintes = false;
-        this.dateDebut = null;
-        this.dateFin = null;
+		this.contraintes = false;
+		this.dateDebut = null;
+		this.dateFin = null;
 	}
 
 	public UBR(Organisme organisme, int code) {
@@ -29,19 +29,19 @@ public class UBR {
 		this.organisme = organisme;
 		this.code = code;
 		this.montantsLignesBudgetaire = new HashMap<>();
-        this.contraintes = false;
-        this.dateDebut = null;
-        this.dateFin = null;
+		this.contraintes = false;
+		this.dateDebut = null;
+		this.dateFin = null;
 	}
 
-	public UBR(Organisme organisme, int code, Map<LigneBudgetaire, Float> montantsLignesBudgetaire) {
+	public UBR(Organisme organisme, int code, Map<LigneBudgetaire, Fond> montantsLignesBudgetaire) {
 		super();
 		this.organisme = organisme;
 		this.code = code;
 		this.montantsLignesBudgetaire = montantsLignesBudgetaire;
-        this.contraintes = false;
-        this.dateDebut = null;
-        this.dateFin = null;
+		this.contraintes = false;
+		this.dateDebut = null;
+		this.dateFin = null;
 	}
 
 	public UBR(Organisme organisme, int code, boolean contraintes) {
@@ -51,10 +51,10 @@ public class UBR {
 		this.montantsLignesBudgetaire = new HashMap<>();
 		this.contraintes = contraintes;
 		this.dateDebut = null;
-        this.dateFin = null;
+		this.dateFin = null;
 	}
-	
-	public UBR(Organisme organisme, int code, Map<LigneBudgetaire, Float> montantsLignesBudgetaire,
+
+	public UBR(Organisme organisme, int code, Map<LigneBudgetaire, Fond> montantsLignesBudgetaire,
 			boolean contraintes) {
 		super();
 		this.organisme = organisme;
@@ -62,11 +62,10 @@ public class UBR {
 		this.montantsLignesBudgetaire = montantsLignesBudgetaire;
 		this.contraintes = contraintes;
 		this.dateDebut = null;
-        this.dateFin = null;
+		this.dateFin = null;
 	}
 
-	public UBR(Organisme organisme, int code,  boolean contraintes,
-			LocalDate dateDebut, LocalDate dateFin) {
+	public UBR(Organisme organisme, int code, boolean contraintes, LocalDate dateDebut, LocalDate dateFin) {
 		super();
 		this.organisme = organisme;
 		this.code = code;
@@ -76,8 +75,7 @@ public class UBR {
 		this.dateFin = dateFin;
 	}
 
-	
-	public UBR(Organisme organisme, int code, Map<LigneBudgetaire, Float> montantsLignesBudgetaire, boolean contraintes,
+	public UBR(Organisme organisme, int code, Map<LigneBudgetaire, Fond> montantsLignesBudgetaire, boolean contraintes,
 			LocalDate dateDebut, LocalDate dateFin) {
 		super();
 		this.organisme = organisme;
@@ -119,24 +117,45 @@ public class UBR {
 	/**
 	 * @return the lignesBudgetaire
 	 */
-	public Map<LigneBudgetaire, Float> getMontantsLignesBudgetaire() {
+	public Map<LigneBudgetaire, Fond> getMontantsLignesBudgetaire() {
 		return montantsLignesBudgetaire;
 	}
 
 	/**
 	 * @param lignesBudgetaire the lignesBudgetaire to set
 	 */
-	public void setMontantsLignesBudgetaire(Map<LigneBudgetaire, Float> lignesBudgetaire) {
+	public void setMontantsLignesBudgetaire(Map<LigneBudgetaire, Fond> lignesBudgetaire) {
 		this.montantsLignesBudgetaire = lignesBudgetaire;
 	}
 
 	public float getMontant(LigneBudgetaire ligneBudgetaire) {
-		return montantsLignesBudgetaire.get(ligneBudgetaire);
+		Fond f = montantsLignesBudgetaire.get(ligneBudgetaire);
+		return f.getTotal()-f.getMinUtilise();
+	}
+	
+	public float getMontantaUtilise(LigneBudgetaire ligneBudgetaire) {
+		Fond f = montantsLignesBudgetaire.get(ligneBudgetaire);
+		return f.getMinUtilise();
+	}
+	
+	public float getMontantTotalUBR(LigneBudgetaire ligneBudgetaire) {
+		Fond f = montantsLignesBudgetaire.get(ligneBudgetaire);
+		return f.getTotal();
 	}
 
 	// Méthode pour ajouter une ligne budgétaire avec son montant
 	public void ajouterLigneBudgetaire(LigneBudgetaire ligneBudgetaire, float montant) {
-		montantsLignesBudgetaire.put(ligneBudgetaire, montant);
+		Fond f = new Fond(montant,0.0f);
+		montantsLignesBudgetaire.put(ligneBudgetaire, f);
+		if (!ligneBudgetaire.getUbrs().contains(this)) {
+			ligneBudgetaire.ajouterUBR(this, montant);
+		}
+	}
+	
+	// Méthode pour ajouter une ligne budgétaire avec son montant
+	public void ajouterLigneBudgetaire(LigneBudgetaire ligneBudgetaire, float montant, float min) {
+		Fond f = new Fond(montant,min);
+		montantsLignesBudgetaire.put(ligneBudgetaire, f);
 		if (!ligneBudgetaire.getUbrs().contains(this)) {
 			ligneBudgetaire.ajouterUBR(this, montant);
 		}
@@ -158,9 +177,9 @@ public class UBR {
 				.append(", montantsLignesBudgetaire={");
 
 		// Parcourir chaque entrée de la map montantsLignesBudgetaire
-		for (Entry<LigneBudgetaire, Float> entry : montantsLignesBudgetaire.entrySet()) {
+		for (Entry<LigneBudgetaire, Fond> entry : montantsLignesBudgetaire.entrySet()) {
 			LigneBudgetaire ligneBudgetaire = entry.getKey();
-			float montant = entry.getValue();
+			Fond montant = entry.getValue();
 			sb.append(ligneBudgetaire.getNom()).append("=").append(montant).append(", ");
 		}
 
@@ -181,28 +200,69 @@ public class UBR {
 		this.contraintes = contraintes;
 	}
 
-	   public LocalDate getDateDebut() {
-	        return dateDebut;
-	    }
+	public LocalDate getDateDebut() {
+		return dateDebut;
+	}
 
-	    public void setDateDebut(LocalDate dateDebut) {
-	        this.dateDebut = dateDebut;
-	        // Vérifie si la date de fin est définie et si elle est inférieure à la date de début
-	        if (dateFin != null && dateFin.isBefore(dateDebut)) {
-	            this.dateFin = dateDebut;
-	        }
-	    }
+	public void setDateDebut(LocalDate dateDebut) {
+		this.dateDebut = dateDebut;
+		// Vérifie si la date de fin est définie et si elle est inférieure à la date de
+		// début
+		if (dateFin != null && dateFin.isBefore(dateDebut)) {
+			this.dateFin = dateDebut;
+		}
+	}
 
-	    public LocalDate getDateFin() {
-	        return dateFin;
-	    }
+	public LocalDate getDateFin() {
+		return dateFin;
+	}
 
-	    public void setDateFin(LocalDate dateFin) {
-	        // Vérifie si la date de fin est inférieure à la date de début
-	        if (dateDebut != null && dateFin.isBefore(dateDebut)) {
-	            throw new IllegalArgumentException("La date de fin doit être supérieure ou égale à la date de début.");
-	        }
-	        this.dateFin = dateFin;
-	    }
+	public void setDateFin(LocalDate dateFin) {
+		// Vérifie si la date de fin est inférieure à la date de début
+		if (dateDebut != null && dateFin.isBefore(dateDebut)) {
+			throw new IllegalArgumentException("La date de fin doit être supérieure ou égale à la date de début.");
+		}
+		this.dateFin = dateFin;
+	}
+
+	public class Fond {
+		private float total;
+		private float minUtilise;
+
+		public Fond(Float total, Float minUtilise) {
+			super();
+			this.total = total;
+			this.minUtilise = minUtilise;
+		}
+
+		/**
+		 * @return the total
+		 */
+		public Float getTotal() {
+			return total;
+		}
+
+		/**
+		 * @param total the total to set
+		 */
+		public void setTotal(Float total) {
+			this.total = total;
+		}
+
+		/**
+		 * @return the minUtilise
+		 */
+		public Float getMinUtilise() {
+			return minUtilise;
+		}
+
+		/**
+		 * @param minUtilise the minUtilise to set
+		 */
+		public void setMinUtilise(Float minUtilise) {
+			this.minUtilise = minUtilise;
+		}
+
+	}
 
 }
