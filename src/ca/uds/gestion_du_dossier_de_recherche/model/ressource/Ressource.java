@@ -1,138 +1,151 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
-
+import java.time.LocalDate;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilable;
 
-import java.time.LocalDate;
-
 public abstract class Ressource implements Ventilable {
-    private String Nom;
-    private String Prenom;
-    private float Taux_horaire;
-    private float Heures_hebdo;
-    private LocalDate Debut_contrat;
-    private LocalDate Fin_contrat;
+	private String nom;
+	private String prenom;
+	private int echelle;
+	private int echelon;
+	private float heuresHebdo;
+	private LocalDate debutContrat;
+	private LocalDate finContrat;
+	private static GrilleSalariale grilleSalariale;
+
+	static {
+		grilleSalariale = new GrilleSalariale();
+	}
 
 
-    public Ressource(String Nom, String Prenom, float TH, float HH, LocalDate DC, LocalDate FC){
-        this.Nom = Nom;
-        this.Prenom = Prenom;
-        this.Taux_horaire = TH;
-        this.Heures_hebdo = HH;
-        this.Debut_contrat = DC;
-        this.Fin_contrat = FC;
-    }
+	public Ressource(String nom, String prenom, int echelle, int echelon, float heuresHebdo, LocalDate debutContrat, LocalDate finContrat) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.echelle = echelle;
+		this.echelon = echelon;
+		this.heuresHebdo = heuresHebdo;
+		this.debutContrat = debutContrat;
+		this.finContrat = finContrat;
+	}
+
+	public double getTauxHoraire() {
+		return grilleSalariale.getTauxHoraire(echelle, echelon);
+	}
+
+	public void setEchelleEtEchelon(int echelle, int echelon) {
+		this.echelle = echelle;
+		this.echelon = echelon;
+	}
 
 	@Override
 	public float getMontantVentilation(LocalDate date) {
 		// TODO Auto-generated method stub
 		return 0;
+  }
+  
+  public void travaillePour(Projet P){
+  }
+
+  public void estPayePar(Projet P) {
+  }
+
+	public double calculSalaireMensuel() {
+		double tauxHoraire = getTauxHoraire();
+		return (heuresHebdo * tauxHoraire * 4);
 	}
-	
-    
-    public void travaillePour(Projet P){
-    }
 
-    public void estPayePar(Projet P) {
-    }
-
-    public String getNom() {
-		return Nom;
+	public String getNom() {
+		return nom;
 	}
-
 
 	public void setNom(String nom) {
-		Nom = nom;
+		this.nom = nom;
 	}
-
 
 	public String getPrenom() {
-		return Prenom;
+		return prenom;
 	}
-
 
 	public void setPrenom(String prenom) {
-		Prenom = prenom;
+		this.prenom = prenom;
 	}
 
-
-	public float getTaux_horaire() {
-		return Taux_horaire;
+	public int getEchelle() {
+		return echelle;
 	}
 
-
-	public void setTaux_horaire(float taux_horaire) {
-		Taux_horaire = taux_horaire;
+	public void setEchelle(int echelle) {
+		this.echelle = echelle;
 	}
 
-
-	public float getHeures_hebdo() {
-		return Heures_hebdo;
+	public int getEchelon() {
+		return echelon;
 	}
 
-
-	public void setHeures_hebdo(float heures_hebdo) {
-		Heures_hebdo = heures_hebdo;
+	public void setEchelon(int echelon) {
+		this.echelon = echelon;
 	}
 
-
-	public void setDebut_contrat(LocalDate debut_contrat) {
-		Debut_contrat = debut_contrat;
+	public float getHeuresHebdo() {
+		return heuresHebdo;
 	}
 
+	public void setHeuresHebdo(float heuresHebdo) {
+		this.heuresHebdo = heuresHebdo;
+	}
 
-	@Override
+	public LocalDate getDebutContrat() {
+		return debutContrat;
+	}
+
+	public void setDebutContrat(LocalDate debutContrat) {
+		this.debutContrat = debutContrat;
+	}
+
+	public LocalDate getFinContrat() {
+		return finContrat;
+  }
+  
+  @Override
 	public LocalDate getDateFin() {
-		return Fin_contrat;
+		return finContrat;
 	}
 
 
-	public void setFin_contrat(LocalDate fin_contrat) {
-		Fin_contrat = fin_contrat;
+
+	public void setFinContrat(LocalDate finContrat) {
+		this.finContrat = finContrat;
 	}
 
-    public LocalDate getFin_contrat() {
-        return Fin_contrat;
-    }
-
-    public LocalDate getDebut_contrat() {
-        return Debut_contrat;
-    }
-
-
-	public float calcul_salaire_mensuel(){
-        return(this.Heures_hebdo*this.Taux_horaire*4); // voir cas contrat termine avant fin du mois
-    }
-
-
-	public void setProgramme(Programme programme) {
-		// TODO Auto-generated method stub
-		
+	public static GrilleSalariale getGrilleSalariale() {
+		return grilleSalariale;
 	}
 
-
-	public Programme getProgramme() {
-		// TODO Auto-generated method stub
-		return null;
+	public static void setGrilleSalariale(GrilleSalariale grilleSalariale) {
+		Ressource.grilleSalariale = grilleSalariale;
 	}
 
-
-	public String getCip() {
-		// TODO Auto-generated method stub
-		return null;
+	public double calculerSalaireParJour() {
+		double tauxHoraire = getTauxHoraire();
+		double heuresParJour = 7;
+		return tauxHoraire * heuresParJour;
 	}
 
-
-	public void setCip(String cip) {
-		// TODO Auto-generated method stub
-		
+	public double calculerSalaireBrut() {
+		int joursOuvrables = UtilitaireDate.calculerJoursOuvrables(getDebutContrat(), getFinContrat());
+		double salaireParJour = calculerSalaireParJour();
+		return salaireParJour * joursOuvrables;
 	}
 
-    @Override
+	public double calculerSalaireEstime() {
+		double salaireBrut = calculerSalaireBrut();
+		double bonus = salaireBrut * 0.25;
+		return salaireBrut + bonus;
+	}
+  
+  @Override
 	public String toString() {
-		return "Ressource [Nom=" + Nom + ", Prenom=" + Prenom + ", Taux_horaire=" + Taux_horaire + ", Heures_hebdo="
-				+ Heures_hebdo + ", Debut_contrat=" + Debut_contrat + ", Fin_contrat=" + Fin_contrat + "]";
+		return "Ressource [Nom=" + nom + ", Prenom=" + prenom  +"Heures_hebdo="+ heuresHebdo + ", Debut_contrat=" + debutContrat + ", Fin_contrat=" + finContrat + "]";
 	}
-    	
-}
+}    	

@@ -78,10 +78,10 @@ public class TestVentilation {
 		
 		FabriqueEtudiant fe = new FabriqueEtudiant();
 
-        Ressource r1 = fe.createRessource("Athos", "", 20.0f, 35.0f, LocalDate.now().minusDays(10), LocalDate.now().plusDays(100));
-        Ressource r2 = fe.createRessource("Portos", "", 40.0f, 9.0f*5, LocalDate.now().minusDays(10), LocalDate.now().plusDays(1));
-        Ressource r3 = fe.createRessource("Aramis", "", 10.0f, 10.0f*5, LocalDate.now().minusDays(10), LocalDate.now().plusDays(50));
-        Ressource r4 = fe.createRessource("D'Artagnan", "", 0.5f, 24.0f*5, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10));
+        Ressource r1 = fe.createRessource("Athos", "ESN", 1,3, 35.0f, LocalDate.now().minusDays(10), LocalDate.now().plusDays(100));
+        Ressource r2 = fe.createRessource("Portos", "Vin", 1,1, 9.0f*5, LocalDate.now().minusDays(10), LocalDate.now().plusDays(1));
+        Ressource r3 = fe.createRessource("Aramis", "Alcool", 7,2, 10.0f*5, LocalDate.now().minusDays(10), LocalDate.now().plusDays(50));
+        Ressource r4 = fe.createRessource("D'Artagnan", "epee",3,2, 24.0f*5, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10));
 
         
         List<Ressource> ressources = new ArrayList<>();
@@ -93,12 +93,9 @@ public class TestVentilation {
 		
         
         for(Ressource r : ressources)
-			System.out.println("> "+r.getNom()+" - "+r.calcul_salaire_mensuel()+"$"+" - "+r.getFin_contrat());
-		
+			System.out.println("> "+r.getNom()+" - "+r.calculSalaireMensuel()+"$"+" - "+r.getFinContrat());
         
-        
-//        r1.calcul_salaire_mensuel();
-		
+        		
         System.out.println(" ##################################################################");
         
         Ventilation eole = new Ventilation(new TrieDateFinContrat());   
@@ -112,7 +109,7 @@ public class TestVentilation {
         List<Ressource> res2 = (List<Ressource>) eole.ventiler(ressources);
 		
         for(Ressource r : res2)
-			System.out.println("> "+r.getNom()+" - "+r.getFin_contrat());
+			System.out.println("> "+r.getNom()+" - "+r.getFinContrat());
 		
         
         System.out.println(" ~~~~~~~~~~~~~~");
