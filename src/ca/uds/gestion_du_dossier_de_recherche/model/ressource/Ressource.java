@@ -15,7 +15,7 @@ public abstract class Ressource implements Ventilable {
 	private static GrilleSalariale grilleSalariale;
 
 	static {
-		grilleSalariale = new GrilleSalariale();
+		grilleSalariale = GrilleSalariale.getInstance();
 	}
 
 
@@ -44,11 +44,6 @@ public abstract class Ressource implements Ventilable {
 		return 0;
   }
   
-  public void travaillePour(Projet P){
-  }
-
-  public void estPayePar(Projet P) {
-  }
 
 	public double calculSalaireMensuel() {
 		double tauxHoraire = getTauxHoraire();
