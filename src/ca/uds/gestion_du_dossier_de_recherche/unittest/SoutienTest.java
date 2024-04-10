@@ -15,7 +15,7 @@ public class SoutienTest {
 
     @Test
     public void testSoutien() {
-        GrilleSalariale grilleSalariale = new GrilleSalariale();
+        GrilleSalariale grilleSalariale = GrilleSalariale.getInstance();
         Ressource.setGrilleSalariale(grilleSalariale);
 
         Soutien s = new Soutien("Nom", "Prenom", 1, 1, 40.0f, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 12, 31));
@@ -30,7 +30,7 @@ public class SoutienTest {
 
     @Test
     public void testCalculSalaireMensuel() {
-        GrilleSalariale grilleSalariale = new GrilleSalariale();
+        GrilleSalariale grilleSalariale = GrilleSalariale.getInstance();
 
         Soutien s = new Soutien("Nom", "Prenom", 1, 1, 40.0f, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 12, 31));
         assertTrue(s.calculSalaireMensuel() > 0);
