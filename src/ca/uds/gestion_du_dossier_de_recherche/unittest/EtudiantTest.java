@@ -15,7 +15,7 @@ public class EtudiantTest {
 
 	@Before
 	public void setUp() {
-		GrilleSalariale grilleSalariale = new GrilleSalariale();
+		GrilleSalariale grilleSalariale = GrilleSalariale.getInstance();
 		Ressource.setGrilleSalariale(grilleSalariale);
 		etudiant = new Etudiant("Jean", "Dupont", 6, 7, 35, LocalDate.of(2023, 04, 1), LocalDate.of(2024, 12, 31), "testCIP", Etudiant.Programme.BACCALAUREAT);
 	}
