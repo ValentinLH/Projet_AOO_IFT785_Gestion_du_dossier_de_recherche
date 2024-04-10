@@ -23,26 +23,26 @@ public class RessourceTest {
     @Test
     public void testCalculerSalaireParJour() {
         double expected = ressource.getTauxHoraire() * 7; // 7 heures par jour
-        double result = ressource.calculerSalaireParJour(ressource);
+        double result = ressource.calculerSalaireParJour();
         System.out.println("Salaire par jour attendu: " + expected + ", obtenu: " + result);
         assertEquals(expected, result, 0.001);
     }
 
     @Test
     public void testCalculerSalaireBrut() {
-        double salaireParJour = ressource.calculerSalaireParJour(ressource);
+        double salaireParJour = ressource.calculerSalaireParJour();
         int joursOuvrables = UtilitaireDate.calculerJoursOuvrables(ressource.getDebutContrat(), ressource.getFinContrat());
         double expected = salaireParJour * joursOuvrables;
-        double result = ressource.calculerSalaireBrut(ressource);
+        double result = ressource.calculerSalaireBrut();
         System.out.println("Salaire brut attendu: " + expected + ", obtenu: " + result);
         assertEquals(expected, result, 0.001);
     }
 
     @Test
     public void testCalculerSalaireEstime() {
-        double salaireBrut = ressource.calculerSalaireBrut(ressource);
+        double salaireBrut = ressource.calculerSalaireBrut();
         double expected = salaireBrut + (salaireBrut * 0.25); // Bonus de 25%
-        double result = ressource.calculerSalaireEstime(ressource);
+        double result = ressource.calculerSalaireEstime();
         System.out.println("Salaire estimé attendu: " + expected + ", obtenu: " + result);
         assertEquals(expected, result, 0.001);
     }

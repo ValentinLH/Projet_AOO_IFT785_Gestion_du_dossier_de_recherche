@@ -126,20 +126,20 @@ public abstract class Ressource implements Ventilable {
 		Ressource.grilleSalariale = grilleSalariale;
 	}
 
-	public double calculerSalaireParJour(Ressource ressource) {
-		double tauxHoraire = ressource.getTauxHoraire();
+	public double calculerSalaireParJour() {
+		double tauxHoraire = getTauxHoraire();
 		double heuresParJour = 7;
 		return tauxHoraire * heuresParJour;
 	}
 
-	public double calculerSalaireBrut(Ressource ressource) {
-		int joursOuvrables = UtilitaireDate.calculerJoursOuvrables(ressource.getDebutContrat(), ressource.getFinContrat());
-		double salaireParJour = calculerSalaireParJour(ressource);
+	public double calculerSalaireBrut() {
+		int joursOuvrables = UtilitaireDate.calculerJoursOuvrables(getDebutContrat(), getFinContrat());
+		double salaireParJour = calculerSalaireParJour();
 		return salaireParJour * joursOuvrables;
 	}
 
-	public double calculerSalaireEstime(Ressource ressource) {
-		double salaireBrut = calculerSalaireBrut(ressource);
+	public double calculerSalaireEstime() {
+		double salaireBrut = calculerSalaireBrut();
 		double bonus = salaireBrut * 0.25;
 		return salaireBrut + bonus;
 	}

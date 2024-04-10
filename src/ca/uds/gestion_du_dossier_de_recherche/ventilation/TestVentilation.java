@@ -94,11 +94,8 @@ public class TestVentilation {
         
         for(Ressource r : ressources)
 			System.out.println("> "+r.getNom()+" - "+r.calculSalaireMensuel()+"$"+" - "+r.getFinContrat());
-		
         
-        
-//        r1.calcul_salaire_mensuel();
-		
+        		
         System.out.println(" ##################################################################");
         
         Ventilation eole = new Ventilation(new TrieDateFinContrat());   
