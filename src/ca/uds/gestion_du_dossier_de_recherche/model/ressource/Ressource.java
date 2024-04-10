@@ -2,8 +2,10 @@ package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.Depense;
+import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilable;
 
 public abstract class Ressource implements Ventilable {
@@ -47,7 +49,19 @@ public abstract class Ressource implements Ventilable {
 	@Override
 	public float getMontantVentilation(LocalDate date) {
 		// TODO Auto-generated method stub
-		return 0;
+		float montantDue = (float) this.calculerSalaireEstime();
+		
+		
+		Set<Bulletin> bulletinPaye = bulletins.stream()
+                .filter(bulletin -> bulletin.getDate().isBefore(date) || bulletin.getDate().isEqual(date))
+                .collect(Collectors.toSet());
+		
+		for (Bulletin bulletin : bulletinPaye)
+		{
+			montantDue -= bulletin.getMontant(); 
+		}
+		
+		return montantDue;
   }
   
 

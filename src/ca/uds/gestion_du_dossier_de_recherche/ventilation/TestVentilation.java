@@ -10,6 +10,7 @@ import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.LigneBudget
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.Organisme;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Bulletin;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.FabriqueEtudiant;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.TrieDateFinContrat;
@@ -26,6 +27,7 @@ public class TestVentilation {
 		
 		Projet p4 = new Projet("projet 4x4 ", LocalDate.now().minusDays(10),LocalDate.now().plusDays(1000));
 
+		
 		
 		p1.addLigneBudgetaire(get1());
 
@@ -91,35 +93,53 @@ public class TestVentilation {
         ressources.add(r3);
         ressources.add(r4);
 		
+        LigneBudgetaire corneDAbondance = getSalaire();
+        Bulletin b1 = new Bulletin("bulletin 1", 1300, r1, corneDAbondance,LocalDate.now());
+//        r1.ajouterBulletin(b1);
+        Bulletin b2 = new Bulletin("bulletin 2", 250, r2, corneDAbondance,LocalDate.now());
+        Bulletin b3 = new Bulletin("bulletin 3", 1392, r3, corneDAbondance,LocalDate.now());
+        Bulletin b4 = new Bulletin("bulletin 4", 10000, r4, corneDAbondance,LocalDate.now());
+        
+        
+        
         
         for(Ressource r : ressources)
-			System.out.println("> "+r.getNom()+" - "+r.calculSalaireMensuel()+"$"+" - "+r.getFinContrat());
+			System.out.println("> "+r.getNom()+" - "+r.calculerSalaireEstime()+"$"+" - "+r.getFinContrat());
         
         		
         System.out.println(" ##################################################################");
+        System.out.println(" TrieDateFinContrat  : ");
         
-        Ventilation eole = new Ventilation(new TrieDateFinContrat());   
-        List<Projet> res = (List<Projet>) eole.ventiler(projets);
+        Ventilation ventilateur = new Ventilation(new TrieDateFinContrat());   
+        List<Projet> res = (List<Projet>) ventilateur.ventiler(projets);
         
         for(Projet p : res)
 			System.out.println("> "+p.getTitre()+" - "+p.getDateFin());
 		
         System.out.println(" ~~~~~~~~~~~~~~");
         
-        List<Ressource> res2 = (List<Ressource>) eole.ventiler(ressources);
+        List<Ressource> res2 = (List<Ressource>) ventilateur.ventiler(ressources);
 		
         for(Ressource r : res2)
 			System.out.println("> "+r.getNom()+" - "+r.getFinContrat());
 		
         
-        System.out.println(" ~~~~~~~~~~~~~~");
+        System.out.println(" ##################################################################");
+        System.out.println(" TrieMontant  : ");
         
-        eole.setStrategie(new TrieMontant());
+        ventilateur.setStrategie(new TrieMontant());
         
-        res = (List<Projet>) eole.ventiler(projets);
+        res = (List<Projet>) ventilateur.ventiler(projets);
         
         for(Projet p : res)
-			System.out.println("> "+p.getTitre()+" - "+p.calculMontant(eole.getDate())+"$"+" - "+p.getDateFin());
+			System.out.println("> "+p.getTitre()+" - "+p.calculMontant(ventilateur.getDate())+"$"+" - "+p.getDateFin());
+		
+        
+        System.out.println(" ~~~~~~~~~~~~~~");
+        
+        res2 = (List<Ressource>) ventilateur.ventiler(ressources);
+        for(Ressource r : res2)
+			System.out.println("> "+r.getNom()+" - "+r.getMontantVentilation(ventilateur.getDate())+"$"+" - "+r.getFinContrat());
 		
         
         
@@ -143,8 +163,6 @@ public class TestVentilation {
 		ligne1.ajouterDepense(depense3);
 		
 		
-		//ubr1.ajouterLigneBudgetaire(ligne1, 20);
-		//ubr2.ajouterLigneBudgetaire(ligne1, 50);
 		ligne1.ajouterUBR(ubr1, 50.0f);
 		
 		return ligne1;
@@ -159,7 +177,7 @@ public class TestVentilation {
 		
 		LigneBudgetaire ligne1 = new LigneBudgetaire("Ligne Budgetaire des Vroom Vroom","Vehicule");
 		
-		Depense depense1 = new Depense("Alpha Romeo Spyder 68'",29900f);
+		Depense depense1 = new Depense("Alfa Romeo Spider 68'",29900f);
 		Depense depense2 = new Depense("Mustang",10300f);
 		Depense depense3 = new Depense("Alpine",312500f);
 		
@@ -195,6 +213,21 @@ public class TestVentilation {
 		ubr1.ajouterLigneBudgetaire(ligne1, 300);
 		//ubr2.ajouterLigneBudgetaire(ligne1, 50);
 		ligne1.ajouterUBR(ubr2, 500.0f);
+		
+		return ligne1;
+	}
+	
+	public static LigneBudgetaire getSalaire()
+	{
+		Organisme corne = new Organisme("Corne d'abondance",0);
+		UBR ubr1 = new UBR(corne,1,false,LocalDate.MIN,LocalDate.MAX);
+		
+		LigneBudgetaire ligne1 = new LigneBudgetaire("Argent Infini","Salaire");
+
+		
+		ubr1.ajouterLigneBudgetaire(ligne1, Float.MAX_VALUE);
+		//ubr2.ajouterLigneBudgetaire(ligne1, 50);
+//		ligne1.ajouterUBR(ubr2, 500.0f);
 		
 		return ligne1;
 	}

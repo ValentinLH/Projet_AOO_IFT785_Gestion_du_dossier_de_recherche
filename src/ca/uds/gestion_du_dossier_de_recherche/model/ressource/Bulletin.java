@@ -16,6 +16,23 @@ public class Bulletin extends Depense {
 	{
 		super();
 	}
+	
+	
+
+	public Bulletin(String nom, float montant,Ressource ressource, LigneBudgetaire ligne, LocalDate date) {
+		super(nom,montant);
+		setRessource(ressource);
+		setLigne(ligne);
+		this.date = date;
+	}
+
+
+	public Bulletin(float montant, Ressource ressource, LigneBudgetaire ligne, LocalDate date) {
+		super("Bulletin de salaire - "+ressource.getNom()+" - "+date,montant);
+		setRessource(ressource);
+		setLigne(ligne);
+		this.date = date;
+	}
 
 	/**
 	 * @return the ressource
