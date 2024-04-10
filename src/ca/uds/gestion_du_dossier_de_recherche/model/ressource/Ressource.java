@@ -1,7 +1,9 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 import java.time.LocalDate;
-import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
-import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
+import java.util.HashSet;
+import java.util.Set;
+
+import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.Depense;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilable;
 
 public abstract class Ressource implements Ventilable {
@@ -13,6 +15,9 @@ public abstract class Ressource implements Ventilable {
 	private LocalDate debutContrat;
 	private LocalDate finContrat;
 	private static GrilleSalariale grilleSalariale;
+	private Set<Bulletin> bulletins;
+
+	
 
 	static {
 		grilleSalariale = GrilleSalariale.getInstance();
@@ -27,6 +32,7 @@ public abstract class Ressource implements Ventilable {
 		this.heuresHebdo = heuresHebdo;
 		this.debutContrat = debutContrat;
 		this.finContrat = finContrat;
+		this.bulletins = new HashSet<>();
 	}
 
 	public double getTauxHoraire() {
@@ -139,7 +145,43 @@ public abstract class Ressource implements Ventilable {
 		return salaireBrut + bonus;
 	}
   
-  @Override
+	
+	
+	
+  /**
+	 * @return the bulletins
+	 */
+	public Set<Bulletin> getBulletins() {
+		return bulletins;
+	}
+
+	/**
+	 * @param bulletins the bulletins to set
+	 */
+	public void setBulletins(Set<Bulletin> bulletins) {
+		this.bulletins = bulletins;
+	}
+
+    /**
+     * Ajoute un bulletin à l'ensemble des bulletins.
+     * @param bulletin le bulletin à ajouter
+     */
+    public void ajouterBulletin(Bulletin bulletin) {
+        this.bulletins.add(bulletin);
+    }
+
+    /**
+     * Supprime un bulletin de l'ensemble des bulletins.
+     * @param bulletin le bulletin à supprimer
+     */
+    public void supprimerBulletin(Bulletin bulletin) {
+    	bulletin.detruit();
+        this.bulletins.remove(bulletin);
+    }
+
+	
+	
+@Override
 	public String toString() {
 		return "Ressource [Nom=" + nom + ", Prenom=" + prenom  +"Heures_hebdo="+ heuresHebdo + ", Debut_contrat=" + debutContrat + ", Fin_contrat=" + finContrat + "]";
 	}
