@@ -1,11 +1,8 @@
 package ca.uds.gestion_du_dossier_de_recherche.unittest;
 
-import static org.junit.Assert.*;
-
-import java.time.LocalDate;
-
 import org.junit.Test;
-
+import static org.junit.Assert.*;
+import java.time.LocalDate;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.FabriqueResponsableLaboratoire;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.ResponsableLaboratoire;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
@@ -14,21 +11,17 @@ public class FabriqueResponsableLaboratoireTest {
 
     @Test
     public void testCreateRessource() {
-        FabriqueResponsableLaboratoire fll = new FabriqueResponsableLaboratoire();
-
-        Ressource r = fll.createRessource("Nom", "Prenom", 20.5f, 40.0f, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10));
-
-
-        
-        assertTrue(r instanceof ResponsableLaboratoire); // check that the created object is an instance of ResponsableLaboratoire
-        assertEquals("Nom", r.getNom());
-        assertEquals("Prenom", r.getPrenom());
-        assertEquals(20.5f, r.getTaux_horaire(), 0.01); // use a delta to account for floating point precision
-        assertEquals(40.0f, r.getHeures_hebdo(), 0.01);
-        assertEquals(LocalDate.now().minusDays(10), r.getDebut_contrat());
-        assertEquals( LocalDate.now().plusDays(10), r.getFin_contrat());
-        assertEquals("null", ((ResponsableLaboratoire) r).getLaboratoire());
-        assertEquals(4 * 40 * 20.5, r.calcul_salaire_mensuel(), 0.01);
+        FabriqueResponsableLaboratoire fabrique = new FabriqueResponsableLaboratoire();
+        Ressource ressource = fabrique.createRessource("Nom", "Prenom", 1, 1, 35.0f, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 12, 31), "LaboratoireTest");
+        assertTrue(ressource instanceof ResponsableLaboratoire);
+        assertEquals("Nom", ressource.getNom());
+        assertEquals("Prenom", ressource.getPrenom());
+        assertEquals(1, ((ResponsableLaboratoire)ressource).getEchelle());
+        assertEquals(1, ((ResponsableLaboratoire)ressource).getEchelon());
+        assertEquals(35.0f, ressource.getHeuresHebdo(), 0.01);
+        assertEquals(LocalDate.of(2022, 1, 1), ressource.getDebutContrat());
+        assertEquals(LocalDate.of(2022, 12, 31), ressource.getFinContrat());
+        assertEquals("LaboratoireTest", ((ResponsableLaboratoire)ressource).getLaboratoire());
     }
-
 }
+

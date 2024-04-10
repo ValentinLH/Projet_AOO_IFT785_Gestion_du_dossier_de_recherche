@@ -256,11 +256,11 @@ public class Projet implements Ventilable {
 			List<LocalDate> periodes = entry.getValue();
 
 			// Vérifier et ajuster la période d'affectation selon la durée du contrat
-			LocalDate dateDebutAffectation = periodes.get(0).isBefore(ressource.getDebut_contrat())
-					? ressource.getDebut_contrat()
+			LocalDate dateDebutAffectation = periodes.get(0).isBefore(ressource.getDebutContrat())
+					? ressource.getDebutContrat()
 					: periodes.get(0);
-			LocalDate dateFinAffectation = periodes.get(1).isAfter(ressource.getFin_contrat())
-					? ressource.getFin_contrat()
+			LocalDate dateFinAffectation = periodes.get(1).isAfter(ressource.getDebutContrat())
+					? ressource.getDebutContrat()
 					: periodes.get(1);
 
 			if (dateDebutAffectation.isBefore(dateFinAffectation.plusDays(1))) { // Date de début est avant la date de
@@ -272,9 +272,9 @@ public class Projet implements Ventilable {
 																														// fin
 
 				// Convertir les jours en heures de travail effectives
-				double heuresEffectives = joursEffectifs * (ressource.getHeures_hebdo() / 7.0);
+				double heuresEffectives = joursEffectifs * (ressource.getHeuresHebdo() / 7.0);
 				// Calculer le salaire en fonction des heures effectives
-				double salaire = heuresEffectives * ressource.getTaux_horaire();
+				double salaire = heuresEffectives * ressource.getTauxHoraire();
 
 				salaires.put(ressource, salaire);
 			}
