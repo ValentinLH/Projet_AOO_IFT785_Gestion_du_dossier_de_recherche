@@ -58,6 +58,10 @@ public abstract class Ressource implements Ventilable {
 		this.debutContrat = debutContrat;
 		this.finContrat = finContrat;
 	}
+	
+	public Ressource() {
+
+	}
 
 	public double getTauxHoraire() {
 		return grilleSalariale.getTauxHoraire(echelle, echelon);

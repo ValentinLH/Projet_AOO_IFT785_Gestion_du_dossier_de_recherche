@@ -22,14 +22,18 @@ public class OrganismeDAO {
 	}
 	
 	public static List<Organisme> getAllOrganisme() {
-		Query query = BDDConnection.em.createQuery("from ressource"); 
+		Query query = BDDConnection.em.createQuery("from Organisme"); 
 		List<Organisme> organismeList = query.getResultList();
 		return organismeList;
 	}
 	
 	public static Organisme getOrganismeByCode(int code) {
-		Query query = BDDConnection.em.createQuery("from organisme where code = :code");
+		Query query = BDDConnection.em.createQuery("from Organisme where code = :code");
 		query.setParameter("code", code);
+		if (query.getResultList().isEmpty())
+		{
+			return null;
+		}
 		return (Organisme) query.getSingleResult();
 	}
 }

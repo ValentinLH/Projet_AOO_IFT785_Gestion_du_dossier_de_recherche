@@ -23,25 +23,25 @@ public class ressourceDAO {
 	}
 	
 	public static List<Ressource> getAllRessources() {
-		Query query = BDDConnection.em.createQuery("from ressource"); 
+		Query query = BDDConnection.em.createQuery("from Ressource"); 
 		List<Ressource> ressourceList = query.getResultList();
 		return ressourceList;
 	}
 	
-	public static List<Etudiant> getAllEtuidants() {
-		Query query = BDDConnection.em.createQuery("from etudiant"); 
+	public static List<Etudiant> getAllEtudiants() {
+		Query query = BDDConnection.em.createQuery("from Etudiant"); 
 		List<Etudiant> etudiantList = query.getResultList();
 		return etudiantList;
 	}
 	
 	public static List<Soutien> getAllSoutien() {
-		Query query = BDDConnection.em.createQuery("from soutien"); 
+		Query query = BDDConnection.em.createQuery("from Soutien"); 
 		List<Soutien> soutienList = query.getResultList();
 		return soutienList;
 	}
 	
 	public static List<ResponsableLaboratoire> getAllResponsable() {
-		Query query = BDDConnection.em.createQuery("from responsablelaboratoire"); 
+		Query query = BDDConnection.em.createQuery("from ResponsableLaboratoire"); 
 		List<ResponsableLaboratoire> responsableList = query.getResultList();
 		return responsableList;
 	}

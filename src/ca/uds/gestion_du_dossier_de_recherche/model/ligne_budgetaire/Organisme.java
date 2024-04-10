@@ -58,6 +58,14 @@ public class Organisme {
 	public String toString() {
 		return "[Organisme " + nom + ", code=" + code + "]";
 	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 	
 	
 	

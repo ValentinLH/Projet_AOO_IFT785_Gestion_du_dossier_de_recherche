@@ -35,13 +35,10 @@ public class UBR {
 	@OneToMany(mappedBy = "ubr")
     private List<AffectationLigneUbr> affectationsLignes = new ArrayList<>();
 
-	//@Transient
-	//private Map<LigneBudgetaire, Float> montantsLignesBudgetaire;
 
 	@Transient
 	private Map<LigneBudgetaire, Fond> montantsLignesBudgetaire;
 	
-	@Transient
 	private boolean contraintes;
 
 	@Column(columnDefinition = "DATE")
@@ -264,7 +261,7 @@ public class UBR {
 	
 	@Entity
 	@Table(name = "fond")
-	public class Fond {
+	public static class Fond {
 		
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -272,11 +269,24 @@ public class UBR {
 		
 		private float total;
 		private float minUtilise;
+		
+		public Fond() {
+
+		}
+
 
 		public Fond(Float total, Float minUtilise) {
 			super();
 			this.total = total;
 			this.minUtilise = minUtilise;
+		}
+		
+		public long getId() {
+			return this.id;
+		}
+		
+		public void setId(long id) {
+			this.id = id;
 		}
 
 		/**
@@ -330,6 +340,10 @@ public class UBR {
 		@JoinColumn(name = "fond_id")
 		private Fond fond;
 		
+		public AffectationLigneUbr() {
+			
+		}
+		
 		public AffectationLigneUbr(UBR ubr, LigneBudgetaire ligne, Fond fond) {
 			super();
 			this.ubr = ubr;
@@ -338,7 +352,7 @@ public class UBR {
 		}
 
 		public long getId() {
-		return this.id;
+			return this.id;
 		}
 
 		public void setId(long id) {
@@ -376,5 +390,13 @@ public class UBR {
 
 	public void setAffectationsLignes(List<AffectationLigneUbr> affectationsLignes) {
 		this.affectationsLignes = affectationsLignes;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }

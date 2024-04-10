@@ -12,7 +12,10 @@ public class ResponsableLaboratoire extends Ressource {
 	public ResponsableLaboratoire(String nom, String prenom, int echelle, int echelon, float heuresHebdo, LocalDate debutContrat, LocalDate finContrat, String laboratoire) {
 		super(nom, prenom, echelle, echelon, heuresHebdo, debutContrat, finContrat);
 		this.laboratoire = laboratoire;
-
+	}
+	
+	public ResponsableLaboratoire() {
+		super();
 	}
 
 	@Override

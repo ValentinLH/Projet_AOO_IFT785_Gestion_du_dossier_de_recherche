@@ -21,6 +21,10 @@ public class Etudiant extends Ressource {
         this.cip = cip;
         this.programme = Objects.requireNonNull(programme);
     }
+    
+    public Etudiant() {
+    	super();
+    }
 
     @Override
     public String toString() {
