@@ -9,22 +9,55 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+
+@Entity
 public class Projet implements Ventilable {
 
 	/*
 	 * ==================== Attributs de base =====================
 	 */
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String titre;
 	private String description;
+	
+	@Column(columnDefinition = "DATE")
 	private LocalDate dateDebut;
+	
+	@Column(columnDefinition = "DATE")
 	private LocalDate dateFin;
+	
+	@OneToMany(targetEntity = LigneBudgetaire.class, cascade = CascadeType.ALL)
 	private List<LigneBudgetaire> lignesBudgetaires;
+	
+	@Transient
 	private Map<Ressource, List<LocalDate>> ressources;
+	
+	@OneToMany(mappedBy = "projet")
+    private List<AffectationProjetRessource> affectationsRessources = new ArrayList<>();
+
 
 	/*
 	 * ==================== Constructeur =====================
 	 */
+	
+	public Projet() {
+		
+	}
 
 	public Projet(String Titre, LocalDate dateDebut, LocalDate dateFin) {
 		this.id = 0l;
@@ -127,10 +160,11 @@ public class Projet implements Ventilable {
 	public List<LigneBudgetaire> getAllLigneBudgetaires() {
 		return this.lignesBudgetaires;
 	}
+	
+    public void addAffectationProjetRessource(AffectationProjetRessource newAffectation) {
+    	this.affectationsRessources.add(newAffectation);
+    }
 
-	public LigneBudgetaire getLigneBudgetaireIndices(int indices) {
-		return this.lignesBudgetaires.get(indices);
-	}
 
 	public Map<Ressource, List<LocalDate>> getRessources() {
 		return ressources;
@@ -288,5 +322,87 @@ public class Projet implements Ventilable {
 		return "Projet{" + "id=" + id + ", titre=" + titre + ", description=" + description + ", dateDebut=" + dateDebut
 				+ ", dateFin=" + dateFin + ", ressources=" + ressources + '}';
 	}
+	
+    @Entity
+    @Table(name = "affectation_projetressource")
+    public static class AffectationProjetRessource {
 
+    	@Id
+    	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    	private long id;
+
+    	@ManyToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "projet_id")
+    	private Projet projet;
+
+    	@ManyToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "ressource_id")
+    	private Ressource ressource;
+
+    	@Column(columnDefinition = "DATE")
+    	private LocalDate dateDebut;
+
+    	@Column(columnDefinition = "DATE")
+    	private LocalDate dateFin;
+
+    	public AffectationProjetRessource(Projet projet, Ressource ressource, LocalDate dateDebut, LocalDate dateFin) {
+    		super();
+    		this.projet = projet;
+    		this.ressource = ressource;
+    		this.dateDebut = dateDebut;
+    		this.dateFin = dateFin;
+    	}
+    	
+    	public AffectationProjetRessource() {
+
+    	}
+
+    	public long getId() {
+    		return this.id;
+    	}
+
+    	public void setId(long id) {
+    		this.id = id;
+    	}
+
+    	public Projet getProjet() {
+    		return this.projet;
+    	}
+
+    	public void setProjet(Projet projet) {
+    		this.projet = projet;
+    	}
+
+    	public Ressource getRessource() {
+    		return this.ressource;
+    	}
+
+    	public void setRessource(Ressource ressource) {
+    		this.ressource = ressource;
+    	}
+
+    	public LocalDate getDateDebut() {
+    		return this.dateDebut;
+    	}
+
+    	public void setDateDebut(LocalDate dateDebut) {
+    		this.dateDebut = dateDebut;
+    	}
+
+    	public LocalDate getDateFin() {
+    		return this.dateFin;
+    	}
+
+    	public void setDateFin(LocalDate dateFin) {
+    		this.dateFin = dateFin;
+    	}
+    }
+
+	public List<AffectationProjetRessource> getAffectationsRessources() {
+		return affectationsRessources;
+	}
+
+	public void setAffectationsRessources(List<AffectationProjetRessource> affectationsRessources) {
+		this.affectationsRessources = affectationsRessources;
+	}
 }

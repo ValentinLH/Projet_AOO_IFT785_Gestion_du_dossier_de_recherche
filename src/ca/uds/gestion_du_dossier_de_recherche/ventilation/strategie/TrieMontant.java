@@ -15,7 +15,7 @@ public class TrieMontant extends StrategieTrie {
 		List<Ventilable> res = new ArrayList<>();
 		res.addAll(ventilables);
 
-		LocalDate date = ventilation.getDate();
+		LocalDate date = getVentilation().getDate();
 		
 		
 		Collections.sort(res, (ventilable1, ventilable2) -> {
