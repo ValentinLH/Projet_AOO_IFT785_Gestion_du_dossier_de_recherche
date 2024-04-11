@@ -26,5 +26,7 @@
 	<classpathentry kind="lib" path="lib/junit-4.13.2.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-j-8.0.31.jar"/>
 	<classpathentry kind="lib" path="lib/txw2-4.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/mockito-core-5.11.0.jar"/>
+	<classpathentry kind="lib" path="lib/byte-buddy-agent-1.14.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

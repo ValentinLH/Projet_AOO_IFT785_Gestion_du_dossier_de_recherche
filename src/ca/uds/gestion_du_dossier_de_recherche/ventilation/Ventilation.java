@@ -14,13 +14,15 @@ public class Ventilation {
 	
 	public Ventilation(StrategieTrie strategie) {
 		super();
-		setStrategie(strategie);
+		if (strategie !=null)
+			setStrategie(strategie);
 		this.date = LocalDate.now();
 	}
 	
 	public Ventilation(StrategieTrie strategie, LocalDate date) {
 		super();
-		setStrategie(strategie);
+		if (strategie !=null)
+			setStrategie(strategie);
 		this.date = date;
 	}
 

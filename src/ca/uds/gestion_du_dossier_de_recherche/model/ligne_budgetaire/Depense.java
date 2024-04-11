@@ -5,8 +5,6 @@ public class Depense {
 	private String nom;
 	private float montant;
 	
-	
-	
 	public Depense() {
 		super();
 		this.nom = null;
