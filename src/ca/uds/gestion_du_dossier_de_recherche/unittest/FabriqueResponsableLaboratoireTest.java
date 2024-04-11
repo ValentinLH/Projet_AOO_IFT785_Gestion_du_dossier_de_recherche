@@ -11,8 +11,8 @@ public class FabriqueResponsableLaboratoireTest {
 
     @Test
     public void testCreateRessource() {
-        FabriqueResponsableLaboratoire fabrique = new FabriqueResponsableLaboratoire();
-        Ressource ressource = fabrique.createRessource("Nom", "Prenom", 1, 1, 35.0f, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 12, 31), "LaboratoireTest");
+        FabriqueResponsableLaboratoire fabrique = new FabriqueResponsableLaboratoire("LaboratoireTest");
+        Ressource ressource = fabrique.createRessource("Nom", "Prenom", 1, 1, 35.0f, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 12, 31));
         assertTrue(ressource instanceof ResponsableLaboratoire);
         assertEquals("Nom", ressource.getNom());
         assertEquals("Prenom", ressource.getPrenom());
