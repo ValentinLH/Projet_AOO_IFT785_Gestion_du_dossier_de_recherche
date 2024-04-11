@@ -54,6 +54,10 @@ public class Projet implements Ventilable {
 	/*
 	 * ==================== Constructeur =====================
 	 */
+	
+	public Projet() {
+		
+	}
 
 	public Projet(String Titre, LocalDate dateDebut, LocalDate dateFin) {
 		this.id = 0l;
@@ -347,6 +351,10 @@ public class Projet implements Ventilable {
     		this.ressource = ressource;
     		this.dateDebut = dateDebut;
     		this.dateFin = dateFin;
+    	}
+    	
+    	public AffectationProjetRessource() {
+
     	}
 
     	public long getId() {

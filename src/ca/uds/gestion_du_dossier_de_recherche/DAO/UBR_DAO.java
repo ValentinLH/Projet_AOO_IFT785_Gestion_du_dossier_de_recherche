@@ -10,7 +10,6 @@ import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.Organisme;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR.AffectationLigneUbr;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR.Fond;
-import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 

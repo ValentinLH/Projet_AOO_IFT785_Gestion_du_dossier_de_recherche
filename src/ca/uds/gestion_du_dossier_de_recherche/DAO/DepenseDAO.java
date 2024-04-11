@@ -4,7 +4,6 @@ import java.util.List;
 
 import ca.uds.gestion_du_dossier_de_recherche.BDD.BDDConnection;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.Depense;
-import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 
