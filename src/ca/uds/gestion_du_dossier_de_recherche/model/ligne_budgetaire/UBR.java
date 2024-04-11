@@ -1,17 +1,50 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+
+@Entity
 public class UBR {
 
-	private Organisme organisme;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+
 	private int code;
+
+	@OneToOne
+	private Organisme organisme;
+
+	@OneToMany(mappedBy = "ubr")
+    private List<AffectationLigneUbr> affectationsLignes = new ArrayList<>();
+
+
+	@Transient
 	private Map<LigneBudgetaire, Fond> montantsLignesBudgetaire;
+	
 	private boolean contraintes;
+
+	@Column(columnDefinition = "DATE")
 	private LocalDate dateDebut;
+
+	@Column(columnDefinition = "DATE")
 	private LocalDate dateFin;
 
 	public UBR() {
@@ -132,12 +165,12 @@ public class UBR {
 		Fond f = montantsLignesBudgetaire.get(ligneBudgetaire);
 		return f.getTotal()-f.getMinUtilise();
 	}
-	
+
 	public float getMontantaUtilise(LigneBudgetaire ligneBudgetaire) {
 		Fond f = montantsLignesBudgetaire.get(ligneBudgetaire);
 		return f.getMinUtilise();
 	}
-	
+
 	public float getMontantTotalUBR(LigneBudgetaire ligneBudgetaire) {
 		Fond f = montantsLignesBudgetaire.get(ligneBudgetaire);
 		return f.getTotal();
@@ -151,7 +184,7 @@ public class UBR {
 			ligneBudgetaire.ajouterUBR(this, montant);
 		}
 	}
-	
+
 	// Méthode pour ajouter une ligne budgétaire avec son montant
 	public void ajouterLigneBudgetaire(LigneBudgetaire ligneBudgetaire, float montant, float min) {
 		Fond f = new Fond(montant,min);
@@ -225,14 +258,35 @@ public class UBR {
 		this.dateFin = dateFin;
 	}
 
-	public class Fond {
+	
+	@Entity
+	@Table(name = "fond")
+	public static class Fond {
+		
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		private long id;
+		
 		private float total;
 		private float minUtilise;
+		
+		public Fond() {
+
+		}
+
 
 		public Fond(Float total, Float minUtilise) {
 			super();
 			this.total = total;
 			this.minUtilise = minUtilise;
+		}
+		
+		public long getId() {
+			return this.id;
+		}
+		
+		public void setId(long id) {
+			this.id = id;
 		}
 
 		/**
@@ -265,4 +319,84 @@ public class UBR {
 
 	}
 
+	
+	@Entity
+	@Table(name = "affectation_ligneubr")
+	public static class AffectationLigneUbr {
+
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		private long id;
+
+		@ManyToOne(cascade = CascadeType.ALL)
+		@JoinColumn(name = "ubr_id")
+		private UBR ubr;
+
+		@ManyToOne(cascade = CascadeType.ALL)
+		@JoinColumn(name = "lignebudgetaire_id")
+		private LigneBudgetaire ligne;
+
+		@ManyToOne(cascade = CascadeType.ALL)
+		@JoinColumn(name = "fond_id")
+		private Fond fond;
+		
+		public AffectationLigneUbr() {
+			
+		}
+		
+		public AffectationLigneUbr(UBR ubr, LigneBudgetaire ligne, Fond fond) {
+			super();
+			this.ubr = ubr;
+			this.ligne = ligne;
+			this.fond = fond;
+		}
+
+		public long getId() {
+			return this.id;
+		}
+
+		public void setId(long id) {
+			this.id = id;
+		}
+
+		public UBR getUbr() {
+			return ubr;
+		}
+
+		public void setUbr(UBR ubr) {
+			this.ubr = ubr;
+		}
+
+		public LigneBudgetaire getLigneBudgetaire() {
+			return ligne;
+		}
+
+		public void setLigneBudgetaire(LigneBudgetaire ligne) {
+			this.ligne = ligne;
+		}
+
+		public Fond getFond() {
+			return fond;
+		}
+
+		public void setFond(Fond fond) {
+			this.fond = fond;
+		}
+	}
+
+	public List<AffectationLigneUbr> getAffectationsLignes() {
+		return affectationsLignes;
+	}
+
+	public void setAffectationsLignes(List<AffectationLigneUbr> affectationsLignes) {
+		this.affectationsLignes = affectationsLignes;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 }
