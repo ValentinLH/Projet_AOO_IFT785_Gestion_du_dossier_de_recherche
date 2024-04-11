@@ -18,7 +18,7 @@ import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.TrieMontant;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.*;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.VentilationManager.Triplet;
 
-public class TestVentilation {
+public class TestMainVentilation {
 	
 	public static void main(String[] args) {
 	
@@ -27,14 +27,10 @@ public class TestVentilation {
 		Projet p3 = new Projet("projet 3 ", LocalDate.now().minusDays(10),LocalDate.now().plusDays(10));
 		
 		Projet p4 = new Projet("projet 4x4 ", LocalDate.now().minusDays(10),LocalDate.now().plusDays(1000));
-
-		
 		
 		p1.addLigneBudgetaire(get1());
-
 		p2.addLigneBudgetaire(get2());
 		
-
 		p3.addLigneBudgetaire(get1());
 		p3.addLigneBudgetaire(get2());
 		
