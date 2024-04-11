@@ -4,6 +4,9 @@ import java.time.LocalDate;
 
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Etudiant extends Ressource {
 
     public enum Programme {
@@ -17,6 +20,10 @@ public class Etudiant extends Ressource {
         super(nom, prenom, echelle, echelon, heuresHebdo, debutContrat, finContrat);
         this.cip = cip;
         this.programme = Objects.requireNonNull(programme);
+    }
+    
+    public Etudiant() {
+    	super();
     }
 
     @Override

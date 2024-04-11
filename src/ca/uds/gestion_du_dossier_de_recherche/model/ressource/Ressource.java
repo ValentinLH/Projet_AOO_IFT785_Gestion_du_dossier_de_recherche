@@ -6,20 +6,53 @@ import java.util.stream.Collectors;
 
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.Depense;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR;
+import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
+import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet.AffectationProjetRessource;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
+
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilable;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
+import jakarta.persistence.Inheritance;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class Ressource implements Ventilable {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int Id;
+	
 	private String nom;
 	private String prenom;
 	private int echelle;
 	private int echelon;
 	private float heuresHebdo;
+	
+	@Column(columnDefinition = "DATE")
 	private LocalDate debutContrat;
+	
+	@Column(columnDefinition = "DATE")
 	private LocalDate finContrat;
+	
+	@Transient
 	private static GrilleSalariale grilleSalariale;
 	private Set<Bulletin> bulletins;
 
 	
+
+	@OneToMany(mappedBy = "ressource")
+    private List<AffectationProjetRessource> affectationsRessource = new ArrayList<>();
 
 	static {
 		grilleSalariale = GrilleSalariale.getInstance();
@@ -35,6 +68,10 @@ public abstract class Ressource implements Ventilable {
 		this.debutContrat = debutContrat;
 		this.finContrat = finContrat;
 		this.bulletins = new HashSet<>();
+	}
+	
+	public Ressource() {
+
 	}
 
 	public double getTauxHoraire() {
@@ -63,7 +100,7 @@ public abstract class Ressource implements Ventilable {
 		
 		return montantDue;
   }
-  
+
 
 	public double calculSalaireMensuel() {
 		double tauxHoraire = getTauxHoraire();
@@ -121,7 +158,7 @@ public abstract class Ressource implements Ventilable {
 	public LocalDate getFinContrat() {
 		return finContrat;
   }
-  
+
   @Override
 	public LocalDate getDateFin() {
 		return finContrat;
@@ -158,9 +195,7 @@ public abstract class Ressource implements Ventilable {
 		double bonus = salaireBrut * 0.25;
 		return salaireBrut + bonus;
 	}
-  
-	
-	
+
 	
   /**
 	 * @return the bulletins
@@ -195,8 +230,31 @@ public abstract class Ressource implements Ventilable {
 
 	
 	
-@Override
+  @Override
 	public String toString() {
 		return "Ressource [Nom=" + nom + ", Prenom=" + prenom  +"Heures_hebdo="+ heuresHebdo + ", Debut_contrat=" + debutContrat + ", Fin_contrat=" + finContrat + "]";
 	}
-}    	
+
+
+
+
+	public List<AffectationProjetRessource> getAffectationsRessource() {
+		return affectationsRessource;
+	}
+
+
+
+
+	public void setAffectationsRessource(List<AffectationProjetRessource> affectationsRessource) {
+		this.affectationsRessource = affectationsRessource;
+	}
+
+	public int getId() {
+		return Id;
+	}
+
+	public void setId(int id) {
+		Id = id;
+	}
+
+}

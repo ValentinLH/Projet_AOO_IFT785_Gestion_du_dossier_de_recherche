@@ -7,13 +7,34 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR.AffectationLigneUbr;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 
+@Entity
 public class LigneBudgetaire {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
 	private String nom;
 	private String type;
+	
+	@Transient
 	private Set<UBR> ubrs;
+	
+	@ManyToMany(targetEntity = Depense.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Set<Depense> depenses;
+	
+	@OneToMany(mappedBy = "ligne")
+    private List<AffectationLigneUbr> affectationsUbr = new ArrayList<>();
 	
 	
 	public LigneBudgetaire() {
@@ -185,6 +206,22 @@ public class LigneBudgetaire {
 	@Override
 	public String toString() {
 		return "LigneBudgetaire [nom=" + nom + ", type=" + type + ", ubrs=" + ubrs + ", depenses=" + depenses + "]";
+	}
+
+	public List<AffectationLigneUbr> getAffectationsUbr() {
+		return affectationsUbr;
+	}
+
+	public void setAffectationsUbr(List<AffectationLigneUbr> affectationsUbr) {
+		this.affectationsUbr = affectationsUbr;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
     
