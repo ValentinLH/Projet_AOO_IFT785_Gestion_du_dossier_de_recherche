@@ -2,7 +2,9 @@ package ca.uds.gestion_du_dossier_de_recherche.ventilation;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
@@ -18,22 +20,34 @@ public class VentilationManager {
 		this.date = date;
 	}
 
-	public List<Triplet<Projet, Ressource, Double>> ventilerMontants(List<Projet> projets, List<Ressource> ressources) {
-        List<Triplet<Projet, Ressource, Double>> result = new ArrayList<>();
+	public List<Triplet<Projet, Ressource, Float>> ventilerMontants(List<Projet> projets, List<Ressource> ressources) {
+        List<Triplet<Projet, Ressource, Float>> result = new ArrayList<>();
 
+        Map<Ressource,Float> attributions = new HashMap<>();
+        
+        for (Ressource ressource : ressources) {
+        	attributions.put(ressource, 0f);
+        }
+        
+        
         // Parcours de chaque projet
         for (Projet projet : projets) {
             // Calcul du montant à ventiler pour ce projet
-            double montantProjet = projet.getMontantVentilation(date); // Exemple de méthode pour obtenir le montant du projet
+        	float montantProjet = projet.getMontantVentilation(date); // Exemple de méthode pour obtenir le montant du projet
 
             // Parcours de chaque ressource
             for (Ressource ressource : ressources) {
-                // Vérifier si le montant du projet peut être attribué à cette ressource
-                double montantAttribue = Math.min(montantProjet, ressource.getMontantVentilation(date)); // Exemple de méthode pour obtenir le montant restant de la ressource
+                
+            	float montantRestantRessource = ressource.getMontantVentilation(date) - attributions.get(ressource);
+            	// Vérifier si le montant du projet peut être attribué à cette ressource
+            	
+            	
+                float montantAttribue = Math.min(montantProjet, montantRestantRessource); // Exemple de méthode pour obtenir le montant restant de la ressource
                 montantProjet -= montantAttribue;
 
                 // Ajouter le triplet (projet, ressource, montant) à la liste de résultats si le montant attribué est positif
                 if (montantAttribue > 0) {
+                	attributions.replace(ressource,  (attributions.get(ressource)+montantAttribue));
                     result.add(new Triplet<>(projet, ressource, montantAttribue));
                 }
 
@@ -48,7 +62,7 @@ public class VentilationManager {
     }
 
     // Classe Triplet générique
-    static class Triplet<T, U, V> {
+    public static class Triplet<T, U, V> {
         private final T first;
         private final U second;
         private final V third;
