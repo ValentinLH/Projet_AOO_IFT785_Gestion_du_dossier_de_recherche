@@ -16,6 +16,7 @@ import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.TrieDateFinContrat;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.TrieMontant;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.*;
+import ca.uds.gestion_du_dossier_de_recherche.ventilation.VentilationManager.Triplet;
 
 public class TestVentilation {
 	
@@ -132,7 +133,7 @@ public class TestVentilation {
         res = (List<Projet>) ventilateur.ventiler(projets);
         
         for(Projet p : res)
-			System.out.println("> "+p.getTitre()+" - "+p.calculMontant(ventilateur.getDate())+"$"+" - "+p.getDateFin());
+			System.out.println("> "+p.getTitre()+" - "+p.getMontantVentilation(ventilateur.getDate())+"$"+" - "+p.getDateFin());
 		
         
         System.out.println(" ~~~~~~~~~~~~~~");
@@ -141,6 +142,15 @@ public class TestVentilation {
         for(Ressource r : res2)
 			System.out.println("> "+r.getNom()+" - "+r.getMontantVentilation(ventilateur.getDate())+"$"+" - "+r.getFinContrat());
 		
+        System.out.println(" ~~~~~~~~~~~~~~");
+        
+        VentilationManager ventilationManager = new VentilationManager(ventilateur.getDate());
+        List<Triplet<Projet, Ressource, Double>> tricount =  ventilationManager.ventilerMontants(res, res2);
+        
+        for(Triplet<Projet, Ressource, Double> t : tricount)
+			System.out.println("> "+t.getFirst().getTitre()+" - "+t.getSecond().getNom() +" - "+t.getThird()+"$");
+		
+        
         
         
 	}
