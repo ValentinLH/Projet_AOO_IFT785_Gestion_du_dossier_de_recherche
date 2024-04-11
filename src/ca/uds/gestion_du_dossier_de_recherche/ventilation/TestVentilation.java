@@ -145,9 +145,9 @@ public class TestVentilation {
         System.out.println(" ~~~~~~~~~~~~~~");
         
         VentilationManager ventilationManager = new VentilationManager(ventilateur.getDate());
-        List<Triplet<Projet, Ressource, Double>> tricount =  ventilationManager.ventilerMontants(res, res2);
+        List<Triplet<Projet, Ressource, Float>> tricount =  ventilationManager.ventilerMontants(res, res2);
         
-        for(Triplet<Projet, Ressource, Double> t : tricount)
+        for(Triplet<Projet, Ressource, Float> t : tricount)
 			System.out.println("> "+t.getFirst().getTitre()+" - "+t.getSecond().getNom() +" - "+t.getThird()+"$");
 		
         
