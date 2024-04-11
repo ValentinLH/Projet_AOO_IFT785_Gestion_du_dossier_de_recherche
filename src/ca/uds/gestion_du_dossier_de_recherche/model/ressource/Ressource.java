@@ -1,8 +1,15 @@
 package ca.uds.gestion_du_dossier_de_recherche.model.ressource;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.Depense;
+import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet.AffectationProjetRessource;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
+
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilable;
 
 import jakarta.persistence.Column;
@@ -40,6 +47,9 @@ public abstract class Ressource implements Ventilable {
 	
 	@Transient
 	private static GrilleSalariale grilleSalariale;
+	private Set<Bulletin> bulletins;
+
+	
 
 	@OneToMany(mappedBy = "ressource")
     private List<AffectationProjetRessource> affectationsRessource = new ArrayList<>();
@@ -57,6 +67,7 @@ public abstract class Ressource implements Ventilable {
 		this.heuresHebdo = heuresHebdo;
 		this.debutContrat = debutContrat;
 		this.finContrat = finContrat;
+		this.bulletins = new HashSet<>();
 	}
 	
 	public Ressource() {
@@ -75,7 +86,19 @@ public abstract class Ressource implements Ventilable {
 	@Override
 	public float getMontantVentilation(LocalDate date) {
 		// TODO Auto-generated method stub
-		return 0;
+		float montantDue = (float) this.calculerSalaireEstime();
+		
+		
+		Set<Bulletin> bulletinPaye = bulletins.stream()
+                .filter(bulletin -> bulletin.getDate().isBefore(date) || bulletin.getDate().isEqual(date))
+                .collect(Collectors.toSet());
+		
+		for (Bulletin bulletin : bulletinPaye)
+		{
+			montantDue -= bulletin.getMontant(); 
+		}
+		
+		return montantDue;
   }
 
 
@@ -173,6 +196,40 @@ public abstract class Ressource implements Ventilable {
 		return salaireBrut + bonus;
 	}
 
+	
+  /**
+	 * @return the bulletins
+	 */
+	public Set<Bulletin> getBulletins() {
+		return bulletins;
+	}
+
+	/**
+	 * @param bulletins the bulletins to set
+	 */
+	public void setBulletins(Set<Bulletin> bulletins) {
+		this.bulletins = bulletins;
+	}
+
+    /**
+     * Ajoute un bulletin à l'ensemble des bulletins.
+     * @param bulletin le bulletin à ajouter
+     */
+    public void ajouterBulletin(Bulletin bulletin) {
+        this.bulletins.add(bulletin);
+    }
+
+    /**
+     * Supprime un bulletin de l'ensemble des bulletins.
+     * @param bulletin le bulletin à supprimer
+     */
+    public void supprimerBulletin(Bulletin bulletin) {
+    	bulletin.detruit();
+        this.bulletins.remove(bulletin);
+    }
+
+	
+	
   @Override
 	public String toString() {
 		return "Ressource [Nom=" + nom + ", Prenom=" + prenom  +"Heures_hebdo="+ heuresHebdo + ", Debut_contrat=" + debutContrat + ", Fin_contrat=" + finContrat + "]";
