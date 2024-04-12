@@ -3,7 +3,7 @@ package ca.uds.gestion_du_dossier_de_recherche.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.uds.destion_du_dossier_de_recherche.controller.GeneralViewController;
+import ca.uds.gestion_du_dossier_de_recherche.controller.GeneralViewController;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.StrategieTrie;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.TrieDateFinContrat;
@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
@@ -26,6 +27,9 @@ public class GeneralView extends Application {
 	
 	@FXML 
 	TableView<Projet> tableViewProjet;
+	
+	@FXML
+	TableColumn<Projet,String> projetNomColumn;
 	
 	GeneralViewController controller;
 	
@@ -50,6 +54,7 @@ public class GeneralView extends Application {
 	@FXML
     public void initialize() {
 		updateComboBox();
+		updateTableViewProjet();
 		System.out.println("test");
 	}
 	
@@ -62,6 +67,5 @@ public class GeneralView extends Application {
 	
 	@FXML
 	public void updateTableViewProjet() {
-		tableViewProjet
 	}
 }

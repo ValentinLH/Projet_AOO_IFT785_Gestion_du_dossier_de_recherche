@@ -1,9 +1,11 @@
-package ca.uds.destion_du_dossier_de_recherche.controller;
+package ca.uds.gestion_du_dossier_de_recherche.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.uds.gestion_du_dossier_de_recherche.DAO.ProjetDAO;
+import ca.uds.gestion_du_dossier_de_recherche.DAO.ressourceDAO;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.LigneBudgetaire;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.Organisme;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR;
@@ -14,8 +16,11 @@ import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Soutien;
 public class GeneralViewController {
 
 	private List<Projet> projetList;
+	private List<Ressource> ressourceList; 
+	private ressourceDAO daoRessource;
+	private ProjetDAO daoProjet;
 	
-	public GeneralViewController() {
+	public  GeneralViewController() {
 		Projet projet;
 		Organisme monFrigo;
 		UBR ubr1;
@@ -51,10 +56,19 @@ public class GeneralViewController {
 		projetList = new ArrayList<Projet>();
 		projetList.add(projet);
 		
+//		projetList = daoProjet.getAllProjet();
+//		ressourceList = daoRessource.getAllRessources();
+		
+		
+		
 		
 	}
 	
 	public List<Projet> getListeProjet() {
 		return projetList;
+	}
+	
+	public List<Ressource> getRessourceList() {
+		return ressourceList;
 	}
 }
