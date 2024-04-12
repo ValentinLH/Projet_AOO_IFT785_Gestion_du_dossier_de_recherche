@@ -20,10 +20,8 @@
       <Text layoutX="31.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inititulé ligne budgétaire" />
       <TextField layoutX="217.0" layoutY="21.0" prefHeight="31.0" prefWidth="515.0" />
       <ListView layoutX="31.0" layoutY="290.0" prefHeight="127.0" prefWidth="702.0" />
-      <ComboBox layoutX="115.0" layoutY="237.0" prefHeight="31.0" prefWidth="247.0" promptText="Choisir..." />
       <Text layoutX="28.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UBRs" wrappingWidth="83.0000002682209" />
       <ListView layoutX="31.0" layoutY="525.0" prefHeight="127.0" prefWidth="702.0" />
-      <ComboBox layoutX="163.0" layoutY="478.0" prefHeight="31.0" prefWidth="200.0" promptText="Choisir..." />
       <Text layoutX="31.0" layoutY="499.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dépense" wrappingWidth="140.2368152141571" />
       <Button layoutX="439.0" layoutY="237.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="227.0" text="Ajouter UBR sélectionnée" />
       <Button layoutX="414.0" layoutY="478.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="280.0" text="Ajouter dépense sélectionnée" />
@@ -32,5 +30,10 @@
       <Separator layoutY="679.0" prefHeight="0.0" prefWidth="799.0" />
       <ComboBox layoutX="119.0" layoutY="70.0" prefHeight="31.0" prefWidth="247.0" promptText="Choisir..." />
       <Text layoutX="32.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" wrappingWidth="83.0000002682209" />
+      <Button layoutX="367.0" layoutY="237.0" mnemonicParsing="false" text="+" />
+      <Button layoutX="367.0" layoutY="478.0" mnemonicParsing="false" text="+" />
+      <Button layoutX="367.0" layoutY="70.0" mnemonicParsing="false" text="+" />
+      <ComboBox layoutX="119.0" layoutY="237.0" prefHeight="31.0" prefWidth="247.0" promptText="Choisir..." />
+      <ComboBox layoutX="119.0" layoutY="478.0" prefHeight="31.0" prefWidth="247.0" promptText="Choisir..." />
    </children>
 </Pane>
