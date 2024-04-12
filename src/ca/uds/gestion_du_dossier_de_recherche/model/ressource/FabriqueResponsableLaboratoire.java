@@ -6,6 +6,8 @@ public class FabriqueResponsableLaboratoire extends FabriquePersonne {
 
 	private String laboratoire;
 	
+	
+	
 	public FabriqueResponsableLaboratoire(String laboratoire) {
 		this.laboratoire = laboratoire;
 	}
