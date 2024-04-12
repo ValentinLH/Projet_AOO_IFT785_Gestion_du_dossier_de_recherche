@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -17,11 +18,11 @@
                <children>
                   <TableView fx:id="tableViewProjet" layoutX="14.0" layoutY="57.0" prefHeight="265.0" prefWidth="623.0">
                     <columns>
-                      <TableColumn prefWidth="134.0" text="Nom Du projet" />
-                      <TableColumn prefWidth="120.0" text="Financement" />
-                        <TableColumn prefWidth="108.0" text="Date Début" />
-                        <TableColumn prefWidth="113.0" text="Date Fin" />
-                        <TableColumn prefWidth="147.0" text="Nombre de Ressources" />
+                      <TableColumn fx:id="projetNomColumn" prefWidth="134.0" text="Nom Du projet" />
+                      <TableColumn fx:id="financementColumn" prefWidth="120.0" text="Financement" />
+                        <TableColumn fx:id="dateDebutColumn" prefWidth="108.0" text="Date Début" />
+                        <TableColumn fx:id="dateFinColumn" prefWidth="113.0" text="Date Fin" />
+                        <TableColumn fx:id="nbRessourcesColumn" prefWidth="147.0" text="Nombre de Ressources" />
                     </columns>
                   </TableView>
                   <ComboBox fx:id="optionStartegie" layoutX="153.0" layoutY="14.0" prefWidth="150.0" promptText="Aucune" />
@@ -30,6 +31,7 @@
                   <Button layoutX="84.0" layoutY="364.0" mnemonicParsing="false" text="Selection Projet" />
                   <Button layoutX="248.0" layoutY="364.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" text="Ajouter Projet" />
                   <Button layoutX="412.0" layoutY="364.0" mnemonicParsing="false" text="Supprimé Projet" />
+                  <DatePicker layoutX="325.0" layoutY="14.0" />
                </children>
             </AnchorPane>
          </content></Tab>

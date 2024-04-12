@@ -12,6 +12,8 @@ import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Soutien;
+import ca.uds.gestion_du_dossier_de_recherche.view.GeneralView;
+import javafx.application.Application;
 
 public class GeneralViewController {
 
@@ -21,6 +23,7 @@ public class GeneralViewController {
 	private ProjetDAO daoProjet;
 	
 	public  GeneralViewController() {
+				
 		Projet projet;
 		Organisme monFrigo;
 		UBR ubr1;

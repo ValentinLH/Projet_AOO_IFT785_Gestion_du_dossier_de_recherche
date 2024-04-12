@@ -1,5 +1,6 @@
 package ca.uds.gestion_du_dossier_de_recherche.view;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,9 @@ import javafx.stage.Stage;
 
 public class GeneralView extends Application {
 
-	List<Projet> projetList = new ArrayList<Projet>();
+	GeneralViewController controller;
+	
+	/*======== COMPOSANT FXML ========*/
 	
 	@FXML
 	private ComboBox<StrategieTrie> optionStartegie;
@@ -31,7 +34,18 @@ public class GeneralView extends Application {
 	@FXML
 	TableColumn<Projet,String> projetNomColumn;
 	
-	GeneralViewController controller;
+	@FXML
+	TableColumn<Projet,Double> financementColumn;
+	
+	@FXML
+	TableColumn<Projet,LocalDate> dateDebutColumn;
+	
+	@FXML
+	TableColumn<Projet,LocalDate> dateFinColumn;
+	
+	@FXML
+	TableColumn<Projet,Integer> nbRessourcesColumn;
+	
 	
 	public GeneralView(){
 		controller  = new GeneralViewController();
@@ -39,6 +53,8 @@ public class GeneralView extends Application {
 	
 	public static void main(String[] args) {
 		Application.launch(GeneralView.class,args);
+		//new GeneralViewController();
+		
 	}
 	
 	@Override
@@ -67,5 +83,10 @@ public class GeneralView extends Application {
 	
 	@FXML
 	public void updateTableViewProjet() {
+		
+		for(Projet projet : controller.getListeProjet()) {
+			this.tableViewProjet.getItems().add(projet);
+		}
+		
 	}
 }
