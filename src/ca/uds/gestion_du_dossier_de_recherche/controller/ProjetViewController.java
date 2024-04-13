@@ -7,6 +7,10 @@ public class ProjetViewController {
 	private Projet projet;
 	
 	public ProjetViewController(Projet projet) {
+		super();
 		this.projet = projet;
 	}
+	
+	
+	
 }

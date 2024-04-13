@@ -85,7 +85,7 @@
                   <TreeView layoutX="36.0" layoutY="32.0" prefHeight="498.0" prefWidth="857.0" />
                   <Button layoutX="118.0" layoutY="561.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="146.0" text="Ajouter" />
                   <Button layoutX="394.0" layoutY="559.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="137.0" text="Modifier" />
-                  <Button layoutX="668.0" layoutY="555.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="130.0" text="Supprimé" />
+                  <Button layoutX="668.0" layoutY="555.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="130.0" text="Supprimer" />
                </children></AnchorPane>
       </content>
     </Tab>

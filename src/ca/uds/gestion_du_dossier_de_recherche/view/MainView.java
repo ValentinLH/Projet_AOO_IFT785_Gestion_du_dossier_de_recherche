@@ -15,7 +15,7 @@ public class MainView {
 
 	public static void main(String[] args) {
 					
-		Application.launch(GeneralView.class,args);
+		Application.launch(ProjetView.class,args);
 		
 		List<Projet> listProjet = new ArrayList<Projet>();// ProjetDAO.getAllProjet();
 		List<Ressource> listRessources = new ArrayList<Ressource>();//ressourceDAO.getAllRessources();
