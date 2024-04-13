@@ -1,5 +1,7 @@
 package ca.uds.gestion_du_dossier_de_recherche.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
@@ -14,8 +16,18 @@ public class VueGeneralControler {
 	private List<Ressource> ressourceList; 
 	private VueGenerale view;
 	
-	public VueGeneralControler() {
+	public VueGeneralControler() {		
+		Projet p1 = new Projet("projet 1 ", LocalDate.now().minusDays(2),LocalDate.now().plusDays(2));
+		Projet p2 = new Projet("projet 2 ", LocalDate.now().minusDays(5),LocalDate.now().plusDays(10));
+		
+		this.projetList = new ArrayList<Projet>();
+		this.ressourceList = new ArrayList<Ressource>();
+		
+		this.projetList.add(p1);
+		this.projetList.add(p2);
+		
 		view = new VueGenerale(this);
+		
 	}
 	
 	public VueGeneralControler(List<Projet> projetList,List<Ressource> ressourceList) {
