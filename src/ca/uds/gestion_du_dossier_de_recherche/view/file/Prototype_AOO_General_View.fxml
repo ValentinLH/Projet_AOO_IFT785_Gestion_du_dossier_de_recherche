@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="471.0" prefWidth="651.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.uds.gestion_du_dossier_de_recherche.view.GeneralView">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="471.0" prefWidth="651.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.uds.gestion_du_dossier_de_recherche.controller.GeneralViewController">
   <tabs>
     <Tab text="Projet">
          <content>
