@@ -1,6 +1,7 @@
 package ca.uds.gestion_du_dossier_de_recherche.view;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -14,11 +15,15 @@ import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.StrategieTri
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -29,6 +34,24 @@ public class VueGenerale extends Application {
 
 	@FXML
 	private ComboBox<StrategieTrie> comboBoxStrategie;
+	
+	@FXML 
+	TableView<Projet> tableViewProjet;
+	
+	@FXML
+	TableColumn<Projet,String> projetNomColumn;
+	
+	@FXML
+	TableColumn<Projet,Float> financementColumn;
+	
+	@FXML
+	TableColumn<Projet,LocalDate> dateDebutColumn;
+	
+	@FXML
+	TableColumn<Projet,LocalDate> dateFinColumn;
+	
+	@FXML
+	TableColumn<Projet,Integer> nbRessourcesColumn;
 	
 	private VueGeneralControler controler;
 	
@@ -83,7 +106,34 @@ public class VueGenerale extends Application {
 		this.comboBoxStrategie.getItems().clear();
 		this.comboBoxStrategie.getItems().add(this.controler.getStrategieDate());
 		this.comboBoxStrategie.getItems().add(this.controler.getStrategieMontant());
+		updatetableView();
     }
+	
+	public void updatetableView(){
+		
+		this.projetNomColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("titre"));
+		
+		this.dateFinColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("dateFin"));
+		
+		this.dateDebutColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("dateDebut"));
+		
+		this.financementColumn.setCellValueFactory(cellData -> {
+		    Projet projet = cellData.getValue();
+		    float total = projet.calculMontant(LocalDate.now());
+		    return new SimpleObjectProperty<>(total);
+		});
+		
+		this.nbRessourcesColumn.setCellValueFactory(cellData -> {
+		    Projet projet = cellData.getValue();
+		    int total = projet.getRessources().size();
+		    return new SimpleObjectProperty<>(total);
+		});
+		
+		this.tableViewProjet.getItems().addAll(controler.getListeProjet());
+	}
 	
 
 }
