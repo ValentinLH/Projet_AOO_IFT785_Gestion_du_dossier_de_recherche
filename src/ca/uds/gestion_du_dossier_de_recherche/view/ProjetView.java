@@ -59,8 +59,7 @@ public class ProjetView extends Application {
     @FXML
     public void initialize() {
         
-    	
-    	
+    
     	ObservableList<LigneBudgetaire> lignesBudgetaires = controller.getLignesBudgetaires();
 
         TreeItem<LigneBudgetaire> rootItem = new TreeItem<>();
