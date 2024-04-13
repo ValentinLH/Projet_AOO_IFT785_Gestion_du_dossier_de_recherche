@@ -8,6 +8,7 @@ import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.TrieDateFinContrat;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.TrieMontant;
+import ca.uds.gestion_du_dossier_de_recherche.view.MainView;
 import ca.uds.gestion_du_dossier_de_recherche.view.VueGenerale;
 
 public class VueGeneralControler {
@@ -17,8 +18,9 @@ public class VueGeneralControler {
 	private VueGenerale view;
 	
 	public VueGeneralControler() {		
-		Projet p1 = new Projet("projet 1 ", LocalDate.now().minusDays(2),LocalDate.now().plusDays(2));
+		Projet p1 = MainView.stubProjetaSupprimer();
 		Projet p2 = new Projet("projet 2 ", LocalDate.now().minusDays(5),LocalDate.now().plusDays(10));
+		
 		
 		this.projetList = new ArrayList<Projet>();
 		this.ressourceList = new ArrayList<Ressource>();

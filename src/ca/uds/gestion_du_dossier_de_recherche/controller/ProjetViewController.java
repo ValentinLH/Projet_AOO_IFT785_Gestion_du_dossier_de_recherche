@@ -10,8 +10,18 @@ import ca.uds.gestion_du_dossier_de_recherche.view.GeneralView;
 import ca.uds.gestion_du_dossier_de_recherche.view.ProjetView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableCell;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 
 public class ProjetViewController {
+
+
+    @FXML
+    private TreeTableView<LigneBudgetaire> treeTableLignes;
 
     private Projet projet;
     private ProjetView view;
@@ -27,7 +37,72 @@ public class ProjetViewController {
         view = new ProjetView(this);
         
     }
+    
+    public void update() {
+    	treeTableUpdate();
+    }
   
+    
+    
+    public void treeTableUpdate() {
+        ObservableList<LigneBudgetaire> lignesBudgetaires = getLignesBudgetaires();
+
+        // Créer les colonnes pour la TreeTableView
+        TreeTableColumn<LigneBudgetaire, String> ligneColumn = new TreeTableColumn<>("Ligne Budgétaire");
+        TreeTableColumn<LigneBudgetaire, String> ubrColumn = new TreeTableColumn<>("UBR");
+        TreeTableColumn<LigneBudgetaire, String> depenseColumn = new TreeTableColumn<>("Dépense");
+        
+        // Associer les données à chaque colonne
+        ligneColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("nom"));
+
+        // Créer une cell factory personnalisée pour la colonne des UBR
+        ubrColumn.setCellFactory(column -> new TreeTableCell<LigneBudgetaire, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item);
+
+                    // Mettre le texte en vert
+                    setStyle("-fx-text-fill: green;");
+                }
+            }
+        });
+
+        // Créer une cell factory personnalisée pour la colonne des dépenses
+        depenseColumn.setCellFactory(column -> new TreeTableCell<LigneBudgetaire, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item);
+
+                    // Mettre le texte en rouge
+                    setStyle("-fx-text-fill: red;");
+                }
+            }
+        });
+
+        treeTableLignes.getColumns().addAll(ligneColumn, ubrColumn, depenseColumn);
+
+        // Créer les items pour la TreeTableView
+        TreeItem<LigneBudgetaire> rootItem = new TreeItem<>();
+        rootItem.setExpanded(true);
+
+        for (LigneBudgetaire ligneBudgetaire : lignesBudgetaires) {
+            TreeItem<LigneBudgetaire> item = new TreeItem<>(ligneBudgetaire);
+            rootItem.getChildren().add(item);
+        }
+
+        treeTableLignes.setRoot(rootItem);
+    }
+
 
     public ObservableList<LigneBudgetaire> getLignesBudgetaires() {
         // Récupérer les lignes budgétaires associées au projet
@@ -44,6 +119,7 @@ public class ProjetViewController {
 	 */
 	public void setProjet(Projet projet) {
 		this.projet = projet;
+		update();
 	}
 
 
