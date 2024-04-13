@@ -10,7 +10,6 @@ import ca.uds.gestion_du_dossier_de_recherche.controller.GeneralViewController;
 import ca.uds.gestion_du_dossier_de_recherche.controller.VueGeneralControler;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
-import fr.polytech.vgl.timerecord.controller.TimeRecordControler;
 import javafx.application.Application;
 
 public class MainView {

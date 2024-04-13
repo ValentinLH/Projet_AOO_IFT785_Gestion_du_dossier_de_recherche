@@ -41,10 +41,13 @@ public class VueGenerale extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("file\\Prototype_AOO_General_View.fxml"));
         loader.setController(this);
         Parent root = loader.load();
-        primaryStage.setTitle("Time Record");
+        primaryStage.setTitle("Gestion des Ressources");
         primaryStage.setScene(new Scene(root, 600, 400));
         mainStage = primaryStage;
         primaryStage.show();
+        
+      
+        
 	}
 	
 	
