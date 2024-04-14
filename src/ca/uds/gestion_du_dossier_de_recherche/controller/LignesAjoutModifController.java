@@ -162,8 +162,25 @@ public class LignesAjoutModifController {
 
 	@FXML
 	public void delUBR() {
-		if (checkUbrSelection()) {
-			System.out.println("Hey");
+		if (this.ubrTableView.getSelectionModel().isEmpty()) {
+			Alert emptyAlert = new Alert(Alert.AlertType.INFORMATION);
+			emptyAlert.setTitle("Aucun UBR sélectionné");
+			emptyAlert.setHeaderText(null);
+			emptyAlert.setContentText("Choisissez un UBR avant de la supprimer");
+			emptyAlert.showAndWait();
+			return;
+		} else {
+			Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+			confirmationAlert.setTitle("Confirmation de suppression");
+			confirmationAlert.setHeaderText(null);
+			confirmationAlert.setContentText("Êtes-vous sûr de vouloir supprimer cet UBR ?");
+
+			Optional<ButtonType> result = confirmationAlert.showAndWait();
+			if (result.isPresent() && result.get() == ButtonType.OK) {
+				UBR selectedUBR = ubrTableView.getSelectionModel().getSelectedItem();
+				selectedUBR.supprimerLigneBudgetaire(ligne);
+				ubrTableView.getItems().remove(selectedUBR);
+			}
 		}
 
 	}
