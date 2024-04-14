@@ -358,6 +358,23 @@ public class LignesAjoutModifController {
 
 			projet.addLigneBudgetaire(ligne);
 
+			if (estUnAjout)
+			{
+		        TreeItem<LigneBudgetaire> newTreeItem = new TreeItem<>(ligne);
+
+		        // Récupérer la racine de la TreeTableView de la deuxième page
+		        TreeItem<LigneBudgetaire> rootItem = treeTableLignes.getRoot();
+
+		        // Ajouter le nouvel TreeItem à la liste des enfants de la racine
+		        rootItem.getChildren().add(newTreeItem);
+
+		        // Mettre à jour la TreeTableView avec la racine mise à jour
+		        treeTableLignes.setRoot(rootItem);
+
+			}
+			
+			
+			
 			// partie sensible de l'ajout a la treetable view de la page precedente
 			treeTableLignes.refresh();
 

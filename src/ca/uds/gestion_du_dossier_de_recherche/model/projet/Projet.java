@@ -187,14 +187,12 @@ public class Projet implements Ventilable {
 	public void addLigneBudgetaire(LigneBudgetaire lignes) {
 		if (lignes != null) {
 			this.lignesBudgetaires.add(lignes);
-			this.calculMontant(LocalDate.now());
 		}
 	}
 
 	public void removeLigneBudgetaire(LigneBudgetaire lignes) {
 		if (lignes != null && this.lignesBudgetaires.contains(lignes) == true) {
 			this.lignesBudgetaires.remove(lignes);
-			this.calculMontant(LocalDate.now());
 		}
 	}
 
