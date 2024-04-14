@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.LigneBudgetaire;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.*;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant;
@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
@@ -164,11 +165,14 @@ public class ProjetViewController {
             Parent root = loader.load();
             LignesAjoutModifController controllerLigne = loader.getController();
             Stage projectStage = new Stage();
-            projectStage.setTitle("Modifier Ligne");
+            projectStage.setTitle("Ajouter Ligne");
             projectStage.setScene(new Scene(root, 925, 740));
             projectStage.initModality(Modality.APPLICATION_MODAL);
+            
             projectStage.initOwner(mainStage);
-            controllerLigne.setLigne(new LigneBudgetaire());
+            controllerLigne.setProjet(projet);
+            controllerLigne.setStage(projectStage);
+            controllerLigne.setTreeTableLignes(treeTableLignes);
             projectStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
@@ -190,6 +194,9 @@ public class ProjetViewController {
 	            projectStage.setScene(new Scene(root, 925, 740));
 	            projectStage.initModality(Modality.APPLICATION_MODAL);
 	            projectStage.initOwner(mainStage);
+	            controllerLigne.setProjet(projet);
+	            controllerLigne.setTreeTableLignes(treeTableLignes);
+	            controllerLigne.setStage(projectStage);
 	            controllerLigne.setLigne(this.treeTableLignes.getSelectionModel().getSelectedCells().get(0).getTreeItem().getValue());
 	            projectStage.showAndWait();
 	        } catch (IOException e) {
@@ -205,7 +212,24 @@ public class ProjetViewController {
 	@FXML
 	public void supprimerLigne() {
 		if (checkSelection())
-			System.out.println("Hey");
+		{
+			Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+			confirmationAlert.setTitle("Confirmation de suppression");
+			confirmationAlert.setHeaderText(null);
+			confirmationAlert.setContentText("Êtes-vous sûr de vouloir supprimer cette Ligne ?");
+
+			Optional<ButtonType> result = confirmationAlert.showAndWait();
+			if (result.isPresent() && result.get() == ButtonType.OK) {
+				TreeItem<LigneBudgetaire> selectedTreeItem = treeTableLignes.getSelectionModel().getSelectedItem();
+	            if (selectedTreeItem != null) {
+	                LigneBudgetaire ligne = selectedTreeItem.getValue();
+	                projet.removeLigneBudgetaire(ligne);
+	                selectedTreeItem.getParent().getChildren().remove(selectedTreeItem);
+	            }
+				
+			}
+
+		}
 	}
 	
 	public void treeTableUpdate() {
@@ -219,22 +243,6 @@ public class ProjetViewController {
 
 			// Associer les données à chaque colonne
 			ligneColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("nom"));
-
-//    	    ubrColumn.setCellValueFactory(param -> {
-//    	        LigneBudgetaire ligneBudgetaire = param.getValue().getValue();
-//
-//    	        TreeItem<String> ubrRootItem = new TreeItem<>("UBRs");
-//    	        ubrRootItem.setExpanded(true);
-//
-//    	        // Ajouter chaque UBR comme un noeud enfant
-//    	        for (UBR ubr : ligneBudgetaire.getUbrs()) {
-//    	            String ubrText = "UBR de " + ubr.getOrganisme().getNom() + ", Code : " + ubr.getCode() + ", Montant :" + ubr.getMontant(ligneBudgetaire) + "$, De " + ubr.getDateDebut() + " à " + ubr.getDateFin();
-//    	            TreeItem<String> ubrItem = new TreeItem<>(ubrText);
-//    	            ubrRootItem.getChildren().add(ubrItem);
-//    	        }
-//
-//    	        return new SimpleObjectProperty<>(ubrRootItem);
-//    	    });
 
 			// Créer une cell factory personnalisée pour la colonne des UBR
 			ubrColumn.setCellValueFactory(param -> {
@@ -270,62 +278,6 @@ public class ProjetViewController {
 			treeTableLignes.setRoot(rootItem);
 		}
 
-//        ObservableList<LigneBudgetaire> lignesBudgetaires = getLignesBudgetaires();
-//
-//        // Créer les colonnes pour la TreeTableView
-//        TreeTableColumn<LigneBudgetaire, String> ligneColumn = new TreeTableColumn<>("Ligne Budgétaire");
-//        TreeTableColumn<LigneBudgetaire, String> ubrColumn = new TreeTableColumn<>("UBR");
-//        TreeTableColumn<LigneBudgetaire, String> depenseColumn = new TreeTableColumn<>("Dépense");
-//        
-//        // Associer les données à chaque colonne
-//        ligneColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("nom"));
-//
-//        // Créer une cell factory personnalisée pour la colonne des UBR
-//        ubrColumn.setCellFactory(column -> new TreeTableCell<LigneBudgetaire, String>() {
-//            @Override
-//            protected void updateItem(String item, boolean empty) {
-//                super.updateItem(item, empty);
-//                if (item == null || empty) {
-//                    setText(null);
-//                    setStyle("");
-//                } else {
-//                    setText(item);
-//
-//                    // Mettre le texte en vert
-//                    setStyle("-fx-text-fill: green;");
-//                }
-//            }
-//        });
-//
-//        // Créer une cell factory personnalisée pour la colonne des dépenses
-//        depenseColumn.setCellFactory(column -> new TreeTableCell<LigneBudgetaire, String>() {
-//            @Override
-//            protected void updateItem(String item, boolean empty) {
-//                super.updateItem(item, empty);
-//                if (item == null || empty) {
-//                    setText(null);
-//                    setStyle("");
-//                } else {
-//                    setText(item);
-//
-//                    // Mettre le texte en rouge
-//                    setStyle("-fx-text-fill: red;");
-//                }
-//            }
-//        });
-//
-//        treeTableLignes.getColumns().addAll(ligneColumn, ubrColumn, depenseColumn);
-//
-//        // Créer les items pour la TreeTableView
-//        TreeItem<LigneBudgetaire> rootItem = new TreeItem<>();
-//        rootItem.setExpanded(true);
-//
-//        for (LigneBudgetaire ligneBudgetaire : lignesBudgetaires) {
-//            TreeItem<LigneBudgetaire> item = new TreeItem<>(ligneBudgetaire);
-//            rootItem.getChildren().add(item);
-//        }
-//
-//        treeTableLignes.setRoot(rootItem);
 	}
 
 
@@ -358,7 +310,6 @@ public class ProjetViewController {
             emptyAlert.setTitle("Aucune ligne selectionné");
             emptyAlert.setHeaderText(null);
             emptyAlert.setContentText("Choisissez une ligne avant de faire une action");
-            emptyAlert.showAndWait();
 			return false;
 		}
 		
