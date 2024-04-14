@@ -1,5 +1,6 @@
 package ca.uds.gestion_du_dossier_de_recherche.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -12,18 +13,26 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.scene.control.ButtonType;
+import java.util.Optional;
 
 public class LignesAjoutModifController {
 
 	private LigneBudgetaire ligne;
 	private Projet projet;
-
+	private Stage mainStage;
+	
 	@FXML
 	private ComboBox<UBR> ubrComboBox;
 
@@ -186,6 +195,55 @@ public class LignesAjoutModifController {
 		for (UBR ubr : ligne.getUbrs())
 			this.ubrComboBox.getItems().add(ubr);
 //		this.ubrComboBox.getItems().add(this.controler.getStrategieMontant());
+	}
+
+	@FXML
+	void addDepense() {
+		
+		try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("..\\view\\file\\Prototype_AOO_ajout_depense.fxml"));
+            Parent root = loader.load();
+            CreationDepenseController controllerDepense = loader.getController();
+            Stage projectStage = new Stage();
+            projectStage.setTitle("Ajouter");
+            projectStage.setScene(new Scene(root, 600.0,183.0));
+            projectStage.initModality(Modality.APPLICATION_MODAL);
+            projectStage.initOwner(mainStage);
+            controllerDepense.setDepenseTableView(this.depenseTableView);
+            controllerDepense.setStage(projectStage);
+            projectStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+		
+		
+		//
+	}
+
+	@FXML
+	void delDepense() {
+		if (this.depenseTableView.getSelectionModel().isEmpty()) {
+			Alert emptyAlert = new Alert(Alert.AlertType.INFORMATION);
+			emptyAlert.setTitle("Aucune dépense sélectionnée");
+			emptyAlert.setHeaderText(null);
+			emptyAlert.setContentText("Choisissez une dépense avant de la supprimer");
+			emptyAlert.showAndWait();
+			return;
+		} else {
+			Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+			confirmationAlert.setTitle("Confirmation de suppression");
+			confirmationAlert.setHeaderText(null);
+			confirmationAlert.setContentText("Êtes-vous sûr de vouloir supprimer cette dépense ?");
+
+			Optional<ButtonType> result = confirmationAlert.showAndWait();
+			if (result.isPresent() && result.get() == ButtonType.OK) {
+				Depense selectedDepense = depenseTableView.getSelectionModel().getSelectedItem();
+
+				depenseTableView.getItems().remove(selectedDepense);
+			}
+		}
+
 	}
 
 }

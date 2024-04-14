@@ -19,15 +19,14 @@
       <TableView fx:id="depenseTableView" layoutX="31.0" layoutY="512.0" prefHeight="140.0" prefWidth="702.0" />
       <Text layoutX="31.0" layoutY="486.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dépense" wrappingWidth="140.2368152141571" />
       <Button layoutX="439.0" layoutY="153.0" mnemonicParsing="false" onAction="#delUBR" prefHeight="31.0" prefWidth="227.0" text="Supprimer UBR" />
-      <Button layoutX="414.0" layoutY="465.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="280.0" text="Ajouter dépense sélectionnée" />
+      <Button layoutX="414.0" layoutY="465.0" mnemonicParsing="false" onAction="#delDepense" prefHeight="31.0" prefWidth="280.0" text="Supprimer dépense sélectionnée" />
       <Separator layoutY="436.0" prefHeight="0.0" prefWidth="799.0" />
       <Separator layoutX="-8.0" layoutY="126.0" prefHeight="0.0" prefWidth="799.0" />
       <Separator layoutY="679.0" prefHeight="0.0" prefWidth="799.0" />
       <Text layoutX="32.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" wrappingWidth="83.0000002682209" />
       <Button layoutX="367.0" layoutY="153.0" mnemonicParsing="false" text="+" />
-      <Button layoutX="367.0" layoutY="465.0" mnemonicParsing="false" text="+" />
       <ComboBox fx:id="ubrComboBox" layoutX="119.0" layoutY="153.0" prefHeight="31.0" prefWidth="247.0" promptText="Choisir..." />
-      <ComboBox layoutX="119.0" layoutY="465.0" prefHeight="31.0" prefWidth="247.0" promptText="Choisir..." />
       <TableView fx:id="ubrTableView" layoutX="31.0" layoutY="206.0" prefHeight="200.0" prefWidth="702.0" />
+      <Button layoutX="102.0" layoutY="465.0" mnemonicParsing="false" onAction="#addDepense" prefHeight="31.0" prefWidth="280.0" text="Ajouter dépense" />
    </children>
 </Pane>
