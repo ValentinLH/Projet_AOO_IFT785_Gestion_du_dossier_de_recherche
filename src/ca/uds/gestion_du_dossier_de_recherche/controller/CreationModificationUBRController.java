@@ -1,5 +1,6 @@
 package ca.uds.gestion_du_dossier_de_recherche.controller;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -152,6 +153,17 @@ public class CreationModificationUBRController {
         LocalDate dateDebut = datePickerDateDebut.getValue();
         LocalDate dateFin = datePickerDateFin.getValue();
 
+        // Vérifier si les dates de début et de fin ne sont pas nulles
+        if (dateDebut == null || dateFin == null) {
+            // Afficher un message d'erreur
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Dates manquantes");
+            errorAlert.setHeaderText(null);
+            errorAlert.setContentText("Veuillez sélectionner une date de début et une date de fin.");
+            errorAlert.showAndWait();
+            return;
+        }
+        
         // Créer un nouvel UBR avec les valeurs
         UBR newUBR = new UBR();
         newUBR.setOrganisme(new Organisme(nomOrganisme,0)); // Supposons qu'Organisme ait un constructeur prenant le nom

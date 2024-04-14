@@ -59,6 +59,7 @@ public class LignesAjoutModifController {
 		super();
 		// nous devons avoir une ligne pour les ubr
 		this.ligne = new LigneBudgetaire();
+		
 	}
 
 	public LignesAjoutModifController(LigneBudgetaire ligne) {
@@ -76,6 +77,13 @@ public class LignesAjoutModifController {
 		setDepenseTableView();
 	}
 
+	
+	@FXML
+    public void initialize() {
+		initUbrTableView();
+		setDepenseTableView();
+    }
+	
 	/**
 	 * @return the treeTableLignes
 	 */
@@ -133,8 +141,9 @@ public class LignesAjoutModifController {
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
-
-	public void setUbrTableView() {
+	
+	public void initUbrTableView()
+	{
 
 		// Columns
 		TableColumn<UBR, Number> idColumn = new TableColumn<>("ID");
@@ -174,6 +183,11 @@ public class LignesAjoutModifController {
 
 		ubrTableView.getColumns().addAll(idColumn, codeColumn, organismeColumn, contraintesColumn, dateDebutColumn,
 				dateFinColumn, montantsTotalColumn, montantsMinColumn);
+
+	}
+	
+
+	public void setUbrTableView() {
 
 		ObservableList<UBR> data = FXCollections.observableArrayList(ligne.getUbrs());
 

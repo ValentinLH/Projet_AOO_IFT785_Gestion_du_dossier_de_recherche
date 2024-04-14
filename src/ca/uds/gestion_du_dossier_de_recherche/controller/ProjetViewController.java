@@ -3,9 +3,9 @@ package ca.uds.gestion_du_dossier_de_recherche.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.LigneBudgetaire;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.*;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
 import ca.uds.gestion_du_dossier_de_recherche.view.ProjetView;
@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
@@ -66,6 +67,7 @@ public class ProjetViewController {
             projectStage.setTitle("Ajouter Ligne");
             projectStage.setScene(new Scene(root, 925, 740));
             projectStage.initModality(Modality.APPLICATION_MODAL);
+            
             projectStage.initOwner(mainStage);
             controllerLigne.setProjet(projet);
             controllerLigne.setStage(projectStage);
@@ -109,7 +111,24 @@ public class ProjetViewController {
 	@FXML
 	public void supprimerLigne() {
 		if (checkSelection())
-			System.out.println("Hey");
+		{
+			Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+			confirmationAlert.setTitle("Confirmation de suppression");
+			confirmationAlert.setHeaderText(null);
+			confirmationAlert.setContentText("Êtes-vous sûr de vouloir supprimer cette Ligne ?");
+
+			Optional<ButtonType> result = confirmationAlert.showAndWait();
+			if (result.isPresent() && result.get() == ButtonType.OK) {
+				TreeItem<LigneBudgetaire> selectedTreeItem = treeTableLignes.getSelectionModel().getSelectedItem();
+	            if (selectedTreeItem != null) {
+	                LigneBudgetaire ligne = selectedTreeItem.getValue();
+	                projet.removeLigneBudgetaire(ligne);
+	                selectedTreeItem.getParent().getChildren().remove(selectedTreeItem);
+	            }
+				
+			}
+
+		}
 	}
 
 	
@@ -192,7 +211,6 @@ public class ProjetViewController {
             emptyAlert.setTitle("Aucune ligne selectionné");
             emptyAlert.setHeaderText(null);
             emptyAlert.setContentText("Choisissez une ligne avant de faire une action");
-            emptyAlert.showAndWait();
 			return false;
 		}
 		
