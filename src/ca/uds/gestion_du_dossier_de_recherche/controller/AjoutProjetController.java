@@ -44,6 +44,7 @@ public class AjoutProjetController {
 	}
 	
 	public void updateComponents() {
+		this.comboBoxRessource.getItems().clear();
 		this.comboBoxRessource.getItems().addAll(controler.getRessourceList());
 	}
 	
@@ -79,12 +80,14 @@ public class AjoutProjetController {
             CreationObjetController controllerRessource = loader.getController();
             Stage ressourceStagectStage = new Stage();
             ressourceStagectStage.setTitle("Ajouter une nouvelle ressource");
-            ressourceStagectStage.setScene(new Scene(root, 800, 775));
+            ressourceStagectStage.setScene(new Scene(root, 800, 425));
             ressourceStagectStage.initModality(Modality.APPLICATION_MODAL);
             ressourceStagectStage.initOwner(mainStage);
-            //controllerProject.setControler(this.controler);
-            //controllerProject.updateComponents();
+            controllerRessource.setController(this.controler);
+            controllerRessource.setMainStage(this.mainStage);
+            controllerRessource.updateComponents();
             ressourceStagectStage.showAndWait();
+            this.updateComponents();
         } catch (IOException e) {
             e.printStackTrace();
         }
