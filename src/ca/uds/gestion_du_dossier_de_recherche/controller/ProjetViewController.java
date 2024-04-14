@@ -1,6 +1,7 @@
 package ca.uds.gestion_du_dossier_de_recherche.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.LigneBudgetaire;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.*;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
 import ca.uds.gestion_du_dossier_de_recherche.view.ProjetView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,18 +18,43 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.beans.property.SimpleStringProperty;
 
 public class ProjetViewController {
 
+	VueGeneralControler vueGeneralControler = new VueGeneralControler();
+	List<Projet> projets = vueGeneralControler.getListeProjet();
+	List<Ressource> ressources = vueGeneralControler.getRessourceList();
+	
 	@FXML
 	private TreeTableView<LigneBudgetaire> treeTableLignes;
+
+	@FXML
+	private TextArea text_projet ;
+		
+	@FXML
+	private TextArea lignes_budg ;
+	
+    @FXML
+    private Text nb_ressource;
+	
+    @FXML
+    private Text montant_total;
 
 	private Projet projet;
 	private ProjetView view;
@@ -54,6 +81,7 @@ public class ProjetViewController {
 	// ---------------------- //
 	public void update() {
 		treeTableUpdate();
+		Afficheinfos();
 	}
 	
 	@FXML
@@ -107,6 +135,40 @@ public class ProjetViewController {
 			System.out.println("Hey");
 	}
 
+	@FXML
+	public void Afficheinfos() {
+		 
+		
+		Projet projet = projets.get(0);
+		String titre=projet.getTitre();
+		String desc=projet.getDescription();
+		int nb_res=projet.GetRessourceNumber();
+		String nb_res_string= "Il y a "+nb_res+ " Ressources dans le projet";
+		float montant=projet.calculMontant(LocalDate.now());
+		String montant_string="Montant total : "+ montant +"€";
+		
+		List<LigneBudgetaire> lignes=projet.getAllLigneBudgetaires();
+		List<Float> montants = new ArrayList<>();
+		List<String> noms = new ArrayList<>();
+
+		for (LigneBudgetaire ligne : lignes) {
+		    montants.add(ligne.getMontantLigne(LocalDate.now()));
+		    noms.add(ligne.getNom());
+		}
+
+		String result = "";
+		for (int i = 0; i < noms.size(); i++) {
+		    result += "Il reste à " + noms.get(i) + " " + montants.get(i) + " euros. " +"\n";
+		}
+		
+		
+		text_projet.setText("Nom du projet : " +"\n"+ titre +"\n"+ "\n"+ "Description du projet : " +"\n"+ desc );
+        montant_total.setText(montant_string);
+        nb_ressource.setText(nb_res_string);	
+        lignes_budg.setText(result);
+
+		    
+	}
 	
 
 	public void treeTableUpdate() {

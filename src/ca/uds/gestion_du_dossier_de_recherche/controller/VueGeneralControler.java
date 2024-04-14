@@ -24,7 +24,9 @@ public class VueGeneralControler {
 	
 	public VueGeneralControler() {		
 		Projet p1 = MainView.stubProjetaSupprimer();
+		p1.setDescription("Description du projet 1");
 		Projet p2 = new Projet("projet 2 ", LocalDate.now().minusDays(5),LocalDate.now().plusDays(10));
+		p2.setDescription("Description du projet 2");
 		
 
 		Organisme monFrigo;
