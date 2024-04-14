@@ -2,8 +2,6 @@ package ca.uds.gestion_du_dossier_de_recherche.view;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import ca.uds.gestion_du_dossier_de_recherche.controller.GeneralViewController;
@@ -11,11 +9,14 @@ import ca.uds.gestion_du_dossier_de_recherche.controller.ProjetViewController;
 import ca.uds.gestion_du_dossier_de_recherche.controller.VueGeneralControler;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
+import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilable;
+import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilation;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.StrategieTrie;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,12 +29,16 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.DatePicker;
 
 
 public class VueGenerale extends Application {
 
 	@FXML
 	private ComboBox<StrategieTrie> comboBoxStrategie;
+	
+	@FXML
+	ComboBox<StrategieTrie> comboBoxStrategieRessource;
 	
 	@FXML 
 	TableView<Projet> tableViewProjet;
@@ -52,6 +57,9 @@ public class VueGenerale extends Application {
 	
 	@FXML
 	TableColumn<Projet,Integer> nbRessourcesColumn;
+		
+	@FXML
+	DatePicker dateVentilation;
 	
 	private VueGeneralControler controler;
 	
@@ -106,10 +114,17 @@ public class VueGenerale extends Application {
 		this.comboBoxStrategie.getItems().clear();
 		this.comboBoxStrategie.getItems().add(this.controler.getStrategieDate());
 		this.comboBoxStrategie.getItems().add(this.controler.getStrategieMontant());
-		updatetableView();
+		
+		this.comboBoxStrategieRessource.getItems().clear();
+		this.comboBoxStrategieRessource.getItems().add(this.controler.getStrategieDate());
+		this.comboBoxStrategieRessource.getItems().add(this.controler.getStrategieMontant());
+		
+		updatetableViewProjet();
     }
 	
-	public void updatetableView(){
+	public void updatetableViewProjet(){
+		
+		this.tableViewProjet.getItems().clear();
 		
 		this.projetNomColumn.setCellValueFactory(
 			    new PropertyValueFactory<>("titre"));
@@ -135,5 +150,27 @@ public class VueGenerale extends Application {
 		this.tableViewProjet.getItems().addAll(controler.getListeProjet());
 	}
 	
-
+	public StrategieTrie getStrategieProjet() {
+		return comboBoxStrategie.getValue();
+	}
+	
+	public StrategieTrie getStrategieRessource() {
+		return comboBoxStrategieRessource.getValue();
+	}
+	
+	@FXML
+	void appliquerVentilation(Event e){
+		StrategieTrie strat = getStrategieProjet();
+		LocalDate date = dateVentilation.getValue();
+		controler.appliquerVentilationProjet(strat, date);
+		updatetableViewProjet();
+	}
+	
+	@FXML
+	void appliquerVentilationRessource(Event e){
+		StrategieTrie strat = getStrategieRessource();
+		LocalDate date = dateVentilation.getValue();	
+		controler.appliquerVentilationRessource(strat, date);
+	}
+	
 }

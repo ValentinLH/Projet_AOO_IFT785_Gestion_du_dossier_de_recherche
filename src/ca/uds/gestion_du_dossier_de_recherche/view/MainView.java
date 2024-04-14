@@ -20,14 +20,9 @@ import javafx.application.Application;
 public class MainView {
 
 	public static void main(String[] args) {
-		
-				
+						
 		Application.launch(VueGenerale.class, args);
-		
 
-		
-		
-		
 //		listProjet = window.getListeProjet();
 //		listRessources = window.getRessourceList();		
 	}
