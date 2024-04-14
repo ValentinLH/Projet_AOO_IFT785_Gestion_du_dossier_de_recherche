@@ -63,7 +63,7 @@ public class MainView {
 		p.addLigneBudgetaire(ligneBudgetaire4);
 
 
-		p.dateLimiteDepenses(10);
+//		p.dateLimiteDepenses(10);
 		
 		return p;
 	}

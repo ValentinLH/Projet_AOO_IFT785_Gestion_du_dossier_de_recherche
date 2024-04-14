@@ -28,5 +28,6 @@
       <ComboBox fx:id="ubrComboBox" layoutX="119.0" layoutY="153.0" prefHeight="31.0" prefWidth="247.0" promptText="Choisir..." />
       <TableView fx:id="ubrTableView" layoutX="31.0" layoutY="206.0" prefHeight="200.0" prefWidth="702.0" />
       <Button layoutX="102.0" layoutY="465.0" mnemonicParsing="false" onAction="#addDepense" prefHeight="31.0" prefWidth="280.0" text="Ajouter dépense" />
+      <Button layoutX="119.0" layoutY="153.0" mnemonicParsing="false" onAction="#addUBR" prefHeight="31.0" prefWidth="273.0" text="Créer UBR" />
    </children>
 </Pane>

@@ -246,4 +246,27 @@ public class LignesAjoutModifController {
 
 	}
 
+	@FXML 
+	void addUBR()
+	{
+		try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("..\\view\\file\\Prototype_AOO_ajout_UBR.fxml"));
+            Parent root = loader.load();
+            CreationModificationUBRController controllerUBR = loader.getController();
+            Stage projectStage = new Stage();
+            projectStage.setTitle("Ajouter");
+//            prefHeight="400.0" prefWidth="429.0"
+            projectStage.setScene(new Scene(root, 400.0,429.0));
+            projectStage.initModality(Modality.APPLICATION_MODAL);
+            projectStage.initOwner(mainStage);
+            controllerUBR.setLigne(this.ligne);
+            controllerUBR.setUbrTableView(ubrTableView);
+            controllerUBR.setStage(projectStage);
+            projectStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+	}
+	
 }
