@@ -71,41 +71,5 @@ public class GeneralView extends Application {
 	@FXML
 	public void updateTableViewProjet() {
 	}
-	
-	@FXML
-	private void ajouterProjetButtonClicked(ActionEvent event) {
-		try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("file/Prototype_AOO_ajout_projet.fxml"));
-			Parent root = loader.load();
-            
-            // Nouvelle scene et étape pour la scène
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setTitle("Nouveau Projet");
-            stage.setScene(scene);
-            stage.show();
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-	}
-	
-	@FXML
-	private void supprimerProjetButtonClicked(ActionEvent event) {
-		try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("file/Prototype_AOO_suppression.fxml"));
-            Parent root = loader.load();
-            
-            // Nouvelle scene et étape pour la scène
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setTitle("Supprimer Projet");
-            stage.setScene(scene);
-            stage.show();
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-	}
     
 }
