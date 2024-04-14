@@ -12,6 +12,7 @@ import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Soutien;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.TrieDateFinContrat;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.TrieMontant;
+import ca.uds.gestion_du_dossier_de_recherche.view.MainView;
 import ca.uds.gestion_du_dossier_de_recherche.view.VueGenerale;
 import javafx.fxml.FXML;
 
@@ -22,9 +23,10 @@ public class VueGeneralControler {
 	private VueGenerale view;
 	
 	public VueGeneralControler() {		
-		Projet p1 = new Projet("projet 1 ", LocalDate.now().minusDays(2),LocalDate.now().plusDays(2));
+		Projet p1 = MainView.stubProjetaSupprimer();
 		Projet p2 = new Projet("projet 2 ", LocalDate.now().minusDays(5),LocalDate.now().plusDays(10));
 		
+
 		Organisme monFrigo;
 		UBR ubr1;
 		UBR ubr2;
@@ -55,7 +57,7 @@ public class VueGeneralControler {
 		
 		p1.addRessourceWithDate(ressource2, dateDebut, dateFin);
 		p1.addRessourceWithDate(ressource, dateDebut, dateFin);
-		
+	
 		
 		this.projetList = new ArrayList<Projet>();
 		this.ressourceList = new ArrayList<Ressource>();

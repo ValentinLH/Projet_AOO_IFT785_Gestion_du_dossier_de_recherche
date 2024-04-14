@@ -91,7 +91,7 @@ public class VueGenerale extends Application {
             ProjetViewController controllerProject = loader.getController();
             Stage projectStage = new Stage();
             projectStage.setTitle("Settings");
-            projectStage.setScene(new Scene(root, 600, 300));
+            projectStage.setScene(new Scene(root, 925, 740));
             projectStage.initModality(Modality.APPLICATION_MODAL);
             projectStage.initOwner(mainStage);
             controllerProject.setProjet(this.controler.getListeProjet().get(0));
