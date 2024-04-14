@@ -1,6 +1,7 @@
 package ca.uds.gestion_du_dossier_de_recherche.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +9,9 @@ import java.util.stream.Collectors;
 
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.*;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.ResponsableLaboratoire;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
 import ca.uds.gestion_du_dossier_de_recherche.view.ProjetView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,20 +20,61 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class ProjetViewController {
 
+	
+	/*======= COMPOSANT FXML =======*/
+	
 	@FXML
 	private TreeTableView<LigneBudgetaire> treeTableLignes;
+	
+    @FXML 
+	TableView<Ressource> tableViewRessource;
+	
+	@FXML
+	TableColumn<Ressource,String> ressourceCategorieColumn;
+	
+	@FXML
+	TableColumn<Ressource,String> ressourceNomColumn;
+	
+	@FXML
+	TableColumn<Ressource,String> ressourcePrenomColumn;
+	
+	@FXML
+	TableColumn<Ressource,Integer> ressourceEchelleColumn;
+	
+	@FXML
+	TableColumn<Ressource,Integer> ressourceEchellonColumn;
+	
+	@FXML
+	TableColumn<Ressource,Integer> ressourceHeureHebdoColumn;
+	
+	@FXML
+	TableColumn<Ressource,LocalDate> dateDebutColumn;
+	
+	@FXML
+	TableColumn<Ressource,LocalDate> dateFinColumn;
+	
+	@FXML
+	TableColumn<Etudiant,String> ressourceCIPColumn;
+	
+	@FXML
+	TableColumn<ResponsableLaboratoire,String> ressourceLaboratoireColumn;
 
+	/*=============================*/
 	private Projet projet;
 	private ProjetView view;
 	
@@ -51,10 +96,66 @@ public class ProjetViewController {
 
 	
 	// ---------------------- //
+	//    Onglet Ressource    //
+	// ---------------------- //
+	public void TableViewEmployeeUpdate() {
+		this.tableViewRessource.getItems().clear();
+		
+		ressourceCategorieColumn.setCellValueFactory(cellData -> {
+		    Ressource ressource = cellData.getValue();
+		    return new SimpleObjectProperty<>(ressource.getClass().getSimpleName());
+		});
+		
+		this.ressourceNomColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("nom"));
+		
+		this.ressourcePrenomColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("prenom"));
+		
+		this.ressourceEchelleColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("echelle"));
+		
+		this.ressourceEchellonColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("echelon"));
+		
+		this.ressourceHeureHebdoColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("heuresHebdo"));
+		
+		this.dateFinColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("finContrat"));
+		
+		this.dateDebutColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("debutContrat"));
+		
+		this.ressourceCIPColumn.setCellValueFactory(cellData -> {
+		    Ressource ressource = cellData.getValue();
+		    
+		    if(ressource.getClass() == Etudiant.class){
+		    	Etudiant e = (Etudiant)ressource;
+		    	return new SimpleObjectProperty<>(e.getCip());
+		    }
+		    return new SimpleObjectProperty<>("/");
+		});
+		
+		this.ressourceLaboratoireColumn.setCellValueFactory(cellData -> {
+			Ressource ressource = cellData.getValue();
+		    
+		    if(ressource.getClass() == ResponsableLaboratoire.class){
+		    	ResponsableLaboratoire rl = (ResponsableLaboratoire)ressource;
+		    	return new SimpleObjectProperty<>(rl.getLaboratoire());
+		    }
+		    return new SimpleObjectProperty<>("/");
+		});
+		
+		this.tableViewRessource.getItems().addAll(this.projet.getRessources().keySet());
+	}
+	
+	// ---------------------- //
 	// Onglet Ligne Budgtaire //
 	// ---------------------- //
 	public void update() {
 		treeTableUpdate();
+		TableViewEmployeeUpdate();
 	}
 	
 	@FXML
@@ -130,9 +231,7 @@ public class ProjetViewController {
 
 		}
 	}
-
 	
-
 	public void treeTableUpdate() {
 		{
 			ObservableList<LigneBudgetaire> lignesBudgetaires = getLignesBudgetaires();
