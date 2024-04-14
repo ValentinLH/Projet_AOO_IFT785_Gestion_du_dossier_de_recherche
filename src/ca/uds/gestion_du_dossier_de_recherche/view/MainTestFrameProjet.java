@@ -7,7 +7,6 @@ import java.util.List;
 
 import ca.uds.gestion_du_dossier_de_recherche.DAO.ProjetDAO;
 import ca.uds.gestion_du_dossier_de_recherche.DAO.ressourceDAO;
-import ca.uds.gestion_du_dossier_de_recherche.controller.GeneralViewController;
 import ca.uds.gestion_du_dossier_de_recherche.controller.ProjetViewController;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.Depense;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.LigneBudgetaire;
