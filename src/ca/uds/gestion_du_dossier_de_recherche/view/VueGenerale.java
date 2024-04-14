@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import ca.uds.gestion_du_dossier_de_recherche.controller.AjoutProjetController;
 import ca.uds.gestion_du_dossier_de_recherche.controller.GeneralViewController;
 import ca.uds.gestion_du_dossier_de_recherche.controller.ProjetViewController;
 import ca.uds.gestion_du_dossier_de_recherche.controller.VueGeneralControler;
@@ -75,7 +76,6 @@ public class VueGenerale extends Application {
         primaryStage.setTitle("Gestion des Ressources");
         primaryStage.setScene(new Scene(root, 800, 600));
         mainStage = primaryStage;
-        //controler.setProjetAndRessourceList(listProjet, listRessources);
         primaryStage.show();
         
       
@@ -133,6 +133,25 @@ public class VueGenerale extends Application {
 		});
 		
 		this.tableViewProjet.getItems().addAll(controler.getListeProjet());
+	}
+	
+	@FXML
+	public void addProject() {
+		try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("file\\Prototype_AOO_ajout_projet.fxml"));
+            Parent root = loader.load();
+            AjoutProjetController controllerProject = loader.getController();
+            Stage projectStage = new Stage();
+            projectStage.setTitle("Ajouter un nouveau projet");
+            projectStage.setScene(new Scene(root, 800, 775));
+            projectStage.initModality(Modality.APPLICATION_MODAL);
+            projectStage.initOwner(mainStage);
+            controllerProject.setControler(this.controler);
+            controllerProject.updateComponents();
+            projectStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 	
 
