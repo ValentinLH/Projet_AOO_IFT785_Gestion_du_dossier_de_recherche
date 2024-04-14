@@ -211,22 +211,59 @@ public class CreationObjetController {
 		
 		if (this.comboBoxCategorie.getSelectionModel().getSelectedItem().equals("Etudiant"))
 		{
+			this.fabriqueEtu.setCip(this.cipTextField.getText());
+			this.fabriqueEtu.setProgramme(this.programmeComboBox.getSelectionModel().getSelectedItem());
 			Ressource ressource = this.fabriqueEtu.createRessource(
 					this.nomTextField.getText(), 
 					this.prenomTextField.getText(),
 					this.comboBoxEchelle.getSelectionModel().getSelectedItem(),
 					this.comboBoxEchelon.getSelectionModel().getSelectedItem(),
 					Float.parseFloat(this.salaireTextField.getText()),
+					this.dateDebut.getValue(),
+					this.dateFin.getValue());
+			
+			this.controller.getRessourceList().add(ressource);
+			this.showAlert("Ressource cree", "La ressource a bien ete cree");
+			Stage stage = (Stage) this.comboBoxCategorie.getScene().getWindow();
+			stage.close();
+			return;
+		}
+		
+		if (this.comboBoxCategorie.getSelectionModel().getSelectedItem().equals("Responsable de laboratoire"))
+		{
+			this.fabriqueRespo.setLaboratoire(this.laboTextField.getText());
+			Ressource ressource = this.fabriqueRespo.createRessource(
+					this.nomTextField.getText(), 
+					this.prenomTextField.getText(),
+					this.comboBoxEchelle.getSelectionModel().getSelectedItem(),
+					this.comboBoxEchelon.getSelectionModel().getSelectedItem(),
+					Float.parseFloat(this.salaireTextField.getText()),
 					this.dateDebut.getValue(), 
-					this.dateFin.getValue(),
-					this.cipTextField.getText(),
-					this.programmeComboBox.getSelectionModel().getSelectedItem());
+					this.dateFin.getValue());
 			
 			this.controller.getRessourceList().add(ressource);
 			this.showAlert("Ressource cree", "La ressource a bien ete cree");
 			Stage stage = (Stage) this.comboBoxCategorie.getScene().getWindow();
 			stage.close();
 		}
+		
+		if (this.comboBoxCategorie.getSelectionModel().getSelectedItem().equals("Soutien"))
+		{
+			Ressource ressource = this.fabriqueSoutien.createRessource(
+					this.nomTextField.getText(), 
+					this.prenomTextField.getText(),
+					this.comboBoxEchelle.getSelectionModel().getSelectedItem(),
+					this.comboBoxEchelon.getSelectionModel().getSelectedItem(),
+					Float.parseFloat(this.salaireTextField.getText()),
+					this.dateDebut.getValue(), 
+					this.dateFin.getValue());
+			
+			this.controller.getRessourceList().add(ressource);
+			this.showAlert("Ressource cree", "La ressource a bien ete cree");
+			Stage stage = (Stage) this.comboBoxCategorie.getScene().getWindow();
+			stage.close();
+		}
+		
 		
 		
 	}
