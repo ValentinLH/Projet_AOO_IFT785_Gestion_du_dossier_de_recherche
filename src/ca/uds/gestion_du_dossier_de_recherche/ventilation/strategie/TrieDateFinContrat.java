@@ -23,5 +23,10 @@ public class TrieDateFinContrat extends StrategieTrie {
 		});
 		return res;
 	}
+	
+	@Override
+	public String toString() {
+		return TrieDateFinContrat.class.getSimpleName();
+	}
 
 }

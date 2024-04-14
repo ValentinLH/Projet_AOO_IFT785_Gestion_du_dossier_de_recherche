@@ -26,5 +26,9 @@ public class TrieMontant extends StrategieTrie {
 
 		return res;
 	}
-
+	
+	@Override
+	public String toString() {
+		return TrieMontant.class.getSimpleName();
+	}
 }

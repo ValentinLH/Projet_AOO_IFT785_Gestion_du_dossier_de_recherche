@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="925.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="925.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.uds.gestion_du_dossier_de_recherche.controller.ProjetViewController">
   <tabs>
     <Tab text="Tableau de Bord">
       <content>
@@ -34,7 +35,7 @@
                               <Font size="27.0" />
                            </font>
                         </Text>
-                        <TextArea layoutX="14.0" layoutY="7.0" prefHeight="187.0" prefWidth="250.0" text="Nom du projet&#10;&#10;&#10;Description du Projet" />
+                        <TextArea editable="false" layoutX="14.0" layoutY="7.0" prefHeight="187.0" prefWidth="250.0" text="Nom du projet&#10;&#10;&#10;Description du Projet" />
                      </children>
                   </Pane>
                   <Pane layoutX="27.0" layoutY="214.0" prefHeight="334.0" prefWidth="878.0">
@@ -82,10 +83,11 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TreeView layoutX="36.0" layoutY="32.0" prefHeight="498.0" prefWidth="857.0" />
+                  <TreeView fx:id="treeViewLignes" layoutX="36.0" layoutY="32.0" prefHeight="498.0" prefWidth="857.0" showRoot="false" />
+                  <TreeTableView fx:id="treeTableLignes" layoutX="36.0" layoutY="32.0" prefHeight="499.0" prefWidth="857.0" showRoot="false" />
                   <Button layoutX="118.0" layoutY="561.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="146.0" text="Ajouter" />
                   <Button layoutX="394.0" layoutY="559.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="137.0" text="Modifier" />
-                  <Button layoutX="668.0" layoutY="555.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="130.0" text="Supprimé" />
+                  <Button layoutX="668.0" layoutY="555.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="130.0" text="Supprimer" />
                </children></AnchorPane>
       </content>
     </Tab>

@@ -9,25 +9,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="471.0" prefWidth="651.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.uds.gestion_du_dossier_de_recherche.view.GeneralView" xmlns="http://javafx.com/javafx/20.0.1">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="471.0" prefWidth="651.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
   <tabs>
     <Tab text="Projet">
          <content>
             <AnchorPane prefHeight="406.0" prefWidth="636.0">
                <children>
-                  <TableView layoutX="14.0" layoutY="57.0" prefHeight="265.0" prefWidth="623.0">
+                  <TableView fx:id="tableViewProjet" layoutX="14.0" layoutY="57.0" prefHeight="265.0" prefWidth="623.0">
                     <columns>
-                      <TableColumn prefWidth="134.0" text="Nom Du projet" />
-                      <TableColumn prefWidth="120.0" text="Financement" />
-                        <TableColumn prefWidth="108.0" text="Date Début" />
-                        <TableColumn prefWidth="113.0" text="Date Fin" />
-                        <TableColumn prefWidth="147.0" text="Nombre de Ressources" />
+                      <TableColumn fx:id="projetNomColumn" prefWidth="134.0" text="Nom Du projet" />
+                      <TableColumn fx:id="financementColumn" prefWidth="120.0" text="Financement" />
+                        <TableColumn fx:id="dateDebutColumn" prefWidth="108.0" text="Date Début" />
+                        <TableColumn fx:id="dateFinColumn" prefWidth="113.0" text="Date Fin" />
+                        <TableColumn fx:id="nbRessourcesColumn" prefWidth="147.0" text="Nombre de Ressources" />
                     </columns>
                   </TableView>
-                  <ComboBox layoutX="153.0" layoutY="14.0" prefWidth="150.0" promptText="Aucune" />
+                  <ComboBox fx:id="comboBoxStrategie" layoutX="153.0" layoutY="14.0" prefWidth="150.0" promptText="Aucune" />
                   <Text layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stratégie de ventilation : " wrappingWidth="139.13671875" />
                   <Button layoutX="514.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Appliquer" />
-                  <Button layoutX="84.0" layoutY="364.0" mnemonicParsing="false" text="Selection Projet" />
+                  <Button layoutX="84.0" layoutY="364.0" mnemonicParsing="false" onAction="#showProject" text="Selection Projet" />
                   <Button layoutX="248.0" layoutY="364.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" text="Ajouter Projet" onAction="#ajouterProjetButtonClicked"/>
                   <Button layoutX="412.0" layoutY="364.0" mnemonicParsing="false" text="Supprimé Projet" onAction="#supprimerProjetButtonClicked" />
                </children>
