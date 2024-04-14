@@ -178,22 +178,22 @@ public class ProjetViewController {
 
 	@FXML
 	public void modifierLigne() {
-//		System.out.println("Hey");
+		System.out.println("Hey");
 		
-    	try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("file/Prototype_AOO_ajout_budget.fxml"));
-            Parent root = loader.load();
-            LignesAjoutModifController controllerLigne = loader.getController();
-            Stage projectStage = new Stage();
-            projectStage.setTitle("Modifier Ligne");
-            projectStage.setScene(new Scene(root, 925, 740));
-            projectStage.initModality(Modality.APPLICATION_MODAL);
-            projectStage.initOwner(mainStage);
-            controllerLigne.setLigne(getProjet().getAllLigneBudgetaires().get(0));
-            projectStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//    	try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("file/Prototype_AOO_ajout_budget.fxml"));
+//            Parent root = loader.load();
+//            LignesAjoutModifController controllerLigne = loader.getController();
+//            Stage projectStage = new Stage();
+//            projectStage.setTitle("Modifier Ligne");
+//            projectStage.setScene(new Scene(root, 925, 740));
+//            projectStage.initModality(Modality.APPLICATION_MODAL);
+//            projectStage.initOwner(mainStage);
+//            controllerLigne.setLigne(getProjet().getAllLigneBudgetaires().get(0));
+//            projectStage.showAndWait();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 	}
 
 
