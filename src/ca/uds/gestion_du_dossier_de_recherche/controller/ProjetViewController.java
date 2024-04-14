@@ -40,6 +40,7 @@ public class ProjetViewController {
 
 	}
 
+	
 	public ProjetViewController(Projet projet) {
 		super();
 		this.projet = projet;
@@ -47,9 +48,66 @@ public class ProjetViewController {
 
 	}
 
+	
+	// ---------------------- //
+	// Onglet Ligne Budgtaire //
+	// ---------------------- //
 	public void update() {
 		treeTableUpdate();
 	}
+	
+	@FXML
+	public void addLigne() {
+		try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("..\\view\\file\\Prototype_AOO_ajout_budget.fxml"));
+            Parent root = loader.load();
+            LignesAjoutModifController controllerLigne = loader.getController();
+            Stage projectStage = new Stage();
+            projectStage.setTitle("Modifier Ligne");
+            projectStage.setScene(new Scene(root, 925, 740));
+            projectStage.initModality(Modality.APPLICATION_MODAL);
+            projectStage.initOwner(mainStage);
+            controllerLigne.setLigne(new LigneBudgetaire());
+            projectStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+	}
+
+	@FXML
+	public void modifierLigne() {
+		if (checkSelection())
+		{
+			
+	    	try {
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("..\\view\\file\\Prototype_AOO_ajout_budget.fxml"));
+	            Parent root = loader.load();
+	            LignesAjoutModifController controllerLigne = loader.getController();
+	            Stage projectStage = new Stage();
+	            projectStage.setTitle("Modifier Ligne");
+	            projectStage.setScene(new Scene(root, 925, 740));
+	            projectStage.initModality(Modality.APPLICATION_MODAL);
+	            projectStage.initOwner(mainStage);
+	            controllerLigne.setLigne(this.treeTableLignes.getSelectionModel().getSelectedCells().get(0).getTreeItem().getValue());
+	            projectStage.showAndWait();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+			
+		}
+	}
+
+
+
+	
+	@FXML
+	public void supprimerLigne() {
+		if (checkSelection())
+			System.out.println("Hey");
+	}
+
+	
 
 	public void treeTableUpdate() {
 		{
@@ -171,44 +229,6 @@ public class ProjetViewController {
 //        treeTableLignes.setRoot(rootItem);
 	}
 
-	@FXML
-	public void addLigne() {
-		if (checkSelection())
-			System.out.println("Hey");
-		
-	}
-
-	@FXML
-	public void modifierLigne() {
-		if (checkSelection())
-		{
-			
-	    	try {
-	            FXMLLoader loader = new FXMLLoader(getClass().getResource("..\\view\\file\\Prototype_AOO_ajout_budget.fxml"));
-	            Parent root = loader.load();
-	            LignesAjoutModifController controllerLigne = loader.getController();
-	            Stage projectStage = new Stage();
-	            projectStage.setTitle("Modifier Ligne");
-	            projectStage.setScene(new Scene(root, 925, 740));
-	            projectStage.initModality(Modality.APPLICATION_MODAL);
-	            projectStage.initOwner(mainStage);
-	            controllerLigne.setLigne(getProjet().getAllLigneBudgetaires().get(0));
-	            projectStage.showAndWait();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-			
-		}
-	}
-
-
-
-	
-	@FXML
-	public void supprimerLigne() {
-		if (checkSelection())
-			System.out.println("Hey");
-	}
 
 	public ObservableList<LigneBudgetaire> getLignesBudgetaires() {
 		// Récupérer les lignes budgétaires associées au projet
