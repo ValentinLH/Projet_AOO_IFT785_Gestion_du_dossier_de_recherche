@@ -37,16 +37,14 @@ public class VueGeneralControler {
 		ubr1 = new UBR(monFrigo, 1, true, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10));
 		ligneBudgetaire = new LigneBudgetaire("Ligne Budgetaire de Chocolat", "Chocolat");
 		ligneBudgetaire.ajouterUBR(ubr1, 500f);
-		p1 = new Projet("Title Test", "Test Description", LocalDate.now().minusDays(30),
-				LocalDate.now().plusDays(30));
 
 		ubr2 = new UBR(monFrigo, 1, false, LocalDate.now().minusDays(5), LocalDate.now().plusDays(5));
 		ligneBudgetaire2 = new LigneBudgetaire("Ligne Budgetaire de Beurre", "Beurre");
 		ligneBudgetaire2.ajouterUBR(ubr2, 1000f);
 		
-		Ressource ressource = new Soutien("Amin", "Dev", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
+		Ressource ressource = new Soutien("Jean", "Bonneau", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
 				LocalDate.of(2022, 12, 31));
-		Ressource ressource2 = new Soutien("Maxime", "Dev", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
+		Ressource ressource2 = new Soutien("Sylvain", "Hébon", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
 				LocalDate.of(2022, 12, 31));
 
 		LocalDate dateDebut = LocalDate.now().minusDays(1);
