@@ -147,6 +147,7 @@ public class VueGenerale extends Application {
             projectStage.initOwner(mainStage);
             controllerProject.setControler(this.controler);
             controllerProject.updateComponents();
+            controllerProject.setMainStage(this.mainStage);
             projectStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
