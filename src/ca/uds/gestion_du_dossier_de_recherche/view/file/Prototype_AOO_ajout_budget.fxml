@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="767.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="767.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.uds.gestion_du_dossier_de_recherche.controller.LignesAjoutModifController">
    <children>
       <Text layoutX="26.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date début" wrappingWidth="83.0000002682209" />
       <Text layoutX="405.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date fin" wrappingWidth="56.99999451637268" />

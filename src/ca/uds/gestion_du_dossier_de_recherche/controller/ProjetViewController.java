@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
@@ -172,28 +173,32 @@ public class ProjetViewController {
 
 	@FXML
 	public void addLigne() {
-		System.out.println("Hey");
+		if (checkSelection())
+			System.out.println("Hey");
 		
 	}
 
 	@FXML
 	public void modifierLigne() {
-		System.out.println("Hey");
-		
-//    	try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("file/Prototype_AOO_ajout_budget.fxml"));
-//            Parent root = loader.load();
-//            LignesAjoutModifController controllerLigne = loader.getController();
-//            Stage projectStage = new Stage();
-//            projectStage.setTitle("Modifier Ligne");
-//            projectStage.setScene(new Scene(root, 925, 740));
-//            projectStage.initModality(Modality.APPLICATION_MODAL);
-//            projectStage.initOwner(mainStage);
-//            controllerLigne.setLigne(getProjet().getAllLigneBudgetaires().get(0));
-//            projectStage.showAndWait();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+		if (checkSelection())
+		{
+			
+	    	try {
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("..\\view\\file\\Prototype_AOO_ajout_budget.fxml"));
+	            Parent root = loader.load();
+	            LignesAjoutModifController controllerLigne = loader.getController();
+	            Stage projectStage = new Stage();
+	            projectStage.setTitle("Modifier Ligne");
+	            projectStage.setScene(new Scene(root, 925, 740));
+	            projectStage.initModality(Modality.APPLICATION_MODAL);
+	            projectStage.initOwner(mainStage);
+	            controllerLigne.setLigne(getProjet().getAllLigneBudgetaires().get(0));
+	            projectStage.showAndWait();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+			
+		}
 	}
 
 
@@ -201,7 +206,8 @@ public class ProjetViewController {
 	
 	@FXML
 	public void supprimerLigne() {
-		System.out.println("Hey");
+		if (checkSelection())
+			System.out.println("Hey");
 	}
 
 	public ObservableList<LigneBudgetaire> getLignesBudgetaires() {
@@ -224,4 +230,30 @@ public class ProjetViewController {
 		update();
 	}
 
+	
+	
+	private boolean checkSelection()
+	{
+		if (this.treeTableLignes.getSelectionModel().isEmpty()) {
+			Alert emptyAlert = new Alert(Alert.AlertType.INFORMATION);
+            emptyAlert.setTitle("Aucune ligne selectionné");
+            emptyAlert.setHeaderText(null);
+            emptyAlert.setContentText("Choisissez une ligne avant de faire une action");
+            emptyAlert.showAndWait();
+			return false;
+		}
+		
+		if (this.treeTableLignes.getSelectionModel().getSelectedCells().size()>1) {
+			Alert emptyAlert = new Alert(Alert.AlertType.INFORMATION);
+            emptyAlert.setTitle("Plusieurs ligne selectionné");
+            emptyAlert.setHeaderText(null);
+            emptyAlert.setContentText("Choisissez qu'une unique une ligne avant de faire une action");
+            emptyAlert.showAndWait();
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
 }
