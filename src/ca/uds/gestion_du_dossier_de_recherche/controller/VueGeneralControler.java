@@ -63,6 +63,9 @@ public class VueGeneralControler {
 		this.projetList.add(p1);
 		this.projetList.add(p2);
 		
+		this.ressourceList.add(ressource);
+		this.ressourceList.add(ressource2);
+		
 		view = new VueGenerale(this);
 		
 	}
