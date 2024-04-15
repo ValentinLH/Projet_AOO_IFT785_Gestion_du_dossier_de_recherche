@@ -2,38 +2,32 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="767.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="767.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.uds.gestion_du_dossier_de_recherche.controller.LignesAjoutModifController">
    <children>
-      <Text layoutX="26.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date début" wrappingWidth="83.0000002682209" />
-      <Text layoutX="405.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date fin" wrappingWidth="56.99999451637268" />
-      <DatePicker layoutX="110.0" layoutY="122.0" />
-      <DatePicker layoutX="489.0" layoutY="122.0" />
-      <Button layoutX="138.0" layoutY="703.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="164.0" text="Valider" />
-      <Button layoutX="497.0" layoutY="703.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="164.0" text="Annuler" />
+      <Button layoutX="138.0" layoutY="703.0" mnemonicParsing="false" onAction="#valider" prefHeight="31.0" prefWidth="164.0" text="Valider" />
+      <Button layoutX="497.0" layoutY="703.0" mnemonicParsing="false" onAction="#annuler" prefHeight="31.0" prefWidth="164.0" text="Annuler" />
       <Text layoutX="31.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inititulé ligne budgétaire" />
-      <TextField layoutX="217.0" layoutY="21.0" prefHeight="31.0" prefWidth="515.0" />
-      <ListView layoutX="31.0" layoutY="290.0" prefHeight="127.0" prefWidth="702.0" />
-      <Text layoutX="28.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UBRs" wrappingWidth="83.0000002682209" />
-      <ListView layoutX="31.0" layoutY="525.0" prefHeight="127.0" prefWidth="702.0" />
-      <Text layoutX="31.0" layoutY="499.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dépense" wrappingWidth="140.2368152141571" />
-      <Button layoutX="439.0" layoutY="237.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="227.0" text="Ajouter UBR sélectionnée" />
-      <Button layoutX="414.0" layoutY="478.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="280.0" text="Ajouter dépense sélectionnée" />
-      <Separator layoutY="450.0" prefHeight="0.0" prefWidth="799.0" />
-      <Separator layoutX="-6.0" layoutY="196.0" prefHeight="0.0" prefWidth="799.0" />
+      <TextField fx:id="nomLigne" layoutX="217.0" layoutY="21.0" prefHeight="31.0" prefWidth="515.0" />
+      <TextField fx:id="typeTextField" layoutX="119.0" layoutY="70.0" prefHeight="31.0" prefWidth="273.0" />
+      <Text layoutX="28.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UBRs" wrappingWidth="83.0000002682209" />
+      <TableView fx:id="depenseTableView" layoutX="31.0" layoutY="512.0" prefHeight="140.0" prefWidth="702.0" />
+      <Text layoutX="31.0" layoutY="486.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dépense" wrappingWidth="140.2368152141571" />
+      <Button layoutX="439.0" layoutY="153.0" mnemonicParsing="false" onAction="#delUBR" prefHeight="31.0" prefWidth="227.0" text="Supprimer UBR" />
+      <Button layoutX="414.0" layoutY="465.0" mnemonicParsing="false" onAction="#delDepense" prefHeight="31.0" prefWidth="280.0" text="Supprimer dépense sélectionnée" />
+      <Separator layoutY="436.0" prefHeight="0.0" prefWidth="799.0" />
+      <Separator layoutX="-8.0" layoutY="126.0" prefHeight="0.0" prefWidth="799.0" />
       <Separator layoutY="679.0" prefHeight="0.0" prefWidth="799.0" />
-      <ComboBox layoutX="119.0" layoutY="70.0" prefHeight="31.0" prefWidth="247.0" promptText="Choisir..." />
       <Text layoutX="32.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" wrappingWidth="83.0000002682209" />
-      <Button layoutX="367.0" layoutY="237.0" mnemonicParsing="false" text="+" />
-      <Button layoutX="367.0" layoutY="478.0" mnemonicParsing="false" text="+" />
-      <Button layoutX="367.0" layoutY="70.0" mnemonicParsing="false" text="+" />
-      <ComboBox layoutX="119.0" layoutY="237.0" prefHeight="31.0" prefWidth="247.0" promptText="Choisir..." />
-      <ComboBox layoutX="119.0" layoutY="478.0" prefHeight="31.0" prefWidth="247.0" promptText="Choisir..." />
+      <Button layoutX="367.0" layoutY="153.0" mnemonicParsing="false" text="+" />
+      <ComboBox fx:id="ubrComboBox" layoutX="119.0" layoutY="153.0" prefHeight="31.0" prefWidth="247.0" promptText="Choisir..." />
+      <TableView fx:id="ubrTableView" layoutX="31.0" layoutY="206.0" prefHeight="200.0" prefWidth="702.0" />
+      <Button layoutX="102.0" layoutY="465.0" mnemonicParsing="false" onAction="#addDepense" prefHeight="31.0" prefWidth="280.0" text="Ajouter dépense" />
+      <Button layoutX="119.0" layoutY="153.0" mnemonicParsing="false" onAction="#addUBR" prefHeight="31.0" prefWidth="273.0" text="Créer UBR" />
    </children>
 </Pane>

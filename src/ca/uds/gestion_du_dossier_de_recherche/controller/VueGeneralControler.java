@@ -8,6 +8,9 @@ import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.LigneBudget
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.Organisme;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.ResponsableLaboratoire;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Soutien;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilation;
@@ -47,17 +50,32 @@ public class VueGeneralControler {
 		
 		Ressource ressource = new Soutien("Jean", "Bonneau", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
 				LocalDate.of(2022, 12, 31));
-		Ressource ressource2 = new Soutien("Sylvain", "Hébon", 1, 2, 20.0f, LocalDate.of(2022, 1, 1),
+		
+    Ressource ressource2 = new Soutien("Sylvain", "Hébon", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
 				LocalDate.of(2022, 10, 25));
+		
+		Ressource ressource3 = new Etudiant("Frieren", "Himmel", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
+				LocalDate.of(2022, 12, 31),"okko2201",Programme.BACCALAUREAT);
+		
+		Ressource ressource4 = new ResponsableLaboratoire("Fern", "Stark", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
+				LocalDate.of(2022, 12, 31),"SouSou no Frieren");
 
 		LocalDate dateDebut = LocalDate.now().minusDays(1);
 		LocalDate dateFin = LocalDate.now().plusDays(1);
+		
 		
 		p1.addLigneBudgetaire(ligneBudgetaire2);
 		p1.addLigneBudgetaire(ligneBudgetaire);
 		
 		p1.addRessourceWithDate(ressource2, dateDebut, dateFin);
 		p1.addRessourceWithDate(ressource, dateDebut, dateFin);
+		p1.addRessourceWithDate(ressource3, dateDebut, dateFin);
+		p1.addRessourceWithDate(ressource4, dateDebut, dateFin);
+		
+		p2.addRessourceWithDate(ressource2, dateDebut, dateFin);
+		p2.addRessourceWithDate(ressource, dateDebut, dateFin);
+		p2.addRessourceWithDate(ressource3, dateDebut, dateFin);
+		p2.addRessourceWithDate(ressource4, dateDebut, dateFin);
 	
 		
 		this.projetList = new ArrayList<Projet>();
@@ -66,8 +84,11 @@ public class VueGeneralControler {
 		this.projetList.add(p1);
 		this.projetList.add(p2);
 		
-		ressourceList.add(ressource2);
-		ressourceList.add(ressource);
+
+		this.ressourceList.add(ressource);
+		this.ressourceList.add(ressource2);
+		this.ressourceList.add(ressource3);
+		this.ressourceList.add(ressource4);
 		
 		view = new VueGenerale(this);
 		

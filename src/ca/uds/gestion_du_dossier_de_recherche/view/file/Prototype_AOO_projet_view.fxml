@@ -58,21 +58,21 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="541.0" prefWidth="785.0">
                <children>
-                  <Button layoutX="109.0" layoutY="553.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="128.0" text="Ajouter" />
-                  <Button layoutX="637.0" layoutY="553.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="167.0" text="Supprimer" />
-                  <Button layoutX="389.0" layoutY="552.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="147.0" text="Modifier" />
-                  <TableView layoutX="23.0" layoutY="22.0" prefHeight="432.0" prefWidth="879.0">
+                  <Button layoutX="109.0" layoutY="553.0" mnemonicParsing="false" onAction="#ajouterRessource" prefHeight="58.0" prefWidth="128.0" text="Ajouter" />
+                  <Button layoutX="637.0" layoutY="553.0" mnemonicParsing="false" onAction="#supprimerRessource" prefHeight="60.0" prefWidth="167.0" text="Supprimer" />
+                  <Button layoutX="389.0" layoutY="552.0" mnemonicParsing="false" onAction="#modifierRessource" prefHeight="61.0" prefWidth="147.0" text="Modifier" />
+                  <TableView fx:id="tableViewRessource" layoutX="14.0" layoutY="21.0" prefHeight="432.0" prefWidth="879.0">
                     <columns>
-                      <TableColumn prefWidth="90.0" text="Catégorie" />
-                      <TableColumn prefWidth="92.0" text="Nom" />
-                        <TableColumn prefWidth="81.0" text="Prénom" />
-                        <TableColumn prefWidth="73.0" text="echelle" />
-                        <TableColumn prefWidth="64.0" text="echelon" />
-                        <TableColumn prefWidth="98.0" text="Heure Hebdo" />
-                        <TableColumn prefWidth="118.0" text="Debut Contrat" />
-                        <TableColumn minWidth="4.0" prefWidth="91.0" text="Fin Contrat" />
-                        <TableColumn prefWidth="69.0" text="CIP" />
-                        <TableColumn prefWidth="112.0" text="Laboratoire" />
+                      <TableColumn fx:id="ressourceCategorieColumn" prefWidth="90.0" text="Catégorie" />
+                      <TableColumn fx:id="ressourceNomColumn" prefWidth="92.0" text="Nom" />
+                        <TableColumn fx:id="ressourcePrenomColumn" prefWidth="81.0" text="Prénom" />
+                        <TableColumn fx:id="ressourceEchelleColumn" prefWidth="73.0" text="echelle" />
+                        <TableColumn fx:id="ressourceEchellonColumn" prefWidth="64.0" text="echellon" />
+                        <TableColumn fx:id="ressourceHeureHebdoColumn" prefWidth="98.0" text="Heure Hebdo" />
+                        <TableColumn fx:id="dateDebutColumn" prefWidth="118.0" text="Debut Contrat" />
+                        <TableColumn fx:id="dateFinColumn" minWidth="4.0" prefWidth="91.0" text="Fin Contrat" />
+                        <TableColumn fx:id="ressourceCIPColumn" prefWidth="69.0" text="CIP" />
+                        <TableColumn fx:id="ressourceLaboratoireColumn" prefWidth="112.0" text="Laboratoire" />
                     </columns>
                   </TableView>
                </children>
@@ -85,9 +85,9 @@
                <children>
                   <TreeView fx:id="treeViewLignes" layoutX="36.0" layoutY="32.0" prefHeight="498.0" prefWidth="857.0" showRoot="false" />
                   <TreeTableView fx:id="treeTableLignes" layoutX="36.0" layoutY="32.0" prefHeight="499.0" prefWidth="857.0" showRoot="false" />
-                  <Button layoutX="118.0" layoutY="561.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="146.0" text="Ajouter" />
-                  <Button layoutX="394.0" layoutY="559.0" mnemonicParsing="false" prefHeight="87.0" prefWidth="137.0" text="Modifier" />
-                  <Button layoutX="668.0" layoutY="555.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="130.0" text="Supprimer" />
+                  <Button layoutX="118.0" layoutY="561.0" mnemonicParsing="false" onAction="#addLigne" prefHeight="83.0" prefWidth="146.0" text="Ajouter" />
+                  <Button layoutX="394.0" layoutY="559.0" mnemonicParsing="false" onAction="#modifierLigne" prefHeight="87.0" prefWidth="137.0" text="Modifier" />
+                  <Button layoutX="668.0" layoutY="555.0" mnemonicParsing="false" onAction="#supprimerLigne" prefHeight="90.0" prefWidth="130.0" text="Supprimer" />
                </children></AnchorPane>
       </content>
     </Tab>

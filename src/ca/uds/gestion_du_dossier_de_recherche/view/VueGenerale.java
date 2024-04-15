@@ -3,8 +3,9 @@ package ca.uds.gestion_du_dossier_de_recherche.view;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
-import ca.uds.gestion_du_dossier_de_recherche.controller.GeneralViewController;
+import ca.uds.gestion_du_dossier_de_recherche.controller.AjoutProjetController;
 import ca.uds.gestion_du_dossier_de_recherche.controller.ProjetViewController;
 import ca.uds.gestion_du_dossier_de_recherche.controller.VueGeneralControler;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
@@ -21,6 +22,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -104,23 +107,33 @@ public class VueGenerale extends Application {
         primaryStage.setTitle("Gestion des Ressources");
         primaryStage.setScene(new Scene(root, 800, 600));
         mainStage = primaryStage;
-        //controler.setProjetAndRessourceList(listProjet, listRessources);
-        primaryStage.show();        
+        primaryStage.show();
 	}
 	
 	
 	@FXML
 	public void showProject() {
+		if(this.tableViewProjet.getSelectionModel().getSelectedItem() == null)
+		{
+			Alert emptyAlert = new Alert(Alert.AlertType.INFORMATION);
+	        emptyAlert.setTitle("Pas de projet selectionne");
+	        emptyAlert.setHeaderText(null);
+	        emptyAlert.setContentText("Selectionnez un projet avant de le visionner");
+	        emptyAlert.showAndWait();
+	        return;
+		}
+		
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("file\\Prototype_AOO_projet_view.fxml"));
             Parent root = loader.load();
             ProjetViewController controllerProject = loader.getController();
             Stage projectStage = new Stage();
-            projectStage.setTitle("Settings");
+            projectStage.setTitle("Projet");
             projectStage.setScene(new Scene(root, 925, 740));
             projectStage.initModality(Modality.APPLICATION_MODAL);
             projectStage.initOwner(mainStage);
-            controllerProject.setProjet(this.controler.getListeProjet().get(0));
+            controllerProject.setProjet(this.tableViewProjet.getSelectionModel().getSelectedItem());
+            controllerProject.setRessourceList(this.controler.getRessourceList());
             projectStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
@@ -141,8 +154,8 @@ public class VueGenerale extends Application {
 		updateTableViewRessource();
     }
 	
-	public void updatetableViewProjet(){
-		
+  public void updatetableViewProjet(){
+
 		this.tableViewProjet.getItems().clear();
 		
 		this.projetNomColumn.setCellValueFactory(
@@ -188,7 +201,10 @@ public class VueGenerale extends Application {
 		StrategieTrie strat = getStrategieProjet();
 		LocalDate date = dateVentilation.getValue();
 		controler.appliquerVentilationProjet(strat, date);
-		updatetableViewProjet();
+		
+    
+    
+    Projet();
 	}
 	
 	@FXML
@@ -233,5 +249,53 @@ public class VueGenerale extends Application {
 		});
 		
 		this.tableViewRessource.getItems().addAll(controler.getRessourceList());
+	}
+
+	@FXML
+	public void addProject() {
+		try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("file\\Prototype_AOO_ajout_projet.fxml"));
+            Parent root = loader.load();
+            AjoutProjetController controllerProject = loader.getController();
+            Stage projectStage = new Stage();
+            projectStage.setTitle("Ajouter un nouveau projet");
+            projectStage.setScene(new Scene(root, 800, 650));
+            projectStage.initModality(Modality.APPLICATION_MODAL);
+            projectStage.initOwner(mainStage);
+            controllerProject.setControler(this.controler);
+            controllerProject.updateComponents();
+            controllerProject.setMainStage(this.mainStage);
+            projectStage.showAndWait();
+            this.updatetableViewProjet();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	@FXML
+	public void supprimerProjet()
+	{
+		if (this.tableViewProjet.getSelectionModel().getSelectedItem() == null) 
+		{
+			
+			Alert emptyAlert = new Alert(Alert.AlertType.INFORMATION);
+	        emptyAlert.setTitle("Aucun projet selectionne");
+	        emptyAlert.setHeaderText(null);
+	        emptyAlert.setContentText("Selectionnez un projet avant de le supprimer");
+	        emptyAlert.showAndWait();
+	        return;
+		}
+		
+		
+		Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Etes vous sur?");
+        confirmationDialog.setHeaderText(null);
+        confirmationDialog.setContentText("Vous etes sur le point de supprimer un projet, vous ne pourrez pas revenir en arriere, continuer ?");
+        
+        Optional<ButtonType> result = confirmationDialog.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+        	this.controler.getListeProjet().remove(this.tableViewProjet.getSelectionModel().getSelectedItem());
+			    this.updatetableViewProjet();
+        }	
 	}
 }
