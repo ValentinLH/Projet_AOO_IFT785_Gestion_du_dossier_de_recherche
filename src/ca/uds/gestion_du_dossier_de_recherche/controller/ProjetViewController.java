@@ -122,11 +122,17 @@ public class ProjetViewController {
 		this.ressourceHeureHebdoColumn.setCellValueFactory(
 			    new PropertyValueFactory<>("heuresHebdo"));
 		
-		this.dateFinColumn.setCellValueFactory(
-			    new PropertyValueFactory<>("finContrat"));
+		this.dateFinColumn.setCellValueFactory(cellData -> {
+		    Ressource ressource = cellData.getValue();
+		    
+		    return new SimpleObjectProperty<>(this.projet.getRessources().get(ressource).get(1));
+		});
 		
-		this.dateDebutColumn.setCellValueFactory(
-			    new PropertyValueFactory<>("debutContrat"));
+		this.dateDebutColumn.setCellValueFactory(cellData -> {
+		    Ressource ressource = cellData.getValue();
+		    
+		    return new SimpleObjectProperty<>(this.projet.getRessources().get(ressource).get(0));
+		});
 		
 		this.ressourceCIPColumn.setCellValueFactory(cellData -> {
 		    Ressource ressource = cellData.getValue();
@@ -400,7 +406,7 @@ public class ProjetViewController {
 		Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationDialog.setTitle("Etes vous sur?");
         confirmationDialog.setHeaderText(null);
-        confirmationDialog.setContentText("Vous etes sur le point de désaffecter la ressource du projet, continuer ?");
+        confirmationDialog.setContentText("Vous etes sur le point de dï¿½saffecter la ressource du projet, continuer ?");
         
         Optional<ButtonType> result = confirmationDialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
