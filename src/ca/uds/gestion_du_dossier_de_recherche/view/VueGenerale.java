@@ -200,11 +200,8 @@ public class VueGenerale extends Application {
 	void appliquerVentilation(Event e){
 		StrategieTrie strat = getStrategieProjet();
 		LocalDate date = dateVentilation.getValue();
-		controler.appliquerVentilationProjet(strat, date);
-		
-    
-    
-    Projet();
+		controler.appliquerVentilationProjet(strat, date); 
+		updatetableViewProjet();
 	}
 	
 	@FXML
