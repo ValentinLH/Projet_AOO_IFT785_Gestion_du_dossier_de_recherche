@@ -353,6 +353,18 @@ public class Projet implements Ventilable {
     		this.dateFin = dateFin;
     	}
     	
+    	public AffectationProjetRessource(Ressource ressource, LocalDate dateDebut, LocalDate dateFin) {
+    		super();
+    		this.ressource = ressource;
+    		this.dateDebut = dateDebut;
+    		this.dateFin = dateFin;
+    	}
+    	
+    	@Override
+        public String toString() {
+            return ressource.toString() + " Date debut affectation : " + this.dateDebut + ", Date fin : " + this.dateFin;
+        }
+    	
     	public AffectationProjetRessource() {
 
     	}

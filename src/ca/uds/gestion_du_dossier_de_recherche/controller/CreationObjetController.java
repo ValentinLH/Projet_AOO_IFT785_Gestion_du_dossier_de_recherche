@@ -142,69 +142,69 @@ public class CreationObjetController {
 	public void validerButton() {
 		if (this.comboBoxCategorie.getSelectionModel().getSelectedItem() == null)
 		{
-			this.showAlert("Pas de categorie selectionne", "Selectionnez une categorie avant de creer un projet");
+			this.showAlert("Pas de categorie selectionne", "Selectionnez une categorie avant de creer une ressource");
 			return;
 		}
 		
 		if (this.nomTextField.getText().isEmpty())
 		{
-			this.showAlert("Pas de nom selectionne", "Selectionnez un nom avant de creer un projet");
+			this.showAlert("Pas de nom selectionne", "Selectionnez un nom avant de creer une ressource");
 			return;
 		}
 		
 		if (this.prenomTextField.getText().isEmpty())
 		{
-			this.showAlert("Pas de prenom selectionne", "Selectionnez un prenom avant de creer un projet");
+			this.showAlert("Pas de prenom selectionne", "Selectionnez un prenom avant de creer une ressource");
 			return;
 		}
 		
 		if (this.comboBoxEchelle.getSelectionModel().getSelectedItem() == null)
 		{
-			this.showAlert("Pas d'echelle selectionne", "Selectionnez une echelle avant de creer un projet");
+			this.showAlert("Pas d'echelle selectionne", "Selectionnez une echelle avant de creer une ressource");
 			return;
 		}
 		
 		if (this.comboBoxEchelon.getSelectionModel().getSelectedItem() == null)
 		{
-			this.showAlert("Pas d'echelon selectionne", "Selectionnez un echelon avant de creer un projet");
+			this.showAlert("Pas d'echelon selectionne", "Selectionnez un echelon avant de creer une ressource");
 			return;
 		}
 		
 		if (this.salaireTextField.getText().isEmpty()) {
-			this.showAlert("Pas de salaire selectionne", "Selectionnez un salaire avant de creer un projet");
+			this.showAlert("Pas de salaire selectionne", "Selectionnez un salaire avant de creer une ressource");
 			return;
 		}
 		
 		if (this.dateDebut.getValue() == null)
 		{
-			this.showAlert("Pas de date de debut selectionne", "Selectionnez une date de debut avant de creer un projet");
+			this.showAlert("Pas de date de debut selectionne", "Selectionnez une date de debut avant de creer une ressource");
 			return;
 		}
 		
 		if (this.dateFin.getValue() == null)
 		{
-			this.showAlert("Pas de date de fin selectionne", "Selectionnez une date de fin avant de creer un projet");
+			this.showAlert("Pas de date de fin selectionne", "Selectionnez une date de fin avant de creer une ressource");
 			return;
 		}
 		
 		if (this.comboBoxCategorie.getSelectionModel().getSelectedItem().equals("Etudiant") && 
 				(this.programmeComboBox.getSelectionModel().getSelectedItem() == null))
 		{
-			this.showAlert("Pas de programme selectionne", "Selectionnez un programme d'etude avant de creer un projet");
+			this.showAlert("Pas de programme selectionne", "Selectionnez un programme d'etude avant de creer une ressource");
 			return;
 		}
 		
 		if (this.comboBoxCategorie.getSelectionModel().getSelectedItem().equals("Etudiant") && 
 				this.cipTextField.getText().isEmpty())
 		{
-			this.showAlert("Pas de cip selectionne", "Selectionnez un cip d'etude avant de creer un projet");
+			this.showAlert("Pas de cip selectionne", "Selectionnez un cip d'etude avant de creer une ressource");
 			return;
 		}
 		
 		if (this.comboBoxCategorie.getSelectionModel().getSelectedItem().equals("Responsable de laboratoire") && 
 				this.laboTextField.getText().isEmpty())
 		{
-			this.showAlert("Pas de programme selectionne", "Selectionnez un programme d'etude avant de creer un projet");
+			this.showAlert("Pas de programme selectionne", "Selectionnez un programme d'etude avant de creer une ressource");
 			return;
 		}
 		
