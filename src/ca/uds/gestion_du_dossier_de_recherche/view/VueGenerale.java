@@ -18,6 +18,7 @@ import javafx.application.Application;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -25,6 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.fxml.FXMLLoader;
@@ -91,6 +93,10 @@ public class VueGenerale extends Application {
             ProjetViewController controllerProject = loader.getController();
             Stage projectStage = new Stage();
             projectStage.setTitle("Settings");
+         // Obtenir la taille de l'écran et definir la scene en fonction de cette taille
+         // Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+         // projectStage.setScene(new Scene(root, screenBounds.getWidth(), screenBounds.getHeight()));
+        
             projectStage.setScene(new Scene(root, 925, 740));
             projectStage.initModality(Modality.APPLICATION_MODAL);
             projectStage.initOwner(mainStage);

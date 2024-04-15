@@ -54,9 +54,11 @@ public class ProjetView extends Application {
         controller.setProjet(MainTestFrameProjet.stubProjetaSupprimer());
  
         
-        
         Parent root = loader.load();
-        primaryStage.setTitle("App de gestion d' projet");
+        primaryStage.setTitle("App de gestion de projet");
+     // Obtenir la taille de l'écran et définir la taille de la scène en fonction cette taille
+     // Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+     // primaryStage.setScene(new Scene(root, screenBounds.getWidth(), screenBounds.getHeight()));
         primaryStage.setScene(new Scene(root, 925.0, 740.0));
         primaryStage.show();
         
