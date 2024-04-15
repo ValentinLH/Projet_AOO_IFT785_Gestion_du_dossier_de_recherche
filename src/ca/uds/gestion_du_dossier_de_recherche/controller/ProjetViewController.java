@@ -20,14 +20,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.beans.property.SimpleObjectProperty;
@@ -35,13 +41,17 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class ProjetViewController {
 
+	VueGeneralControler vueGeneralControler = new VueGeneralControler();
+	List<Projet> projets = vueGeneralControler.getListeProjet();
+	List<Ressource> ressources = vueGeneralControler.getRessourceList();
+
 	
 	/*======= COMPOSANT FXML =======*/
 	
 	@FXML
 	private TreeTableView<LigneBudgetaire> treeTableLignes;
 	
-    @FXML 
+	@FXML 
 	TableView<Ressource> tableViewRessource;
 	
 	@FXML
@@ -74,7 +84,19 @@ public class ProjetViewController {
 	@FXML
 	TableColumn<ResponsableLaboratoire,String> ressourceLaboratoireColumn;
 
+	@FXML
+	private TextArea text_projet ;
+		
+	@FXML
+	private TextArea lignes_budg ;
+	
+  @FXML
+  private Text nb_ressource;
+
+  @FXML
+  private Text montant_total;
 	/*=============================*/
+  
 	private Projet projet;
 	private ProjetView view;
 	private List<Ressource> ressourceList;
@@ -163,6 +185,7 @@ public class ProjetViewController {
 	public void update() {
 		treeTableUpdate();
 		TableViewEmployeeUpdate();
+		Afficheinfos();
 	}
 	
 	@FXML
@@ -224,7 +247,7 @@ public class ProjetViewController {
 			confirmationAlert.setTitle("Confirmation de suppression");
 			confirmationAlert.setHeaderText(null);
 			confirmationAlert.setContentText("Êtes-vous sûr de vouloir supprimer cette Ligne ?");
-
+      
 			Optional<ButtonType> result = confirmationAlert.showAndWait();
 			if (result.isPresent() && result.get() == ButtonType.OK) {
 				TreeItem<LigneBudgetaire> selectedTreeItem = treeTableLignes.getSelectionModel().getSelectedItem();
@@ -235,8 +258,42 @@ public class ProjetViewController {
 	            }
 				
 			}
-
 		}
+	}
+
+	@FXML
+	public void Afficheinfos() {
+        
+		this.lignes_budg.clear();
+        
+		String titre=projet.getTitre();
+		String desc=projet.getDescription();
+		int nb_res=projet.GetRessourceNumber();
+		String nb_res_string= "Il y a "+nb_res+ " Ressources dans le projet";
+		float montant=projet.calculMontant(LocalDate.now());
+		String montant_string="Montant total : "+ montant +"€";
+		
+		List<LigneBudgetaire> lignes=projet.getAllLigneBudgetaires();
+		List<Float> montants = new ArrayList<>();
+		List<String> noms = new ArrayList<>();
+
+		for (LigneBudgetaire ligne : lignes) {
+		    montants.add(ligne.getMontantLigne(LocalDate.now()));
+		    noms.add(ligne.getNom());
+		}
+
+		String result = "";
+		for (int i = 0; i < noms.size(); i++) {
+		    result += "Il reste à " + noms.get(i) + " " + montants.get(i) + " euros. " +"\n";
+		}
+		
+		
+		text_projet.setText("Nom du projet : " +"\n"+ titre +"\n"+ "\n"+ "Description du projet : " +"\n"+ desc );
+        montant_total.setText(montant_string);
+        nb_ressource.setText(nb_res_string);
+        lignes_budg.setText(result);
+
+		    
 	}
 	
 	public void treeTableUpdate() {

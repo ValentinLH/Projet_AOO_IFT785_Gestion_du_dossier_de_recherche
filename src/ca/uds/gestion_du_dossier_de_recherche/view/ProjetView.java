@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -13,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import ca.uds.gestion_du_dossier_de_recherche.controller.ProjetViewController;
 import ca.uds.gestion_du_dossier_de_recherche.controller.VueGeneralControler;
@@ -44,7 +46,6 @@ public class ProjetView extends Application {
     }
 
 
-    
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("file/Prototype_AOO_projet_view.fxml"));
@@ -54,16 +55,17 @@ public class ProjetView extends Application {
         controller.setProjet(MainTestFrameProjet.stubProjetaSupprimer());
  
         
-        
         Parent root = loader.load();
         primaryStage.setTitle("App de gestion d' projet");
+     // Obtenir la taille de l'écran et definir la scene en fonction de cette taille
+     // Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+     // primaryStage.setScene(new Scene(root, screenBounds.getWidth(), screenBounds.getHeight()));
         primaryStage.setScene(new Scene(root, 925.0, 740.0));
         primaryStage.show();
         
         
     }
     
-   
 
 
     

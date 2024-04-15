@@ -116,6 +116,10 @@ public class Projet implements Ventilable {
 	/*
 	 * ==================== Getters & Setters =====================
 	 */
+	
+    public int GetRessourceNumber() {
+        return ressources.keySet().size();
+    }
 	public Long getId() {
 		return id;
 	}

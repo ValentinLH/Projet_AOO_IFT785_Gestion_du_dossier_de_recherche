@@ -30,7 +30,10 @@ public class VueGeneralControler {
 	
 	public VueGeneralControler() {		
 		Projet p1 = MainView.stubProjetaSupprimer();
+		p1.setDescription("Description du projet 1");
 		Projet p2 = new Projet("projet 2 ", LocalDate.now().minusDays(5),LocalDate.now().plusDays(2));
+		p2.setDescription("Description du projet 2");
+
 		
 
 		Organisme monFrigo;
@@ -51,7 +54,7 @@ public class VueGeneralControler {
 		Ressource ressource = new Soutien("Jean", "Bonneau", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
 				LocalDate.of(2022, 12, 31));
 		
-    Ressource ressource2 = new Soutien("Sylvain", "Hébon", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
+		Ressource ressource2 = new Soutien("Sylvain", "Hébon", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
 				LocalDate.of(2022, 10, 25));
 		
 		Ressource ressource3 = new Etudiant("Frieren", "Himmel", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
