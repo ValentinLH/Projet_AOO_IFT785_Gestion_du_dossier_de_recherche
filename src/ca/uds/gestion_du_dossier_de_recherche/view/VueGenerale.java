@@ -2,8 +2,6 @@ package ca.uds.gestion_du_dossier_de_recherche.view;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,11 +10,14 @@ import ca.uds.gestion_du_dossier_de_recherche.controller.ProjetViewController;
 import ca.uds.gestion_du_dossier_de_recherche.controller.VueGeneralControler;
 import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
+import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilable;
+import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilation;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.StrategieTrie;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,12 +32,16 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.DatePicker;
 
 
 public class VueGenerale extends Application {
 
 	@FXML
 	private ComboBox<StrategieTrie> comboBoxStrategie;
+	
+	@FXML
+	ComboBox<StrategieTrie> comboBoxStrategieRessource;
 	
 	@FXML 
 	TableView<Projet> tableViewProjet;
@@ -55,6 +60,30 @@ public class VueGenerale extends Application {
 	
 	@FXML
 	TableColumn<Projet,Integer> nbRessourcesColumn;
+		
+	@FXML
+	DatePicker dateVentilation;
+	
+	@FXML 
+	TableView<Ressource> tableViewRessource;
+	
+	@FXML
+	TableColumn<Ressource,String> ressourceNomColumn;
+	
+	@FXML
+	TableColumn<Ressource,Float> SalaireRestantColumn;
+	
+	@FXML
+	TableColumn<Ressource,LocalDate> ressourceDateDebutColumn;
+	
+	@FXML
+	TableColumn<Ressource,LocalDate> ressourceDateFinColumn;
+	
+	@FXML
+	TableColumn<Ressource,String> ressourceProjetAssocieColumn;
+	
+	@FXML
+	DatePicker dateVentilationRessource;
 	
 	private VueGeneralControler controler;
 	
@@ -79,9 +108,6 @@ public class VueGenerale extends Application {
         primaryStage.setScene(new Scene(root, 800, 600));
         mainStage = primaryStage;
         primaryStage.show();
-        
-      
-        
 	}
 	
 	
@@ -119,10 +145,17 @@ public class VueGenerale extends Application {
 		this.comboBoxStrategie.getItems().clear();
 		this.comboBoxStrategie.getItems().add(this.controler.getStrategieDate());
 		this.comboBoxStrategie.getItems().add(this.controler.getStrategieMontant());
-		updatetableView();
+		
+		this.comboBoxStrategieRessource.getItems().clear();
+		this.comboBoxStrategieRessource.getItems().add(this.controler.getStrategieDate());
+		this.comboBoxStrategieRessource.getItems().add(this.controler.getStrategieMontant());
+		
+		updatetableViewProjet();
+		updateTableViewRessource();
     }
 	
-	public void updatetableView(){
+  public void updatetableViewProjet(){
+
 		this.tableViewProjet.getItems().clear();
 		
 		this.projetNomColumn.setCellValueFactory(
@@ -136,7 +169,13 @@ public class VueGenerale extends Application {
 		
 		this.financementColumn.setCellValueFactory(cellData -> {
 		    Projet projet = cellData.getValue();
-		    float total = projet.calculMontant(LocalDate.now());
+		    LocalDate date = dateVentilation.getValue();
+		    
+		    if(date == null) {
+		    	date = LocalDate.now();
+		    }
+		    float total = projet.calculMontant(date);
+		    
 		    return new SimpleObjectProperty<>(total);
 		});
 		
@@ -149,6 +188,69 @@ public class VueGenerale extends Application {
 		this.tableViewProjet.getItems().addAll(controler.getListeProjet());
 	}
 	
+	public StrategieTrie getStrategieProjet() {
+		return comboBoxStrategie.getValue();
+	}
+	
+	public StrategieTrie getStrategieRessource() {
+		return comboBoxStrategieRessource.getValue();
+	}
+	
+	@FXML
+	void appliquerVentilation(Event e){
+		StrategieTrie strat = getStrategieProjet();
+		LocalDate date = dateVentilation.getValue();
+		controler.appliquerVentilationProjet(strat, date);
+		
+    
+    
+    Projet();
+	}
+	
+	@FXML
+	void appliquerVentilationRessource(Event e){
+		StrategieTrie strat = getStrategieRessource();
+		LocalDate date = dateVentilation.getValue();	
+		controler.appliquerVentilationRessource(strat, date);
+		updateTableViewRessource();
+	}
+	
+	public void updateTableViewRessource() {
+		this.tableViewRessource.getItems().clear();
+		
+		this.ressourceNomColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("nom"));
+		
+		this.ressourceDateDebutColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("debutContrat"));
+		
+		this.ressourceDateFinColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("finContrat"));
+		
+		this.SalaireRestantColumn.setCellValueFactory(cellData -> {
+		    Ressource ressource = cellData.getValue();
+		    LocalDate date = dateVentilationRessource.getValue();
+		    
+		    if(date == null) {
+		    	date = LocalDate.now();
+		    }
+		    return new SimpleObjectProperty<>(ressource.getMontantVentilation(date));
+		});
+		
+		this.ressourceProjetAssocieColumn.setCellValueFactory(cellData -> {
+		    Ressource ressource = cellData.getValue();
+		    
+		    Projet projetAssocie = controler.ProjetAssocie(ressource); 
+		    
+		    if(projetAssocie == null)
+		    	return new SimpleObjectProperty<>("Aucun projet est associé à cette ressource");
+		    else
+		    	return new SimpleObjectProperty<>(projetAssocie.getTitre());
+		});
+		
+		this.tableViewRessource.getItems().addAll(controler.getRessourceList());
+	}
+
 	@FXML
 	public void addProject() {
 		try {
@@ -164,7 +266,7 @@ public class VueGenerale extends Application {
             controllerProject.updateComponents();
             controllerProject.setMainStage(this.mainStage);
             projectStage.showAndWait();
-            this.updatetableView();
+            this.updatetableViewProjet();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -193,11 +295,7 @@ public class VueGenerale extends Application {
         Optional<ButtonType> result = confirmationDialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
         	this.controler.getListeProjet().remove(this.tableViewProjet.getSelectionModel().getSelectedItem());
-			this.updatetableView();
-        }
-		
-		
+			    this.updatetableViewProjet();
+        }	
 	}
-	
-
 }

@@ -13,10 +13,13 @@ import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.ResponsableLaboratoire;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Ressource;
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Soutien;
+import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilation;
+import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.StrategieTrie;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.TrieDateFinContrat;
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.strategie.TrieMontant;
 import ca.uds.gestion_du_dossier_de_recherche.view.MainView;
 import ca.uds.gestion_du_dossier_de_recherche.view.VueGenerale;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 
 public class VueGeneralControler {
@@ -27,7 +30,7 @@ public class VueGeneralControler {
 	
 	public VueGeneralControler() {		
 		Projet p1 = MainView.stubProjetaSupprimer();
-		Projet p2 = new Projet("projet 2 ", LocalDate.now().minusDays(5),LocalDate.now().plusDays(10));
+		Projet p2 = new Projet("projet 2 ", LocalDate.now().minusDays(5),LocalDate.now().plusDays(2));
 		
 
 		Organisme monFrigo;
@@ -47,8 +50,9 @@ public class VueGeneralControler {
 		
 		Ressource ressource = new Soutien("Jean", "Bonneau", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
 				LocalDate.of(2022, 12, 31));
-		Ressource ressource2 = new Soutien("Sylvain", "Hébon", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
-				LocalDate.of(2022, 12, 31));
+		
+    Ressource ressource2 = new Soutien("Sylvain", "Hébon", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
+				LocalDate.of(2022, 10, 25));
 		
 		Ressource ressource3 = new Etudiant("Frieren", "Himmel", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
 				LocalDate.of(2022, 12, 31),"okko2201",Programme.BACCALAUREAT);
@@ -80,6 +84,7 @@ public class VueGeneralControler {
 		this.projetList.add(p1);
 		this.projetList.add(p2);
 		
+
 		this.ressourceList.add(ressource);
 		this.ressourceList.add(ressource2);
 		this.ressourceList.add(ressource3);
@@ -99,6 +104,14 @@ public class VueGeneralControler {
 		return projetList;
 	}
 	
+	public void setListeProjet(List<Projet> projetList) {
+		this.projetList = projetList;
+	}
+	
+	public void setListeRessource(List<Ressource> ressourceList) {
+		this.ressourceList = ressourceList;
+	}
+	
 	public List<Ressource> getRessourceList() {
 		return ressourceList;
 	}
@@ -109,5 +122,40 @@ public class VueGeneralControler {
 	
 	public TrieMontant getStrategieMontant() {
 		return new TrieMontant();
+	}
+	
+	public void appliquerVentilationProjet(StrategieTrie strat,LocalDate date){
+		if(strat != null) {
+			Ventilation ventilation = new Ventilation(strat);
+			
+			if(date != null)
+				ventilation.setDate(date);
+			
+			List<Projet> projetListTrie =  (List<Projet>) ventilation.ventiler(getListeProjet());
+			setListeProjet(projetListTrie);
+		}
+	}
+	
+	public void appliquerVentilationRessource(StrategieTrie strat,LocalDate date){
+		if(strat != null) {
+			Ventilation ventilation = new Ventilation(strat);
+			
+			if(date != null)
+				ventilation.setDate(date);
+			
+			List<Ressource> ressourceListTrie = (List<Ressource>) ventilation.ventiler(getRessourceList());
+			setListeRessource(ressourceListTrie);
+		}
+	}
+	
+	public Projet ProjetAssocie(Ressource ressource) {
+		
+		for(Projet projet : this.getListeProjet()) {
+			if(projet.getRessources().containsKey(ressource))
+				return projet;
+		}
+		
+		return null;
+		
 	}
 }
