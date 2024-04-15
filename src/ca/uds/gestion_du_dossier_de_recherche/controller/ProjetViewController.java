@@ -77,6 +77,7 @@ public class ProjetViewController {
 	/*=============================*/
 	private Projet projet;
 	private ProjetView view;
+	private List<Ressource> ressourceList;
 	
 	private Stage mainStage;
 	
@@ -323,6 +324,98 @@ public class ProjetViewController {
 		}
 		
 		return true;
+	}
+	
+	@FXML
+	public void ajouterRessource() {
+		try {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("..\\view\\file\\Prototype_AOO_affectation_ressource.fxml"));
+        Parent root = loader.load();
+        AffectationRessourceController controllerRessource = loader.getController();
+        Stage ressourceStagectStage = new Stage();
+        ressourceStagectStage.setTitle("Ajouter une nouvelle ressource");
+        ressourceStagectStage.setScene(new Scene(root, 800, 425));
+        ressourceStagectStage.initModality(Modality.APPLICATION_MODAL);
+        ressourceStagectStage.initOwner(mainStage);
+        controllerRessource.setRessourceList(this.ressourceList);
+        controllerRessource.setProjet(this.projet);
+        controllerRessource.updateComponents();
+        ressourceStagectStage.showAndWait();
+        this.TableViewEmployeeUpdate();
+		} catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+
+	
+	@FXML
+	public void modifierRessource() {
+		if(this.tableViewRessource.getSelectionModel().getSelectedItem() == null)
+		{
+			Alert emptyAlert = new Alert(Alert.AlertType.INFORMATION);
+	        emptyAlert.setTitle("Pas de ressource selectionne");
+	        emptyAlert.setHeaderText(null);
+	        emptyAlert.setContentText("Selectionnez une ressource avant de le modifier");
+	        emptyAlert.showAndWait();
+	        return;
+		}
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("..\\view\\file\\Prototype_AOO_affectation_ressource.fxml"));
+	        Parent root = loader.load();
+	        AffectationRessourceController controllerRessource = loader.getController();
+	        Stage ressourceStagectStage = new Stage();
+	        ressourceStagectStage.setTitle("Ajouter une nouvelle ressource");
+	        ressourceStagectStage.setScene(new Scene(root, 800, 425));
+	        ressourceStagectStage.initModality(Modality.APPLICATION_MODAL);
+	        ressourceStagectStage.initOwner(mainStage);
+	        controllerRessource.setRessourceList(this.ressourceList);
+	        controllerRessource.setProjet(this.projet);
+	        controllerRessource.setModifer(true);
+	        controllerRessource.setSelectedRessource(this.tableViewRessource.getSelectionModel().getSelectedItem());
+	        controllerRessource.updateComponents();
+	        controllerRessource.updatedate(this.dateDebutColumn.getCellData(this.tableViewRessource.getSelectionModel().getSelectedItem()),
+	        		this.dateFinColumn.getCellData(this.tableViewRessource.getSelectionModel().getSelectedItem()));
+	        this.setProjet(controllerRessource.getProjet());
+	        ressourceStagectStage.showAndWait();
+	        this.TableViewEmployeeUpdate();
+		} catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	@FXML
+	public void supprimerRessource() {
+		if (this.tableViewRessource.getSelectionModel().getSelectedItem() == null) 
+		{
+			
+			Alert emptyAlert = new Alert(Alert.AlertType.INFORMATION);
+	        emptyAlert.setTitle("Aucune ressource selectionne");
+	        emptyAlert.setHeaderText(null);
+	        emptyAlert.setContentText("Selectionnez une ressource avant de le supprimer");
+	        emptyAlert.showAndWait();
+	        return;
+		}
+		
+		
+		Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Etes vous sur?");
+        confirmationDialog.setHeaderText(null);
+        confirmationDialog.setContentText("Vous etes sur le point de désaffecter la ressource du projet, continuer ?");
+        
+        Optional<ButtonType> result = confirmationDialog.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+        	this.projet.getRessources().remove(this.tableViewRessource.getSelectionModel().getSelectedItem());
+        	this.TableViewEmployeeUpdate();
+        }
+	}
+
+	public List<Ressource> getRessourceList() {
+		return ressourceList;
+	}
+
+
+	public void setRessourceList(List<Ressource> ressourceList) {
+		this.ressourceList = ressourceList;
 	}
 	
 	

@@ -87,6 +87,16 @@ public class VueGenerale extends Application {
 	
 	@FXML
 	public void showProject() {
+		if(this.tableViewProjet.getSelectionModel().getSelectedItem() == null)
+		{
+			Alert emptyAlert = new Alert(Alert.AlertType.INFORMATION);
+	        emptyAlert.setTitle("Pas de projet selectionne");
+	        emptyAlert.setHeaderText(null);
+	        emptyAlert.setContentText("Selectionnez un projet avant de le visionner");
+	        emptyAlert.showAndWait();
+	        return;
+		}
+		
 		try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("file\\Prototype_AOO_projet_view.fxml"));
             Parent root = loader.load();
@@ -96,7 +106,8 @@ public class VueGenerale extends Application {
             projectStage.setScene(new Scene(root, 925, 740));
             projectStage.initModality(Modality.APPLICATION_MODAL);
             projectStage.initOwner(mainStage);
-            controllerProject.setProjet(this.controler.getListeProjet().get(0));
+            controllerProject.setProjet(this.tableViewProjet.getSelectionModel().getSelectedItem());
+            controllerProject.setRessourceList(this.controler.getRessourceList());
             projectStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
