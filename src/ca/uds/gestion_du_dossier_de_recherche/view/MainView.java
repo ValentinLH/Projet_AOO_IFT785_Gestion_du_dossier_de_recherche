@@ -19,14 +19,9 @@ import javafx.application.Application;
 public class MainView {
 
 	public static void main(String[] args) {
-		
-				
+						
 		Application.launch(VueGenerale.class, args);
-		
 
-		
-		
-		
 //		listProjet = window.getListeProjet();
 //		listRessources = window.getRessourceList();		
 	}
@@ -63,7 +58,7 @@ public class MainView {
 		p.addLigneBudgetaire(ligneBudgetaire4);
 
 
-		p.dateLimiteDepenses(10);
+//		p.dateLimiteDepenses(10);
 		
 		return p;
 	}
