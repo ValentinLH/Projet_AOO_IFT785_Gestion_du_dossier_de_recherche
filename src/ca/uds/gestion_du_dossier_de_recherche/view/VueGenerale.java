@@ -61,6 +61,27 @@ public class VueGenerale extends Application {
 	@FXML
 	DatePicker dateVentilation;
 	
+	@FXML 
+	TableView<Ressource> tableViewRessource;
+	
+	@FXML
+	TableColumn<Ressource,String> ressourceNomColumn;
+	
+	@FXML
+	TableColumn<Ressource,Float> SalaireRestantColumn;
+	
+	@FXML
+	TableColumn<Ressource,LocalDate> ressourceDateDebutColumn;
+	
+	@FXML
+	TableColumn<Ressource,LocalDate> ressourceDateFinColumn;
+	
+	@FXML
+	TableColumn<Ressource,String> ressourceProjetAssocieColumn;
+	
+	@FXML
+	DatePicker dateVentilationRessource;
+	
 	private VueGeneralControler controler;
 	
 	private Stage mainStage;
@@ -84,10 +105,7 @@ public class VueGenerale extends Application {
         primaryStage.setScene(new Scene(root, 800, 600));
         mainStage = primaryStage;
         //controler.setProjetAndRessourceList(listProjet, listRessources);
-        primaryStage.show();
-        
-      
-        
+        primaryStage.show();        
 	}
 	
 	
@@ -120,6 +138,7 @@ public class VueGenerale extends Application {
 		this.comboBoxStrategieRessource.getItems().add(this.controler.getStrategieMontant());
 		
 		updatetableViewProjet();
+		updateTableViewRessource();
     }
 	
 	public void updatetableViewProjet(){
@@ -137,7 +156,13 @@ public class VueGenerale extends Application {
 		
 		this.financementColumn.setCellValueFactory(cellData -> {
 		    Projet projet = cellData.getValue();
-		    float total = projet.calculMontant(LocalDate.now());
+		    LocalDate date = dateVentilation.getValue();
+		    
+		    if(date == null) {
+		    	date = LocalDate.now();
+		    }
+		    float total = projet.calculMontant(date);
+		    
 		    return new SimpleObjectProperty<>(total);
 		});
 		
@@ -171,6 +196,42 @@ public class VueGenerale extends Application {
 		StrategieTrie strat = getStrategieRessource();
 		LocalDate date = dateVentilation.getValue();	
 		controler.appliquerVentilationRessource(strat, date);
+		updateTableViewRessource();
 	}
 	
+	public void updateTableViewRessource() {
+		this.tableViewRessource.getItems().clear();
+		
+		this.ressourceNomColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("nom"));
+		
+		this.ressourceDateDebutColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("debutContrat"));
+		
+		this.ressourceDateFinColumn.setCellValueFactory(
+			    new PropertyValueFactory<>("finContrat"));
+		
+		this.SalaireRestantColumn.setCellValueFactory(cellData -> {
+		    Ressource ressource = cellData.getValue();
+		    LocalDate date = dateVentilationRessource.getValue();
+		    
+		    if(date == null) {
+		    	date = LocalDate.now();
+		    }
+		    return new SimpleObjectProperty<>(ressource.getMontantVentilation(date));
+		});
+		
+		this.ressourceProjetAssocieColumn.setCellValueFactory(cellData -> {
+		    Ressource ressource = cellData.getValue();
+		    
+		    Projet projetAssocie = controler.ProjetAssocie(ressource); 
+		    
+		    if(projetAssocie == null)
+		    	return new SimpleObjectProperty<>("Aucun projet est associé à cette ressource");
+		    else
+		    	return new SimpleObjectProperty<>(projetAssocie.getTitre());
+		});
+		
+		this.tableViewRessource.getItems().addAll(controler.getRessourceList());
+	}
 }

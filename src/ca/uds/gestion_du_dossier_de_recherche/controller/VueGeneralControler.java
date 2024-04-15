@@ -47,8 +47,8 @@ public class VueGeneralControler {
 		
 		Ressource ressource = new Soutien("Jean", "Bonneau", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
 				LocalDate.of(2022, 12, 31));
-		Ressource ressource2 = new Soutien("Sylvain", "Hébon", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
-				LocalDate.of(2022, 12, 31));
+		Ressource ressource2 = new Soutien("Sylvain", "Hébon", 1, 2, 20.0f, LocalDate.of(2022, 1, 1),
+				LocalDate.of(2022, 10, 25));
 
 		LocalDate dateDebut = LocalDate.now().minusDays(1);
 		LocalDate dateFin = LocalDate.now().plusDays(1);
@@ -65,6 +65,9 @@ public class VueGeneralControler {
 		
 		this.projetList.add(p1);
 		this.projetList.add(p2);
+		
+		ressourceList.add(ressource2);
+		ressourceList.add(ressource);
 		
 		view = new VueGenerale(this);
 		
@@ -122,5 +125,16 @@ public class VueGeneralControler {
 			List<Ressource> ressourceListTrie = (List<Ressource>) ventilation.ventiler(getRessourceList());
 			setListeRessource(ressourceListTrie);
 		}
+	}
+	
+	public Projet ProjetAssocie(Ressource ressource) {
+		
+		for(Projet projet : this.getListeProjet()) {
+			if(projet.getRessources().containsKey(ressource))
+				return projet;
+		}
+		
+		return null;
+		
 	}
 }
