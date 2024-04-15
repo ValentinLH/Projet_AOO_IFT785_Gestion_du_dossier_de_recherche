@@ -107,10 +107,6 @@ public class VueGenerale extends Application {
         loader.setController(this);
         Parent root = loader.load();
         primaryStage.setTitle("Gestion des Ressources");
-     // Obtenir la taille de l'écran et definir la scene en fonction de cette taille
-     // Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-     // primaryStage.setScene(new Scene(root, screenBounds.getWidth(), screenBounds.getHeight()));
-     // primaryStage.show();
         primaryStage.setScene(new Scene(root, 800, 600));
         mainStage = primaryStage;
         primaryStage.show();
@@ -135,8 +131,6 @@ public class VueGenerale extends Application {
             ProjetViewController controllerProject = loader.getController();
             Stage projectStage = new Stage();
             projectStage.setTitle("Projet");
-         // Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-         // projectStage.setScene(new Scene(root, screenBounds.getWidth(), screenBounds.getHeight()));
             projectStage.setScene(new Scene(root, 925, 740));
             projectStage.initModality(Modality.APPLICATION_MODAL);
             projectStage.initOwner(mainStage);

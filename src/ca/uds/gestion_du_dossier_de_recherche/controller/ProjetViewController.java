@@ -41,7 +41,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class ProjetViewController {
 
-  VueGeneralControler vueGeneralControler = new VueGeneralControler();
+	VueGeneralControler vueGeneralControler = new VueGeneralControler();
 	List<Projet> projets = vueGeneralControler.getListeProjet();
 	List<Ressource> ressources = vueGeneralControler.getRessourceList();
 
@@ -51,7 +51,7 @@ public class ProjetViewController {
 	@FXML
 	private TreeTableView<LigneBudgetaire> treeTableLignes;
 	
-  @FXML 
+	@FXML 
 	TableView<Ressource> tableViewRessource;
 	
 	@FXML
@@ -184,8 +184,8 @@ public class ProjetViewController {
 	// ---------------------- //
 	public void update() {
 		treeTableUpdate();
-		Afficheinfos();
 		TableViewEmployeeUpdate();
+		Afficheinfos();
 	}
 	
 	@FXML
@@ -248,7 +248,7 @@ public class ProjetViewController {
 			confirmationAlert.setHeaderText(null);
 			confirmationAlert.setContentText("Êtes-vous sûr de vouloir supprimer cette Ligne ?");
       
-      Optional<ButtonType> result = confirmationAlert.showAndWait();
+			Optional<ButtonType> result = confirmationAlert.showAndWait();
 			if (result.isPresent() && result.get() == ButtonType.OK) {
 				TreeItem<LigneBudgetaire> selectedTreeItem = treeTableLignes.getSelectionModel().getSelectedItem();
 	            if (selectedTreeItem != null) {
@@ -259,13 +259,13 @@ public class ProjetViewController {
 				
 			}
 		}
-}
+	}
 
 	@FXML
 	public void Afficheinfos() {
-		 
-		
-		Projet projet = projets.get(0);
+        
+		this.lignes_budg.clear();
+        
 		String titre=projet.getTitre();
 		String desc=projet.getDescription();
 		int nb_res=projet.GetRessourceNumber();
@@ -290,7 +290,7 @@ public class ProjetViewController {
 		
 		text_projet.setText("Nom du projet : " +"\n"+ titre +"\n"+ "\n"+ "Description du projet : " +"\n"+ desc );
         montant_total.setText(montant_string);
-        nb_ressource.setText(nb_res_string);	
+        nb_ressource.setText(nb_res_string);
         lignes_budg.setText(result);
 
 		    
