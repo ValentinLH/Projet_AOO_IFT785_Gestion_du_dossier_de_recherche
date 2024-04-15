@@ -59,7 +59,7 @@ public class LignesAjoutModifController {
 		super();
 		// nous devons avoir une ligne pour les ubr
 		this.ligne = new LigneBudgetaire();
-		
+
 	}
 
 	public LignesAjoutModifController(LigneBudgetaire ligne) {
@@ -77,13 +77,12 @@ public class LignesAjoutModifController {
 		setDepenseTableView();
 	}
 
-	
 	@FXML
-    public void initialize() {
+	public void initialize() {
 		initUbrTableView();
 		setDepenseTableView();
-    }
-	
+	}
+
 	/**
 	 * @return the treeTableLignes
 	 */
@@ -141,9 +140,8 @@ public class LignesAjoutModifController {
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
-	
-	public void initUbrTableView()
-	{
+
+	public void initUbrTableView() {
 
 		// Columns
 		TableColumn<UBR, Number> idColumn = new TableColumn<>("ID");
@@ -185,7 +183,6 @@ public class LignesAjoutModifController {
 				dateFinColumn, montantsTotalColumn, montantsMinColumn);
 
 	}
-	
 
 	public void setUbrTableView() {
 
@@ -372,23 +369,20 @@ public class LignesAjoutModifController {
 
 			projet.addLigneBudgetaire(ligne);
 
-			if (estUnAjout)
-			{
-		        TreeItem<LigneBudgetaire> newTreeItem = new TreeItem<>(ligne);
+			if (estUnAjout) {
+				TreeItem<LigneBudgetaire> newTreeItem = new TreeItem<>(ligne);
 
-		        // Récupérer la racine de la TreeTableView de la deuxième page
-		        TreeItem<LigneBudgetaire> rootItem = treeTableLignes.getRoot();
+				// Récupérer la racine de la TreeTableView de la deuxième page
+				TreeItem<LigneBudgetaire> rootItem = treeTableLignes.getRoot();
 
-		        // Ajouter le nouvel TreeItem à la liste des enfants de la racine
-		        rootItem.getChildren().add(newTreeItem);
+				// Ajouter le nouvel TreeItem à la liste des enfants de la racine
+				rootItem.getChildren().add(newTreeItem);
 
-		        // Mettre à jour la TreeTableView avec la racine mise à jour
-		        treeTableLignes.setRoot(rootItem);
+				// Mettre à jour la TreeTableView avec la racine mise à jour
+				treeTableLignes.setRoot(rootItem);
 
 			}
-			
-			
-			
+
 			// partie sensible de l'ajout a la treetable view de la page precedente
 			treeTableLignes.refresh();
 
@@ -440,7 +434,20 @@ public class LignesAjoutModifController {
 
 	@FXML
 	void annuler() {
+		// Afficher une alerte de confirmation
+		Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
 
+		confirmationAlert.setTitle("Confirmation");
+		confirmationAlert.setHeaderText(null);
+		if (estUnAjout) {
+			confirmationAlert.setContentText("Êtes-vous sûr de vouloir annuler la création de cette nouvelle ligne budgétaire ?");
+		} else
+			confirmationAlert.setContentText("Êtes-vous sûr de vouloir annuler les modification de cette ligne budgétaire ?");
+
+		Optional<ButtonType> result = confirmationAlert.showAndWait();
+		if (result.isPresent() && result.get() == ButtonType.OK) {
+			stage.close();
+		}
 	}
 
 }
