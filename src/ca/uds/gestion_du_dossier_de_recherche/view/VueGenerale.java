@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import ca.uds.gestion_du_dossier_de_recherche.controller.AjoutProjetController;
 import ca.uds.gestion_du_dossier_de_recherche.controller.ProjetViewController;
@@ -20,6 +21,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -109,6 +112,7 @@ public class VueGenerale extends Application {
     }
 	
 	public void updatetableView(){
+		this.tableViewProjet.getItems().clear();
 		
 		this.projetNomColumn.setCellValueFactory(
 			    new PropertyValueFactory<>("titre"));
@@ -142,16 +146,46 @@ public class VueGenerale extends Application {
             AjoutProjetController controllerProject = loader.getController();
             Stage projectStage = new Stage();
             projectStage.setTitle("Ajouter un nouveau projet");
-            projectStage.setScene(new Scene(root, 800, 775));
+            projectStage.setScene(new Scene(root, 800, 650));
             projectStage.initModality(Modality.APPLICATION_MODAL);
             projectStage.initOwner(mainStage);
             controllerProject.setControler(this.controler);
             controllerProject.updateComponents();
             controllerProject.setMainStage(this.mainStage);
             projectStage.showAndWait();
+            this.updatetableView();
         } catch (IOException e) {
             e.printStackTrace();
         }
+	}
+	
+	@FXML
+	public void supprimerProjet()
+	{
+		if (this.tableViewProjet.getSelectionModel().getSelectedItem() == null) 
+		{
+			
+			Alert emptyAlert = new Alert(Alert.AlertType.INFORMATION);
+	        emptyAlert.setTitle("Aucun projet selectionne");
+	        emptyAlert.setHeaderText(null);
+	        emptyAlert.setContentText("Selectionnez un projet avant de le supprimer");
+	        emptyAlert.showAndWait();
+	        return;
+		}
+		
+		
+		Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Etes vous sur?");
+        confirmationDialog.setHeaderText(null);
+        confirmationDialog.setContentText("Vous etes sur le point de supprimer un projet, vous ne pourrez pas revenir en arriere, continuer ?");
+        
+        Optional<ButtonType> result = confirmationDialog.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+        	this.controler.getListeProjet().remove(this.tableViewProjet.getSelectionModel().getSelectedItem());
+			this.updatetableView();
+        }
+		
+		
 	}
 	
 
