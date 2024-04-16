@@ -77,7 +77,7 @@ public abstract class Ressource implements Ventilable {
 	}
 
 	public double getTauxHoraire() {
-		return grilleSalariale.getTauxHoraire(echelle, echelon);
+		return grilleSalariale.getTauxHoraire(echelon, echelle);
 	}
 
 	public void setEchelleEtEchelon(int echelle, int echelon) {
