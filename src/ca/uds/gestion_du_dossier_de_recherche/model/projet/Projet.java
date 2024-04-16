@@ -116,6 +116,10 @@ public class Projet implements Ventilable {
 	/*
 	 * ==================== Getters & Setters =====================
 	 */
+	
+    public int GetRessourceNumber() {
+        return ressources.keySet().size();
+    }
 	public Long getId() {
 		return id;
 	}
@@ -187,14 +191,12 @@ public class Projet implements Ventilable {
 	public void addLigneBudgetaire(LigneBudgetaire lignes) {
 		if (lignes != null) {
 			this.lignesBudgetaires.add(lignes);
-			this.calculMontant(LocalDate.now());
 		}
 	}
 
 	public void removeLigneBudgetaire(LigneBudgetaire lignes) {
 		if (lignes != null && this.lignesBudgetaires.contains(lignes) == true) {
 			this.lignesBudgetaires.remove(lignes);
-			this.calculMontant(LocalDate.now());
 		}
 	}
 
@@ -352,6 +354,18 @@ public class Projet implements Ventilable {
     		this.dateDebut = dateDebut;
     		this.dateFin = dateFin;
     	}
+    	
+    	public AffectationProjetRessource(Ressource ressource, LocalDate dateDebut, LocalDate dateFin) {
+    		super();
+    		this.ressource = ressource;
+    		this.dateDebut = dateDebut;
+    		this.dateFin = dateFin;
+    	}
+    	
+    	@Override
+        public String toString() {
+            return ressource.toString() + " Date debut affectation : " + this.dateDebut + ", Date fin : " + this.dateFin;
+        }
     	
     	public AffectationProjetRessource() {
 

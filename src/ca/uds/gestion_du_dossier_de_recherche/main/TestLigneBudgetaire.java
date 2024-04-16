@@ -32,8 +32,6 @@ public class TestLigneBudgetaire {
 		
 		System.out.println(ligne1.toString());
 		System.out.println("Le montant restant de la ligne : "+ligne1.getMontantLigne(LocalDate.now())+"$");
-		
-		
 	}
 
 }
