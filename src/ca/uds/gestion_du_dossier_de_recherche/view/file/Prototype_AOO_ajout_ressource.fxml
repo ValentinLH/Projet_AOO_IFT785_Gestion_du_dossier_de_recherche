@@ -8,33 +8,32 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="416.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.uds.gestion_du_dossier_de_recherche.controller.CreationObjetController">
+<Pane prefHeight="416.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.uds.gestion_du_dossier_de_recherche.controller.CreationObjetController">
    <children>
-      <TextField layoutX="100.0" layoutY="86.0" />
+      <TextField fx:id="nomTextField" layoutX="100.0" layoutY="86.0" />
       <Text layoutX="41.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" wrappingWidth="37.9296875" />
-      <TextField layoutX="100.0" layoutY="132.0" />
+      <TextField fx:id="prenomTextField" layoutX="100.0" layoutY="132.0" />
       <Text layoutX="31.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prénom" wrappingWidth="56.9296875" />
       <Text layoutX="31.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Catégorie" wrappingWidth="70.9296875" />
-      <ComboBox fx:id="categorieRessource" layoutX="102.0" layoutY="39.0" prefWidth="150.0" promptText="Choisir..." />
+      <ComboBox fx:id="comboBoxCategorie" layoutX="102.0" layoutY="39.0" onAction="#changeCategorie" prefWidth="150.0" promptText="Choisir..." />
       <Text layoutX="31.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Echelle" wrappingWidth="56.9296875" />
       <Text layoutX="222.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Echelon" wrappingWidth="56.9296875" />
-      <ComboBox fx:id="echelle_combo" layoutX="100.0" layoutY="188.0" prefHeight="31.0" prefWidth="57.0" />
-      <ComboBox fx:id="echelon_combo" layoutX="293.0" layoutY="188.0" prefHeight="31.0" prefWidth="57.0" />
-      <Text fx:id="cip_text" layoutX="336.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CIP" visible="false" wrappingWidth="26.9296875" />
-      <TextField fx:id="cip_field" layoutX="376.0" layoutY="39.0" prefHeight="31.0" prefWidth="83.0" promptText="xxxx0000" visible="false" />
-      <Text fx:id="programme_text" layoutX="334.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Programme" visible="false" wrappingWidth="83.00000444054604" />
-      <ComboBox fx:id="programme_combo" layoutX="426.0" layoutY="86.0" prefWidth="150.0" promptText="Choisir..." visible="false" />
-      <Text fx:id="labo_text" layoutX="334.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Laboratoire" visible="false" wrappingWidth="82.999999769032" />
-      <ComboBox fx:id="labo_combo" layoutX="426.0" layoutY="132.0" prefWidth="150.0" promptText="Choisir..." visible="false" />
-      <Button fx:id="nouveau_labo_bouton" layoutX="583.0" layoutY="132.0" mnemonicParsing="false" text="+" visible="false" />
+      <ComboBox fx:id="comboBoxEchelle" layoutX="100.0" layoutY="188.0" onAction="#changeEchelle" prefHeight="31.0" prefWidth="57.0" />
+      <ComboBox fx:id="comboBoxEchelon" layoutX="293.0" layoutY="188.0" onAction="#changeEchelon" prefHeight="31.0" prefWidth="57.0" />
+      <Text fx:id="cipLabel" layoutX="336.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CIP" wrappingWidth="26.9296875" />
+      <TextField fx:id="cipTextField" layoutX="376.0" layoutY="39.0" prefHeight="31.0" prefWidth="83.0" promptText="xxxx0000" />
+      <Text fx:id="programmeLabel" layoutX="334.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Programme" wrappingWidth="83.00000444054604" />
+      <ComboBox fx:id="programmeComboBox" layoutX="426.0" layoutY="86.0" prefWidth="150.0" promptText="Choisir..." />
+      <Text fx:id="laboLabel" layoutX="334.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Laboratoire" wrappingWidth="82.999999769032" />
       <Text layoutX="24.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date début" wrappingWidth="83.0000002682209" />
       <Text layoutX="408.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date fin" wrappingWidth="56.99999451637268" />
-      <DatePicker layoutX="115.0" layoutY="271.0" />
-      <DatePicker layoutX="499.0" layoutY="272.0" />
+      <DatePicker fx:id="dateDebut" layoutX="115.0" layoutY="271.0" />
+      <DatePicker fx:id="dateFin" layoutX="499.0" layoutY="272.0" />
       <Text layoutX="419.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Heures hebdomadaires" wrappingWidth="163.9296875" />
-      <TextField layoutX="583.0" layoutY="188.0" prefHeight="31.0" prefWidth="83.0" promptText="20.0" />
-      <Button layoutX="142.0" layoutY="336.0" mnemonicParsing="false" onAction="#valider_nouvelle_ressource" prefHeight="31.0" prefWidth="164.0" text="Valider" />
-      <Button fx:id="annuler" layoutX="501.0" layoutY="336.0" mnemonicParsing="false" onAction="#annuler" prefHeight="31.0" prefWidth="164.0" text="Annuler" />
+      <TextField fx:id="salaireTextField" layoutX="583.0" layoutY="188.0" prefHeight="31.0" prefWidth="83.0" promptText="20.0" />
+      <Button layoutX="142.0" layoutY="336.0" mnemonicParsing="false" onAction="#validerButton" prefHeight="31.0" prefWidth="164.0" text="Valider" />
+      <Button layoutX="501.0" layoutY="336.0" mnemonicParsing="false" onAction="#annulerButton" prefHeight="31.0" prefWidth="164.0" text="Annuler" />
       <Separator layoutX="2.0" layoutY="248.0" prefHeight="0.0" prefWidth="799.0" />
+      <TextField fx:id="laboTextField" layoutX="425.0" layoutY="136.0" prefHeight="25.0" prefWidth="210.0" />
    </children>
 </Pane>

@@ -28,7 +28,7 @@ public class UBR_DAO {
 		if(OrganismeDAO.getOrganismeByCode(persistedUBR.getOrganisme().getCode()) != null) {
 			persistedUBR.setOrganisme(BDDConnection.em.merge(persistedUBR.getOrganisme()));
 		} else {
-			BDDConnection.em.persist(persistedUBR.getOrganisme());
+			BDDConnection.em.merge(persistedUBR.getOrganisme());
 		}
 		
 		//BDDConnection.em.persist(persistedUBR.getOrganisme());
