@@ -367,9 +367,11 @@ public class LignesAjoutModifController {
 			ligne.setUbrs(ubrTableView.getItems().stream().collect(Collectors.toSet()));
 			ligne.setDepenses(depenseTableView.getItems().stream().collect(Collectors.toSet()));
 
-			projet.addLigneBudgetaire(ligne);
-
 			if (estUnAjout) {
+
+				projet.addLigneBudgetaire(ligne);
+
+				
 				TreeItem<LigneBudgetaire> newTreeItem = new TreeItem<>(ligne);
 
 				// Récupérer la racine de la TreeTableView de la deuxième page
@@ -389,37 +391,7 @@ public class LignesAjoutModifController {
 			// Création des données de modèle observable
 			ObservableList<LigneBudgetaire> lignesBudgetaires = FXCollections.observableArrayList();
 
-//			// Lier les données de modèle au TreeTableView
-//			treeTableLignes.setRoot(new TreeItem<>());s
-//			treeTableLignes.getRoot().getChildren().addAll(
-//			    lignesBudgetaires.stream().map(TreeItem::new).collect(Collectors.toList())
-//			);
-//
-//			int index = lignesBudgetaires.indexOf(ligne);
-//			if (index != -1) {
-//			    // Remplacer l'élément existant par le nouvel élément
-//
-//			  
-//			    
-//			} else {
-//			    // Ajouter le nouvel élément
-//			    lignesBudgetaires.add(ligne);
-//		        // Créer un nouvel TreeItem avec la ligne budgétaire
-//		        TreeItem<LigneBudgetaire> newTreeItem = new TreeItem<>(ligne);
-//
-//		        // Récupérer la racine de la TreeTableView de la deuxième page
-//		        TreeItem<LigneBudgetaire> rootItem = treeTableLignes.getRoot();
-//
-//		        // Ajouter le nouvel TreeItem à la liste des enfants de la racine
-//		        rootItem.getChildren().add(newTreeItem);
-//
-//		        // Mettre à jour la TreeTableView avec la racine mise à jour
-//		        treeTableLignes.setRoot(rootItem);
-//				//			
-//
-//			}
 
-//			treeTableLignes.getItems().add(ligne);
 
 			// Afficher un message de succès
 			Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
