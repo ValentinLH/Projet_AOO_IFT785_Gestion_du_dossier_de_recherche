@@ -30,56 +30,7 @@ public class VueGeneralControler {
 	
 	public VueGeneralControler() {		
 		Projet p1 = MainView.stubProjetaSupprimer();
-		p1.setDescription("Description du projet 1");
-		Projet p2 = new Projet("projet 2 ", LocalDate.now().minusDays(5),LocalDate.now().plusDays(2));
-		p2.setDescription("Description du projet 2");
-
-		
-
-		Organisme monFrigo;
-		UBR ubr1;
-		UBR ubr2;
-		LigneBudgetaire ligneBudgetaire;
-		LigneBudgetaire ligneBudgetaire2;
-		
-		monFrigo = new Organisme("Mon Frigidaire", 0);
-		ubr1 = new UBR(monFrigo, 1, true, LocalDate.now().minusDays(10), LocalDate.now().plusDays(10));
-		ligneBudgetaire = new LigneBudgetaire("Ligne Budgetaire de Chocolat", "Chocolat");
-		ligneBudgetaire.ajouterUBR(ubr1, 500f);
-
-		ubr2 = new UBR(monFrigo, 1, false, LocalDate.now().minusDays(5), LocalDate.now().plusDays(5));
-		ligneBudgetaire2 = new LigneBudgetaire("Ligne Budgetaire de Beurre", "Beurre");
-		ligneBudgetaire2.ajouterUBR(ubr2, 1000f);
-		
-		Ressource ressource = new Soutien("Jean", "Bonneau", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
-				LocalDate.of(2022, 12, 31));
-		
-		Ressource ressource2 = new Soutien("Sylvain", "Hébon", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
-				LocalDate.of(2022, 10, 25));
-		
-		Ressource ressource3 = new Etudiant("Frieren", "Himmel", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
-				LocalDate.of(2022, 12, 31),"okko2201",Programme.BACCALAUREAT);
-		
-		Ressource ressource4 = new ResponsableLaboratoire("Fern", "Stark", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
-				LocalDate.of(2022, 12, 31),"SouSou no Frieren");
-
-		LocalDate dateDebut = LocalDate.now().minusDays(1);
-		LocalDate dateFin = LocalDate.now().plusDays(1);
-		
-		
-		p1.addLigneBudgetaire(ligneBudgetaire2);
-		p1.addLigneBudgetaire(ligneBudgetaire);
-		
-		p1.addRessourceWithDate(ressource2, dateDebut, dateFin);
-		p1.addRessourceWithDate(ressource, dateDebut, dateFin);
-		p1.addRessourceWithDate(ressource3, dateDebut, dateFin);
-		p1.addRessourceWithDate(ressource4, dateDebut, dateFin);
-		
-		p2.addRessourceWithDate(ressource2, dateDebut, dateFin);
-		p2.addRessourceWithDate(ressource, dateDebut, dateFin);
-		p2.addRessourceWithDate(ressource3, dateDebut, dateFin);
-		p2.addRessourceWithDate(ressource4, dateDebut, dateFin);
-	
+		Projet p2 = MainView.getStubProjet2();
 		
 		this.projetList = new ArrayList<Projet>();
 		this.ressourceList = new ArrayList<Ressource>();
@@ -87,11 +38,9 @@ public class VueGeneralControler {
 		this.projetList.add(p1);
 		this.projetList.add(p2);
 		
-
-		this.ressourceList.add(ressource);
-		this.ressourceList.add(ressource2);
-		this.ressourceList.add(ressource3);
-		this.ressourceList.add(ressource4);
+		for (Projet p : projetList)
+			for (Ressource r : p.getRessources().keySet())
+				this.ressourceList.add(r);
 		
 		view = new VueGenerale(this);
 		
