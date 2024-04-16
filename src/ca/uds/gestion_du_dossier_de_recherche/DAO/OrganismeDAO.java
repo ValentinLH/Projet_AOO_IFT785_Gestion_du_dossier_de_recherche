@@ -12,7 +12,7 @@ public class OrganismeDAO {
 
 	public static boolean persistOrganisme(Organisme persistedOrganisme) {
 		BDDConnection.em.getTransaction().begin();
-		BDDConnection.em.persist(persistedOrganisme);
+		BDDConnection.em.merge(persistedOrganisme);
 		BDDConnection.em.getTransaction().commit();	
 		if (BDDConnection.em.contains(persistedOrganisme)) {
 			  return true;

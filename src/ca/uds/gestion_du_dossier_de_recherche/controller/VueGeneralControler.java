@@ -3,7 +3,13 @@ package ca.uds.gestion_du_dossier_de_recherche.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import ca.uds.gestion_du_dossier_de_recherche.BDD.BDDConnection;
+import ca.uds.gestion_du_dossier_de_recherche.DAO.OrganismeDAO;
+import ca.uds.gestion_du_dossier_de_recherche.DAO.ProjetDAO;
+import ca.uds.gestion_du_dossier_de_recherche.DAO.UBR_DAO;
+import ca.uds.gestion_du_dossier_de_recherche.DAO.ressourceDAO;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.LigneBudgetaire;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.Organisme;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.UBR;
@@ -29,7 +35,7 @@ public class VueGeneralControler {
 	private VueGenerale view;
 	
 	public VueGeneralControler() {		
-		Projet p1 = MainView.stubProjetaSupprimer();
+		/*Projet p1 = MainView.stubProjetaSupprimer();
 		p1.setDescription("Description du projet 1");
 		Projet p2 = new Projet("projet 2 ", LocalDate.now().minusDays(5),LocalDate.now().plusDays(2));
 		p2.setDescription("Description du projet 2");
@@ -91,7 +97,12 @@ public class VueGeneralControler {
 		this.ressourceList.add(ressource);
 		this.ressourceList.add(ressource2);
 		this.ressourceList.add(ressource3);
-		this.ressourceList.add(ressource4);
+		this.ressourceList.add(ressource4);*/
+		
+		BDDConnection.init("gestionEtudiant");
+		
+		this.projetList = ProjetDAO.getAllProjet();
+		this.ressourceList = ressourceDAO.getAllRessources();
 		
 		view = new VueGenerale(this);
 		
@@ -101,6 +112,29 @@ public class VueGeneralControler {
 		view = new VueGenerale(this);
 		this.projetList = projetList;
 		this.ressourceList = ressourceList;
+	}
+	
+	public void udpateDatabase()
+	{
+		for (Projet projet : this.projetList) {
+			for(LigneBudgetaire ligne : projet.getAllLigneBudgetaires()) {
+				for (UBR ubr : ligne.getUbrs()) {
+					OrganismeDAO.persistOrganisme(ubr.getOrganisme());
+					UBR_DAO.persistUBR(ubr);
+				}
+			}
+			
+			for(Map.Entry<Ressource, List<LocalDate>> ressource : projet.getRessources().entrySet())
+			{
+				ressourceDAO.persistRessource(ressource.getKey());
+			}
+			
+			ProjetDAO.persistProjet(projet);
+		}
+		
+		for (Ressource ressource : this.ressourceList) {
+			ressourceDAO.persistRessource(ressource);
+		}
 	}
 	
 	public List<Projet> getListeProjet() {

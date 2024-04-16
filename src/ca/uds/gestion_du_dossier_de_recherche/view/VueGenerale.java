@@ -108,6 +108,9 @@ public class VueGenerale extends Application {
         Parent root = loader.load();
         primaryStage.setTitle("Gestion des Ressources");
         primaryStage.setScene(new Scene(root, 800, 600));
+        
+        primaryStage.setOnHiding(event -> {this.updateDatabase();});
+        
         mainStage = primaryStage;
         primaryStage.show();
 	}
@@ -296,5 +299,9 @@ public class VueGenerale extends Application {
         	this.controler.getListeProjet().remove(this.tableViewProjet.getSelectionModel().getSelectedItem());
 			    this.updatetableViewProjet();
         }	
+	}
+	
+	public void updateDatabase() {
+		this.controler.udpateDatabase();
 	}
 }
