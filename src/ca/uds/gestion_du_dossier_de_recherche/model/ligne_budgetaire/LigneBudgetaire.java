@@ -14,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
@@ -27,7 +28,7 @@ public class LigneBudgetaire {
 	private String nom;
 	private String type;
 	
-	@Transient
+	@ManyToMany(cascade = CascadeType.ALL)
 	private Set<UBR> ubrs;
 	
 	@ManyToMany(targetEntity = Depense.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})

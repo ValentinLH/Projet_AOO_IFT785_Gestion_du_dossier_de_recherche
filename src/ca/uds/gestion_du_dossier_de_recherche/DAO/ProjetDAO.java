@@ -27,7 +27,7 @@ public class ProjetDAO {
 		}
 		
 		BDDConnection.em.getTransaction().begin();
-		BDDConnection.em.persist(persistedProjet);
+		BDDConnection.em.merge(persistedProjet);
 		
 		for (AffectationProjetRessource affectation : persistedProjet.getAffectationsRessources()) {
 			BDDConnection.em.persist(affectation);

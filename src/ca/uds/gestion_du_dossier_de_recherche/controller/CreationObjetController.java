@@ -73,8 +73,8 @@ public class CreationObjetController {
 	
 	public void updateComponents() {
 		this.comboBoxCategorie.getItems().addAll("Etudiant", "Soutien", "Responsable de laboratoire");
-		this.comboBoxEchelle.getItems().addAll(1, 2, 3, 4, 5, 6, 7);
-		this.comboBoxEchelon.getItems().addAll(1, 2, 3, 4, 5, 6);
+		this.comboBoxEchelle.getItems().addAll(1, 2, 3, 4, 5, 6);
+		this.comboBoxEchelon.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
 		this.programmeComboBox.getItems().addAll(Programme.values());
 		this.cipLabel.setVisible(false);
 		this.programmeLabel.setVisible(false);
@@ -89,7 +89,7 @@ public class CreationObjetController {
         Integer selectedEchelon = comboBoxEchelon.getSelectionModel().getSelectedItem();
         
         if (selectedEchelle != null && selectedEchelon != null) {
-            this.salaireTextField.setText(String.valueOf(GrilleSalariale.getInstance().getTauxHoraire(selectedEchelle, selectedEchelon)));
+            this.salaireTextField.setText(String.valueOf(GrilleSalariale.getInstance().getTauxHoraire(selectedEchelon, selectedEchelle)));
         }
 	}
 	
