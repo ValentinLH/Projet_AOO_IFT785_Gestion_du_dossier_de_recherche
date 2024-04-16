@@ -11,7 +11,7 @@ import ca.uds.gestion_du_dossier_de_recherche.model.projet.Projet.AffectationPro
 import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Etudiant.Programme;
 
 import ca.uds.gestion_du_dossier_de_recherche.ventilation.Ventilable;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,6 +47,8 @@ public abstract class Ressource implements Ventilable {
 	
 	@Transient
 	private static GrilleSalariale grilleSalariale;
+	
+	@OneToMany(mappedBy = "ressource", cascade = CascadeType.ALL)
 	private Set<Bulletin> bulletins;
 
 	

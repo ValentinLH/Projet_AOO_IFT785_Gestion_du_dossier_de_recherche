@@ -4,6 +4,7 @@ import java.util.List;
 
 import ca.uds.gestion_du_dossier_de_recherche.BDD.BDDConnection;
 import ca.uds.gestion_du_dossier_de_recherche.model.ligne_budgetaire.Depense;
+import ca.uds.gestion_du_dossier_de_recherche.model.ressource.Bulletin;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 
@@ -25,5 +26,11 @@ public class DepenseDAO {
 		Query query = BDDConnection.em.createQuery("from Depense"); 
 		List<Depense> depenseList = query.getResultList();
 		return depenseList;
+	}
+	
+	public static List<Bulletin> getAllBulletin() {
+		Query query = BDDConnection.em.createQuery("from Bulletin"); 
+		List<Bulletin> bulletinList = query.getResultList();
+		return bulletinList;
 	}
 }
