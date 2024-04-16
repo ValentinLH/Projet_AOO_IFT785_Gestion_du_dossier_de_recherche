@@ -13,7 +13,7 @@ public class ressourceDAO {
 	
 	public static boolean persistRessource(Ressource persistedRessource) {
 		BDDConnection.em.getTransaction().begin();
-		BDDConnection.em.persist(persistedRessource);
+		BDDConnection.em.merge(persistedRessource);
 		BDDConnection.em.getTransaction().commit();	
 		if (BDDConnection.em.contains(persistedRessource)) {
 			  return true;

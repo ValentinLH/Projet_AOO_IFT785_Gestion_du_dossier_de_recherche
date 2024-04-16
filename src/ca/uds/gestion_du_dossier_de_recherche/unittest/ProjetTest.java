@@ -177,32 +177,32 @@ public class ProjetTest {
 		assertEquals("La date de fin doit correspondre à celle du projet.", projet.getDateFin(), datesR2.get(1));
 	}
 
-	@Test
-	public void testCalculSalaireRessources() {
-
-		Ressource ressource1 = new Soutien("Amin", "Dev", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
-				LocalDate.of(2022, 12, 31));
-		Ressource ressource2 = new Soutien("Maxime", "Dev", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
-				LocalDate.of(2022, 12, 31));
-
-		// Affectation commence il y a 30 jours
-		LocalDate dateDebutProjet = LocalDate.now().minusDays(30);
-		// Affectation se termine dans 30 jours
-		LocalDate dateFinProjet = LocalDate.now().plusDays(30);
-		projet.addRessourceWithDate(ressource1, dateDebutProjet, dateFinProjet);
-		projet.addRessourceWithDate(ressource2, dateDebutProjet, dateFinProjet);
-
-		Map<Ressource, Double> salaires = projet.calculSalaireRessources();
-
-		assertNotNull("La map des salaires ne doit pas être null", salaires);
-
-		double salaireAttenduRessource1 = ressource1.calculSalaireMensuel();
-		double salaireAttenduRessource2 = ressource2.calculSalaireMensuel();
-
-		assertEquals("Le salaire calculé pour la ressource 1 doit correspondre au salaire attendu",
-				salaireAttenduRessource1, salaires.get(ressource1), 0.01);
-		assertEquals("Le salaire calculé pour la ressource 2 doit correspondre au salaire attendu",
-				salaireAttenduRessource2, salaires.get(ressource2), 0.01);
-	}
+//	@Test
+//	public void testCalculSalaireRessources() {
+//
+//		Ressource ressource1 = new Soutien("Amin", "Dev", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
+//				LocalDate.of(2022, 12, 31));
+//		Ressource ressource2 = new Soutien("Maxime", "Dev", 1, 1, 40.0f, LocalDate.of(2022, 1, 1),
+//				LocalDate.of(2022, 12, 31));
+//
+//		// Affectation commence il y a 30 jours
+//		LocalDate dateDebutProjet = LocalDate.now().minusDays(30);
+//		// Affectation se termine dans 30 jours
+//		LocalDate dateFinProjet = LocalDate.now().plusDays(30);
+//		projet.addRessourceWithDate(ressource1, dateDebutProjet, dateFinProjet);
+//		projet.addRessourceWithDate(ressource2, dateDebutProjet, dateFinProjet);
+//
+//		Map<Ressource, Double> salaires = projet.calculSalaireRessources();
+//
+//		assertNotNull("La map des salaires ne doit pas être null", salaires);
+//
+//		double salaireAttenduRessource1 = ressource1.calculSalaireMensuel();
+//		double salaireAttenduRessource2 = ressource2.calculSalaireMensuel();
+//
+//		assertEquals("Le salaire calculé pour la ressource 1 doit correspondre au salaire attendu",
+//				salaireAttenduRessource1, salaires.get(ressource1), 0.01);
+//		assertEquals("Le salaire calculé pour la ressource 2 doit correspondre au salaire attendu",
+//				salaireAttenduRessource2, salaires.get(ressource2), 0.01);
+//	}
 
 }

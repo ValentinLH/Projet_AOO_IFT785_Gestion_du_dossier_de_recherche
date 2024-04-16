@@ -77,7 +77,7 @@ public abstract class Ressource implements Ventilable {
 	}
 
 	public double getTauxHoraire() {
-		return grilleSalariale.getTauxHoraire(echelle, echelon);
+		return grilleSalariale.getTauxHoraire(echelon, echelle);
 	}
 
 	public void setEchelleEtEchelon(int echelle, int echelon) {
@@ -234,7 +234,7 @@ public abstract class Ressource implements Ventilable {
 	
   @Override
 	public String toString() {
-		return "Ressource [Nom=" + nom + ", Prenom=" + prenom  +"Heures_hebdo="+ heuresHebdo + ", Debut_contrat=" + debutContrat + ", Fin_contrat=" + finContrat + "]";
+		return "Ressource [Nom=" + nom + ", Prenom=" + prenom  +" Heures_hebdo="+ heuresHebdo + ", Debut_contrat=" + debutContrat + ", Fin_contrat=" + finContrat + "]";
 	}
 
 

@@ -13,7 +13,7 @@ public class DepenseDAO {
 	
 	public static boolean persistDepense(Depense persistedDepense) {
 		BDDConnection.em.getTransaction().begin();
-		BDDConnection.em.persist(persistedDepense);
+		BDDConnection.em.merge(persistedDepense);
 		BDDConnection.em.getTransaction().commit();	
 		if (BDDConnection.em.contains(persistedDepense)) {
 			  return true;
